@@ -81,19 +81,40 @@ function clearVariantGlow() {
     document.querySelectorAll(".variant-group").forEach(g => g.classList.remove("variant-glow"));
 }
 
+function getProductSlug() {
+    // 1. Check query parameter ?slug=...
+    const params = new URLSearchParams(window.location.search);
+    let slug = params.get("slug");
+    if (slug) return slug;
+
+    // 2. Check path (e.g. /bike-throttle-design-drop-sholder-t-shirt)
+    const cleanPath = window.location.pathname.replace(/^\/+|\/+$/g, '');
+    if (cleanPath && cleanPath !== "product-details" && cleanPath !== "product-details.html" && !cleanPath.includes('/')) {
+        return cleanPath;
+    }
+
+    // 3. Check history state or sessionStorage
+    return history.state?.slug || sessionStorage.getItem("current_product_slug") || "";
+}
+
 /* =========================
    LOAD PRODUCT DETAILS
 ========================= */
 async function loadProductDetails() {
 
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get("slug");
+    const slug = getProductSlug();
 
     if (!slug) {
         console.error("No slug found");
         window.location.href = "/";
         return;
     }
+
+    // Clean address bar immediately to /:slug
+    if (window.location.pathname.includes("product-details") || window.location.search.includes("slug=")) {
+        window.history.replaceState({ slug }, document.title, `/${slug}`);
+    }
+    sessionStorage.setItem("current_product_slug", slug);
 
     try {
 
@@ -734,7 +755,7 @@ function setupButtons(product, slug) {
                 }]));
                 localStorage.removeItem("checkout_cart_ids");
 
-                window.location.href = "checkout.html";
+                window.location.href = "/checkout";
                 return;
             }
 
@@ -774,7 +795,7 @@ function setupButtons(product, slug) {
                 localStorage.setItem("checkout_cart_ids", JSON.stringify([cartItem.id]));
                 localStorage.removeItem("checkout_guest_items");
 
-                window.location.href = "checkout.html";
+                window.location.href = "/checkout";
 
             } catch (err) {
                 console.error("BUY NOW ERROR:", err);

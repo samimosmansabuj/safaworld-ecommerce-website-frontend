@@ -80,7 +80,8 @@ function fixImage(img) {
 
 function openProduct(slug) {
     if (!slug) return;
-    window.location.href = `product-details.html?slug=${slug}`;
+    try { sessionStorage.setItem("current_product_slug", slug); } catch (e) {}
+    window.location.href = `/${slug}`;
 }
 
 /* =========================

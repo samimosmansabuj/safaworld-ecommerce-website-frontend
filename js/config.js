@@ -55,7 +55,7 @@ async function logoutUser() {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
 
-    window.location.href = "login.html";
+    window.location.href = "login";
 }
 // =========================
 

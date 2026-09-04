@@ -25,13 +25,13 @@
     <!-- DESKTOP NAV ICONS (right) -->
     <div class="nav-right">
       <!-- LOGIN (desktop) -->
-      <div class="nav-ic login-btn" onclick="window.location.href='login.html'">
+      <div class="nav-ic login-btn" onclick="window.location.href='/login'">
         <span class="nav-ic-icon"><i class="fa fa-user"></i></span>
         Login
       </div>
 
       <!-- ACCOUNT (desktop) -->
-      <div class="nav-ic account-btn" onclick="window.location.href='profile.html'" style="display:none;">
+      <div class="nav-ic account-btn" onclick="window.location.href='/profile'" style="display:none;">
         <span class="nav-ic-icon">
           <i class="fa fa-user"></i>
         </span>
@@ -61,7 +61,7 @@
 <div class="subnav">
   <div class="subnav-in">
     <a href="/">Home</a>
-    <a href="product-list.html">All Products</a>
+    <a href="/product-list">All Products</a>
     <!-- Additional links are managed from dashboard: Site Settings > Navbar Menu Links.
          They are appended dynamically here by js/site-content.js -->
   </div>
@@ -83,13 +83,13 @@
 <nav class="mob-bottom-nav" id="mobBottomNav">
 
   <!-- Support -->
-  <a class="mob-nav-item" href="contact-us.html">
+  <a class="mob-nav-item" href="/contact-us">
     <span class="mob-nav-icon"><i class="fa fa-headphones"></i></span>
     <span class="mob-nav-label">Support</span>
   </a>
 
   <!-- Account (login-btn = not logged in) -->
-  <a class="mob-nav-item login-btn" href="login.html">
+  <a class="mob-nav-item login-btn" href="/login">
     <span class="mob-nav-icon"><i class="fa fa-user-o"></i></span>
     <span class="mob-nav-label">Login</span>
   </a>
@@ -103,7 +103,7 @@
   </a>
 
   <!-- All Category -->
-  <a class="mob-nav-item" href="product-list.html">
+  <a class="mob-nav-item" href="/product-list">
     <span class="mob-nav-icon"><i class="fa fa-th-large"></i></span>
     <span class="mob-nav-label">Category</span>
   </a>
@@ -118,7 +118,7 @@
   </a>
 
   <!-- Account (account-btn = logged in) — hidden by default, shown by JS -->
-  <a class="mob-nav-item account-btn" href="profile.html" style="display:none;">
+  <a class="mob-nav-item account-btn" href="/profile" style="display:none;">
     <span class="mob-nav-icon"><i class="fa fa-user"></i></span>
     <span class="mob-nav-label">Account</span>
   </a>

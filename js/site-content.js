@@ -27,13 +27,19 @@ async function loadSiteContent() {
     }
 }
 
+function cleanSiteLink(url) {
+    if (!url) return "#";
+    if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("#") || url.startsWith("mailto:") || url.startsWith("tel:")) return url;
+    return url.replace(/\.html(\?|$)/, '$1').replace(/^\/?/, '/');
+}
+
 function renderNavMenu(links) {
     const subnav = document.querySelector(".subnav-in");
     if (!subnav) return;
 
     links.forEach((link) => {
         const a = document.createElement("a");
-        a.href = link.url || "#";
+        a.href = cleanSiteLink(link.url);
         a.textContent = link.name;
         if (link.open_new_tab) {
             a.target = "_blank";
@@ -54,9 +60,8 @@ function renderFooterLinks(links) {
 
     container.innerHTML = links
         .map((link, i) => {
-            // const separator = i < links.length - 1 ? " | " : "";
             const separator = i < links.length - 1 ? `<span class="footer-policy-sep" aria-hidden="true">|</span>` : "";
-            return `<a href="${link.url || '#'}">${escapeHtml(link.name)}</a>${separator}`;
+            return `<a href="${cleanSiteLink(link.url)}">${escapeHtml(link.name)}</a>${separator}`;
         })
         .join("");
 }

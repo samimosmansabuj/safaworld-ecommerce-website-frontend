@@ -82,7 +82,7 @@ async function initComponents() {
    MOBILE BOTTOM NAV ACTIVE STATE
 ========================= */
 function setMobNavActive() {
-    const path = window.location.pathname;
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, '') || "index.html";
     const page = path.split("/").pop() || "index.html";
 
     const nav = document.querySelector(".mob-bottom-nav");
@@ -90,12 +90,12 @@ function setMobNavActive() {
 
     // Map page patterns → item selectors
     const rules = [
-        { match: ["index.html", "", "/"],    selector: ".mob-nav-home" },
-        { match: ["product-list.html", "all_product.html"], selector: ".mob-nav-item:nth-child(4)" },
-        { match: ["wishlist.html"],           selector: ".mob-nav-item:nth-child(5)" },
-        { match: ["contact-us.html"],         selector: ".mob-nav-item:nth-child(1)" },
-        { match: ["profile.html"],            selector: ".mob-nav-item.account-btn" },
-        { match: ["login.html"],              selector: ".mob-nav-item.login-btn" },
+        { match: ["index.html", "", "/", "index"], selector: ".mob-nav-home" },
+        { match: ["product-list.html", "product-list", "all_product.html", "all_product"], selector: ".mob-nav-item:nth-child(4)" },
+        { match: ["wishlist.html", "wishlist"], selector: ".mob-nav-item:nth-child(5)" },
+        { match: ["contact-us.html", "contact-us"], selector: ".mob-nav-item:nth-child(1)" },
+        { match: ["profile.html", "profile"], selector: ".mob-nav-item.account-btn" },
+        { match: ["login.html", "login"], selector: ".mob-nav-item.login-btn" },
     ];
 
     rules.forEach(rule => {

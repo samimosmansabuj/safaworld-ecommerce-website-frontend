@@ -1,0 +1,21 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/product-list", "destination": "/product-list.html" },
+    { "source": "/about-us", "destination": "/about-us.html" },
+    { "source": "/contact-us", "destination": "/contact-us.html" },
+    { "source": "/privacy-policy", "destination": "/privacy-policy.html" },
+    { "source": "/terms-and-conditions", "destination": "/terms-and-conditions.html" },
+    { "source": "/return-policy", "destination": "/return-policy.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/profile", "destination": "/profile.html" },
+    { "source": "/my-orders", "destination": "/my-orders.html" },
+    { "source": "/order", "destination": "/order.html" },
+    { "source": "/checkout", "destination": "/checkout.html" },
+    { "source": "/wishlist", "destination": "/wishlist.html" },
+    { "source": "/cart", "destination": "/cart.html" },
+    { "source": "/address", "destination": "/address.html" },
+    { "source": "/all_product", "destination": "/all_product.html" },
+    { "source": "/:slug", "destination": "/product-details.html?slug=:slug" }
+  ]
+}

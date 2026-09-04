@@ -184,7 +184,7 @@ function filterOrders(status, btn) {
    VIEW ORDER
 ========================= */
 function viewOrder(orderId) {
-    window.location.href = `order.html?id=${orderId}`;
+    window.location.href = `/order?id=${orderId}`;
 }
 
 /* =========================
