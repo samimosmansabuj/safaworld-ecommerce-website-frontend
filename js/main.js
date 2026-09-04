@@ -358,7 +358,11 @@ function renderProducts(products) {
 function handleListCartClick(productId, slug, hasVariants) {
     if (hasVariants) {
         sessionStorage.setItem("prompt_variant_on_load", "cart");
-        window.location.href = `/${slug}`;
+        if (typeof window.spaNavigate === 'function') {
+            window.spaNavigate(`/${slug}`);
+        } else {
+            window.location.href = `/${slug}`;
+        }
         return;
     }
     quickAddCart(productId);
@@ -532,7 +536,11 @@ function applyFilters() {
 function openProduct(slug) {
     if (!slug) return;
     try { sessionStorage.setItem("current_product_slug", slug); } catch (e) {}
-    window.location.href = `/${slug}`;
+    if (typeof window.spaNavigate === "function") {
+        window.spaNavigate(`/${slug}`);
+    } else {
+        window.location.href = `/${slug}`;
+    }
 }
 
 /* =========================
@@ -784,7 +792,11 @@ function logoutUser() {
     toast("Logged out ✅");
 
     setTimeout(() => {
-        window.location.href = "/";
+        if (typeof window.spaNavigate === "function") {
+            window.spaNavigate("/");
+        } else {
+            window.location.href = "/";
+        }
     }, 500);
 }
 
@@ -804,7 +816,11 @@ function openCart() {
             loadCartItems();
         }
     } else {
-        window.location.href = "/cart";
+        if (typeof window.spaNavigate === "function") {
+            window.spaNavigate("/cart");
+        } else {
+            window.location.href = "/cart";
+        }
     }
 }
 
@@ -823,7 +839,11 @@ document.addEventListener("keydown", (e) => {
 });
 
 function openWishlist() {
-    window.location.href = "/wishlist";
+    if (typeof window.spaNavigate === "function") {
+        window.spaNavigate("/wishlist");
+    } else {
+        window.location.href = "/wishlist";
+    }
 }
 
 function openSearch() {
@@ -861,8 +881,11 @@ function applySearch(query) {
 function goSearch(query) {
     if (!query) return;
 
-    window.location.href =
-        `/product-list?search=${encodeURIComponent(query)}`;
+    if (typeof window.spaNavigate === "function") {
+        window.spaNavigate(`/product-list?search=${encodeURIComponent(query)}`);
+    } else {
+        window.location.href = `/product-list?search=${encodeURIComponent(query)}`;
+    }
 }
 
 function bindSearch() {
@@ -956,15 +979,22 @@ window.addEventListener("DOMContentLoaded", () => {
 /* ==========================================================
    GLOBAL LOADER 
 ========================================================== */
+window.showLoader = function() {
+    let loader = document.getElementById("global-loader");
+    if (!loader) {
+        loader = document.createElement("div");
+        loader.id = "global-loader";
+        loader.className = "global-loader";
+        loader.innerHTML = '<img src="images/logo-loader.png" alt="Loading..." style="height: 60px; width: auto">';
+        document.body.prepend(loader);
+    }
+    loader.classList.remove("hidden");
+};
+
 window.hideLoader = function() {
     const loader = document.getElementById("global-loader");
     if (loader) {
         loader.classList.add("hidden");
-        setTimeout(() => {
-            if (loader.parentNode) {
-                loader.parentNode.removeChild(loader);
-            }
-        }, 200);
     }
 };
 

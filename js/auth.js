@@ -127,7 +127,13 @@ async function submitPasswordStep() {
             await mergeGuestDataToAccount(data.access);
 
             toast(LOGIN_FLOW_ACTION === "set_password" ? "Account ready ✅" : "Welcome back ✅");
-            setTimeout(() => { window.location.href = "/profile"; }, 700);
+            setTimeout(() => {
+                if (typeof window.spaNavigate === 'function') {
+                    window.spaNavigate("/profile");
+                } else {
+                    window.location.href = "/profile";
+                }
+            }, 700);
         } else {
             toast(data.message || "Login failed ❌");
         }
@@ -202,7 +208,11 @@ function requireLogin() {
     if (!isLoggedIn()) {
         toast("Please login first");
         setTimeout(() => {
-            window.location.href = "/login";
+            if (typeof window.spaNavigate === 'function') {
+                window.spaNavigate("/login");
+            } else {
+                window.location.href = "/login";
+            }
         }, 700);
         return false;
     }
@@ -274,14 +284,20 @@ function showLoginPopup() {
     document.body.appendChild(popup);
     popup.querySelector(".popup-cancel-btn").onclick = () => popup.remove();
     popup.querySelector(".popup-login-btn").onclick = () => {
-        window.location.href = "/login";
+        popup.remove();
+        if (typeof window.spaNavigate === 'function') {
+            window.spaNavigate("/login");
+        } else {
+            window.location.href = "/login";
+        }
     };
 }
 
 /* =========================
    INIT
 ========================= */
-window.addEventListener("DOMContentLoaded", () => {
+function initLoginPage() {
+    backToPhoneStep();
 
     const phoneInput = document.getElementById("loginPhone");
     const passwordInput = document.getElementById("loginPassword");
@@ -293,4 +309,9 @@ window.addEventListener("DOMContentLoaded", () => {
     passwordInput?.addEventListener("keypress", e => {
         if (e.key === "Enter") submitPasswordStep();
     });
+}
+window.initLoginPage = initLoginPage;
+
+window.addEventListener("DOMContentLoaded", () => {
+    initLoginPage();
 });

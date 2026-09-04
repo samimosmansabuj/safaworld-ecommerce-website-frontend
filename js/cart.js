@@ -385,7 +385,11 @@ function goToCheckout() {
         localStorage.removeItem("checkout_cart_ids");
     }
 
-    window.location.href = "/checkout";
+    if (typeof window.spaNavigate === 'function') {
+        window.spaNavigate("/checkout");
+    } else {
+        window.location.href = "/checkout";
+    }
 }
 
 /* =========================

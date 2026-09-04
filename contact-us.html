@@ -14,8 +14,8 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="css/home.css?v=12">
-  <link rel="stylesheet" href="css/info-pages.css?v=12">
+  <link rel="stylesheet" href="css/home.css?v=20">
+  <link rel="stylesheet" href="css/info-pages.css?v=20">
 </head>
 
 <body>
@@ -31,7 +31,9 @@
   <div id="topnavbar-container"></div>
   <div id="subnavbar-container"></div>
 
-  <div id="bc-br" class="bc-br-section"><title>Contact Us</title></div>
+  <div id="bc-br" class="bc-br-section">
+    <title>Contact Us</title>
+  </div>
 
   <!-- PAGE -->
   <div class="page">
@@ -59,29 +61,19 @@
               <div class="contact-form-row">
                 <!-- Name -->
                 <div class="cf-group">
-                  <label class="cf-label" for="cfName">Full Name <span class="cf-req" aria-label="required">*</span></label>
-                  <input
-                    class="cf-input"
-                    type="text"
-                    id="cfName"
-                    name="name"
-                    placeholder="Your full name"
-                    autocomplete="name"
-                    required>
+                  <label class="cf-label" for="cfName">Full Name <span class="cf-req"
+                      aria-label="required">*</span></label>
+                  <input class="cf-input" type="text" id="cfName" name="name" placeholder="Your full name"
+                    autocomplete="name" required>
                   <span class="cf-error-msg" id="cfNameErr">Please enter your name.</span>
                 </div>
 
                 <!-- Email -->
                 <div class="cf-group">
-                  <label class="cf-label" for="cfEmail">Email Address <span class="cf-req" aria-label="required">*</span></label>
-                  <input
-                    class="cf-input"
-                    type="email"
-                    id="cfEmail"
-                    name="email"
-                    placeholder="your@email.com"
-                    autocomplete="email"
-                    required>
+                  <label class="cf-label" for="cfEmail">Email Address <span class="cf-req"
+                      aria-label="required">*</span></label>
+                  <input class="cf-input" type="email" id="cfEmail" name="email" placeholder="your@email.com"
+                    autocomplete="email" required>
                   <span class="cf-error-msg" id="cfEmailErr">Please enter a valid email address.</span>
                 </div>
               </div>
@@ -90,18 +82,14 @@
                 <!-- Phone -->
                 <div class="cf-group">
                   <label class="cf-label" for="cfPhone">Phone Number</label>
-                  <input
-                    class="cf-input"
-                    type="tel"
-                    id="cfPhone"
-                    name="phone"
-                    placeholder="01XXXXXXXXX"
+                  <input class="cf-input" type="tel" id="cfPhone" name="phone" placeholder="01XXXXXXXXX"
                     autocomplete="tel">
                 </div>
 
                 <!-- Subject -->
                 <div class="cf-group">
-                  <label class="cf-label" for="cfSubject">Subject <span class="cf-req" aria-label="required">*</span></label>
+                  <label class="cf-label" for="cfSubject">Subject <span class="cf-req"
+                      aria-label="required">*</span></label>
                   <select class="cf-select cf-input" id="cfSubject" name="subject" required>
                     <option value="">Select a subject…</option>
                     <option value="order">Order Enquiry</option>
@@ -118,13 +106,10 @@
 
               <!-- Message -->
               <div class="cf-group">
-                <label class="cf-label" for="cfMessage">Message <span class="cf-req" aria-label="required">*</span></label>
-                <textarea
-                  class="cf-textarea"
-                  id="cfMessage"
-                  name="message"
-                  placeholder="Describe your question or issue in detail…"
-                  required></textarea>
+                <label class="cf-label" for="cfMessage">Message <span class="cf-req"
+                    aria-label="required">*</span></label>
+                <textarea class="cf-textarea" id="cfMessage" name="message"
+                  placeholder="Describe your question or issue in detail…" required></textarea>
                 <span class="cf-error-msg" id="cfMessageErr">Please enter a message (at least 10 characters).</span>
               </div>
 
@@ -208,14 +193,16 @@
 
             <!-- QUICK LINKS -->
             <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
-              <a href="return-policy" class="feat-card" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+              <a href="return-policy" class="feat-card"
+                style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
                 <div class="ci-icon" aria-hidden="true">↩️</div>
                 <div>
                   <div style="font-size: 13px; font-weight: 600; color: var(--text);">Return &amp; Refund Policy</div>
                   <div style="font-size: 11.5px; color: var(--mid);">Know your rights &amp; options</div>
                 </div>
               </a>
-              <a href="privacy-policy" class="feat-card" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+              <a href="privacy-policy" class="feat-card"
+                style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
                 <div class="ci-icon" aria-hidden="true">🔒</div>
                 <div>
                   <div style="font-size: 13px; font-weight: 600; color: var(--text);">Privacy Policy</div>
@@ -258,81 +245,20 @@
   </div>
 
   <!-- JS -->
-  <script src="js/env.js?v=12"></script>
-  <script src="js/tracking.js?v=12"></script>
-  <script src="js/marketing.js?v=12"></script>
-  <script src="js/config.js?v=12"></script>
-  <script src="js/main.js?v=12"></script>
-  <script src="js/loadComponents.js?v=12"></script>
-  <script src="js/site-content.js?v=12"></script>
-  <script src="js/cart.js?v=12"></script>
-  <script src="js/wishlist.js?v=12"></script>
-  <script src="js/auth.js?v=12"></script>
+  <script src="js/env.js?v=20"></script>
+  <script src="js/tracking.js?v=20"></script>
+  <script src="js/marketing.js?v=20"></script>
+  <script src="js/config.js?v=20"></script>
+  <script src="js/main.js?v=20"></script>
+  <script src="js/spa-router.js?v=20"></script>
+  <script src="js/loadComponents.js?v=20"></script>
+  <script src="js/site-content.js?v=20"></script>
+  <script src="js/cart.js?v=20"></script>
+  <script src="js/wishlist.js?v=20"></script>
+  <script src="js/auth.js?v=20"></script>
   <script src="https://kit.fontawesome.com/6965595432.js" crossorigin="anonymous"></script>
 
-  <!-- CONTACT FORM LOGIC -->
-  <script>
-    (function () {
-      const form = document.getElementById('contactForm');
-      const btn = document.getElementById('cfSubmitBtn');
-      const successEl = document.getElementById('cfSuccess');
-
-      function getField(id) { return document.getElementById(id); }
-      function getErr(id) { return document.getElementById(id + 'Err'); }
-
-      function showError(fieldId, show) {
-        const field = getField(fieldId);
-        const err = getErr(fieldId);
-        if (!field || !err) return;
-        field.classList.toggle('error', show);
-        err.classList.toggle('show', show);
-      }
-
-      function validateForm() {
-        let valid = true;
-
-        const name = getField('cfName').value.trim();
-        if (!name) { showError('cfName', true); valid = false; } else { showError('cfName', false); }
-
-        const email = getField('cfEmail').value.trim();
-        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        if (!emailOk) { showError('cfEmail', true); valid = false; } else { showError('cfEmail', false); }
-
-        const subject = getField('cfSubject').value;
-        if (!subject) { showError('cfSubject', true); valid = false; } else { showError('cfSubject', false); }
-
-        const msg = getField('cfMessage').value.trim();
-        if (msg.length < 10) { showError('cfMessage', true); valid = false; } else { showError('cfMessage', false); }
-
-        return valid;
-      }
-
-      // Clear errors on input
-      ['cfName', 'cfEmail', 'cfSubject', 'cfMessage'].forEach(function (id) {
-        var el = getField(id);
-        if (el) {
-          el.addEventListener('input', function () { showError(id, false); });
-          el.addEventListener('change', function () { showError(id, false); });
-        }
-      });
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (!validateForm()) return;
-
-        btn.classList.add('loading');
-        btn.disabled = true;
-
-        setTimeout(function () {
-          btn.classList.remove('loading');
-          btn.disabled = false;
-          form.style.display = 'none';
-          successEl.classList.add('show');
-          successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 900);
-      });
-    })();
-  </script>
+  <script src="js/contact-us.js?v=20"></script>
 
 </body>
 

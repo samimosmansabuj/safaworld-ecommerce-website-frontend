@@ -18,25 +18,20 @@ let couponDiscount = 0;
 /* =========================================
    INIT
 ========================================= */
-window.addEventListener(
-    "DOMContentLoaded",
-    async () => {
+async function initCheckoutPage() {
+    await loadDistricts();
+    await loadCustomerProfile();
+    await loadSavedAddresses();
+    await loadCheckoutSummary();
+    bindDistrictChange();
+    bindAddressSelect();
+    bindLiveValidationClear();
+}
+window.initCheckoutPage = initCheckoutPage;
 
-        await loadDistricts();
-
-        await loadCustomerProfile();
-
-        await loadSavedAddresses();
-
-        await loadCheckoutSummary();
-
-        bindDistrictChange();
-
-        bindAddressSelect();
-
-        bindLiveValidationClear();
-    }
-);
+window.addEventListener("DOMContentLoaded", () => {
+    initCheckoutPage();
+});
 
 /* =========================================
    TOKEN
@@ -927,7 +922,12 @@ function showOrderSuccess(data) {
     document.body.appendChild(overlay);
 
     setTimeout(() => {
-        window.location.href = isLoggedIn() ? "/my-orders" : "/";
+        const target = isLoggedIn() ? "/my-orders" : "/";
+        if (typeof window.spaNavigate === 'function') {
+            window.spaNavigate(target);
+        } else {
+            window.location.href = target;
+        }
     }, 2500);
 }
 

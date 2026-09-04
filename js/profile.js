@@ -4,10 +4,11 @@
 window.addEventListener("DOMContentLoaded", () => {
 
     if (!isLoggedIn()) {
-
-        window.location.href =
-            "/login";
-
+        if (typeof window.spaNavigate === 'function') {
+            window.spaNavigate("/login");
+        } else {
+            window.location.href = "/login";
+        }
         return;
     }
 

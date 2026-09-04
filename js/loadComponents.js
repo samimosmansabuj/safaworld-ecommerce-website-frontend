@@ -52,7 +52,7 @@ async function initComponents() {
         // Ensure cart.js is loaded on any page
         if (typeof loadCartItems !== "function") {
             const s = document.createElement("script");
-            s.src = "js/cart.js?v=12";
+            s.src = "js/cart.js?v=20";
             s.onload = () => {
                 if (typeof updateCartCountFromBackend === "function") updateCartCountFromBackend();
                 if (typeof loadCartItems === "function") loadCartItems();
@@ -87,6 +87,9 @@ function setMobNavActive() {
 
     const nav = document.querySelector(".mob-bottom-nav");
     if (!nav) return;
+
+    // Clear previous active state
+    nav.querySelectorAll(".mob-nav-item").forEach(item => item.classList.remove("active"));
 
     // Map page patterns → item selectors
     const rules = [

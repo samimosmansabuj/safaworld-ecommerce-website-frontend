@@ -25,13 +25,13 @@
     <!-- DESKTOP NAV ICONS (right) -->
     <div class="nav-right">
       <!-- LOGIN (desktop) -->
-      <div class="nav-ic login-btn" onclick="window.location.href='/login'">
+      <div class="nav-ic login-btn" onclick="if(typeof spaNavigate==='function')spaNavigate('/login');else window.location.href='/login'">
         <span class="nav-ic-icon"><i class="fa fa-user"></i></span>
         Login
       </div>
 
       <!-- ACCOUNT (desktop) -->
-      <div class="nav-ic account-btn" onclick="window.location.href='/profile'" style="display:none;">
+      <div class="nav-ic account-btn" onclick="if(typeof spaNavigate==='function')spaNavigate('/profile');else window.location.href='/profile'" style="display:none;">
         <span class="nav-ic-icon">
           <i class="fa fa-user"></i>
         </span>

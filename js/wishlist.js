@@ -81,7 +81,11 @@ function fixImage(img) {
 function openProduct(slug) {
     if (!slug) return;
     try { sessionStorage.setItem("current_product_slug", slug); } catch (e) {}
-    window.location.href = `/${slug}`;
+    if (typeof window.spaNavigate === 'function') {
+        window.spaNavigate(`/${slug}`);
+    } else {
+        window.location.href = `/${slug}`;
+    }
 }
 
 /* =========================

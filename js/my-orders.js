@@ -184,7 +184,11 @@ function filterOrders(status, btn) {
    VIEW ORDER
 ========================= */
 function viewOrder(orderId) {
-    window.location.href = `/order?id=${orderId}`;
+    if (typeof window.spaNavigate === 'function') {
+        window.spaNavigate(`/order?id=${orderId}`);
+    } else {
+        window.location.href = `/order?id=${orderId}`;
+    }
 }
 
 /* =========================

@@ -39,7 +39,7 @@
       </div>
       <h4 class="drawer-empty-title">Your cart is empty</h4>
       <p class="drawer-empty-sub">Explore Safa World's premium products and add your favorites to the cart!</p>
-      <button class="btn-drawer-shop" onclick="closeCartDrawer(); window.location.href='/product-list'">
+      <button class="btn-drawer-shop" onclick="closeCartDrawer(); if(typeof spaNavigate==='function')spaNavigate('/product-list');else window.location.href='/product-list'">
         Continue Shopping
       </button>
     </div>
