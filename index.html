@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Safa World — Premium Online Shop Bangladesh</title>
+  <meta name="description"
+    content="Safa World — Bangladesh's premium online shop. Quality products delivered to your doorstep. Cash on delivery available.">
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/products.css?v=12">
+  <link rel="stylesheet" href="css/product.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+  <div id="toast-container"></div>
+  <div id="float-wa"></div>
+  <div id="float-cart"></div>
+  <div id="drawer-container"></div>
+  <div id="topnavbar-container"></div>
+  <div id="subnavbar-container"></div>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <div class="hero-slider" id="heroSliderSection"></div>
+
+    <!-- Feature Product -->
+    <div class="lp-section" id="kidzProductSection">
+      <div class="lp-head">
+        <div class="lp-title">Featured Products</div>
+      </div>
+
+      <div class="feature-section-body">
+        <div class="products-slider" id="kidzProductsGrid"></div>
+      </div>
+    </div>
+
+    <!-- FILTER + PRODUCTS GRID -->
+    <div id="filterProductsSection">
+      <div class="filter-bar">
+        <div class="filter-left">
+          <label>
+            <span>Category:</span>
+            <select id="filterCategory" onchange="applyFilters()">
+              <option value="all">
+                All
+              </option>
+            </select>
+          </label>
+
+          <label>
+            <span>Sort by:</span>
+            <select id="sortBy" onchange="applyFilters()">
+
+              <option value="popularity">
+                Popularity
+              </option>
+
+              <option value="price-low-high">
+                Price: Low to High
+              </option>
+
+              <option value="price-high-low">
+                Price: High to Low
+              </option>
+
+              <option value="newest">
+                Newest
+              </option>
+
+            </select>
+          </label>
+        </div>
+
+        <div class="filter-right">
+          <span id="totalProducts">
+            Loading...
+          </span>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div class="products-grid" id="productsGrid"></div>
+
+      <!-- PAGINATION -->
+      <div class="pagination">
+
+        <button onclick="goPage(1)">
+          « First
+        </button>
+
+        <button onclick="prevPage()">
+          ‹ Prev
+        </button>
+
+        <span id="pageNumbers"></span>
+
+        <button onclick="nextPage()">
+          Next ›
+        </button>
+
+        <button onclick="goPage(Math.ceil(filteredProducts.length / perPage))">
+          Last »
+        </button>
+
+      </div>
+    </div>
+    <!-- /FILTER + PRODUCTS GRID -->
+
+    <!-- SOCIAL PROOF -->
+    <div class="proof-banner" id="socialProofSection">
+
+      <div class="proof-stat">
+        <div class="proof-num">500+</div>
+        <div class="proof-lbl">
+          Happy Customers
+        </div>
+      </div>
+
+      <div class="proof-stat">
+        <div class="proof-num">4.8★</div>
+        <div class="proof-lbl">
+          Average Rating
+        </div>
+      </div>
+
+      <div class="proof-stat">
+        <div class="proof-num">100%</div>
+        <div class="proof-lbl">
+          Genuine Products
+        </div>
+      </div>
+
+      <div class="proof-stat">
+        <div class="proof-num">5%</div>
+        <div class="proof-lbl">
+          Return Rate
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- WHY SECTION -->
+    <div class="lp-section" id="whyChooseSection">
+      <div class="lp-head">
+        <div class="lp-title">Why Choose Safa World</div>
+      </div>
+
+      <div class="lp-body">
+        <div class="why-grid" id="whyChooseGrid">
+          <div class="why-card">
+            <div class="why-icon">✨</div>
+            <div class="why-name">Premium Quality</div>
+            <div class="why-desc">Carefully selected, high-quality products.</div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon">🚚</div>
+            <div class="why-name">Fast Delivery</div>
+            <div class="why-desc">Same-day in Dhaka area.</div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon">💵</div>
+            <div class="why-name">Cash on Delivery</div>
+            <div class="why-desc">Pay on delivery.</div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon">🤝</div>
+            <div class="why-name">WhatsApp Support</div>
+            <div class="why-desc">Fast support available.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIFESTYLE / SHOWCASE -->
+    <div class="lp-section" id="showcaseSection" style="display:none;">
+      <div class="lp-head">
+        <div class="lp-title">See It in Real Life</div>
+      </div>
+
+      <div class="lp-body">
+        <div class="showcase-row-wrap">
+          <div class="showcase-row" id="showcaseRow"></div>
+          <button class="showcase-nav prev" onclick="showcaseScroll(-1)" aria-label="Previous">‹</button>
+          <button class="showcase-nav next" onclick="showcaseScroll(1)" aria-label="Next">›</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section" id="ecoSection">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+  <!-- JS -->
+  <script src="js/env.js?v=12"></script>
+  <script src="js/tracking.js?v=12"></script>
+  <script src="js/marketing.js?v=12"></script>
+  <script src="js/config.js?v=12"></script>
+  <script src="js/main.js?v=12"></script>
+  <script src="js/loadComponents.js?v=12"></script>
+  <script src="js/site-content.js?v=12"></script>
+  <script src="js/cart.js?v=12"></script>
+  <script src="js/wishlist.js?v=12"></script>
+  <script src="js/auth.js?v=12"></script>
+  <script src="js/product_list.js?v=12"></script>
+  <script src="js/showcase.js?v=12"></script>
+
+  <script src="https://kit.fontawesome.com/6965595432.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

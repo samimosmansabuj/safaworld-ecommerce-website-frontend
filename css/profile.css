@@ -1,0 +1,178 @@
+﻿/* ====== PROFILE CARD ====== */
+.profile-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    margin-bottom: 24px;
+}
+
+.profile-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.profile-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-row label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 14px;
+}
+
+.profile-row input {
+    padding: 12px 14px;
+    background-color: #f9f9f9;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: 'Hind Siliguri', sans-serif;
+}
+
+.profile-row input:focus {
+    border-color: #333;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(0,0,0,0.03);
+}
+
+/* ====== SAVE BUTTON ====== */
+.profile-btn-wrap {
+    margin-top: 24px;
+    text-align: right;
+}
+
+.profile-card button {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-card button:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.profile-card button:active {
+    transform: translateY(0);
+}
+
+/* ====== QUICK LINKS ====== */
+.account-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.account-links a, .logout-btn-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #111;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: left;
+    font-size: 15px;
+}
+
+.account-links a:hover, .logout-btn-profile:hover {
+    background: #f9f9f9;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    border-color: #e0e0e0;
+}
+
+.logout-btn-profile {
+    color: #dc3545; /* red for logout */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+    .profile-form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .account-links {
+        display: flex;
+        gap: 10px;
+    }
+
+    .account-links a span{
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        padding: 20px;
+        border-radius: 14px;
+        margin-bottom: 16px;
+    }
+
+    .profile-btn-wrap {
+        text-align: stretch;
+    }
+    
+    .profile-card button {
+        width: 100%;
+        padding: 14px;
+    }
+}
+
+/* ===== TOAST ===== */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background: #333;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    background: #28a745;
+}
+
+.toast.error {
+    background: #dc3545;
+}

@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Shopping Cart — Safa World</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/cart.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <div id="toast-container"></div>
+  <div id="float-wa"></div>
+  <div id="float-cart"></div>
+  <div id="drawer-container"></div>
+  <div id="topnavbar-container"></div>
+  <div id="subnavbar-container"></div>
+  <div id="bc-br" class="bc-br-section"><title>Cart</title></div>
+
+  <div class="page">
+<!-- 
+    <div class="cart-head">
+      <h1 class="cart-title">My Cart</h1>
+      <div class="cart-count" id="cartItemCount">0 Items</div>
+    </div> -->
+
+    <div class="cart-layout">
+
+      <!-- LEFT -->
+      <div class="cart-left">
+        <div class="cart-items" id="cartItemsContainer">
+          <p>Loading cart...</p>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="cart-right">
+        <div class="cart-summary">
+          <div class="summary-title">Order Summary</div>
+          <div id="cartSummaryList"></div>
+          <!-- ONLY SUBTOTAL -->
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="cartSubtotal">৳ 0</span>
+          </div>
+          <button class="btn-checkout" onclick="goToCheckout()">
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cart-empty" id="emptyCartBox" style="display:none">
+      <div class="empty-icon">🛒</div>
+      <div class="empty-title">Your cart is empty</div>
+      <div class="empty-sub">Browse premium Safa World products</div>
+
+      <button class="btn-checkout" onclick="window.location.href='product-list.html'">
+        Continue Shopping
+      </button>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/env.js?v=12"></script>
+  <script src="js/tracking.js?v=12"></script>
+  <script src="js/marketing.js?v=12"></script>
+  <script src="js/config.js?v=12"></script>
+  <script src="js/main.js?v=12"></script>
+  <script src="js/cart.js?v=12"></script>
+  <script src="js/wishlist.js?v=12"></script>
+  <script src="js/loadComponents.js?v=12"></script>
+  <script src="js/site-content.js?v=12"></script>
+  <script src="js/cart.js?v=12"></script>
+  <script src="js/auth.js?v=12"></script>
+  <script src="js/product_list.js?v=12"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    Product Details — Safa World
+  </title>
+
+  <meta name="description" content="Premium product details page">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="css/checkout.css?v=12">
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/products.css?v=12">
+  <link rel="stylesheet" href="css/product.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <!-- COMPONENTS -->
+  <div id="toast-container"></div>
+
+  <div id="float-wa"></div>
+  <div id="float-cart"></div>
+
+  <div id="drawer-container"></div>
+
+  <div id="topnavbar-container"></div>
+
+  <div id="subnavbar-container"></div>
+
+  <div id="bc-br" class="bc-br-section"><title>Product Details</title></div>
+
+  <!-- PAGE -->
+  <div class="page">
+
+    <!-- ① PRODUCT HERO -->
+    <div class="prod-hero">
+
+      <div class="prod-hero-inner">
+
+        <!-- GALLERY -->
+        <div class="gal-col">
+
+          <div class="gal-main" id="galMain">
+
+            <div class="gal-top-badges" id="productBadges"></div>
+
+            <div class="gal-top-right">
+
+              <div class="g-act" id="wishIco" title="Wishlist">
+
+                ♡
+
+              </div>
+
+              <div class="g-act" onclick="openShare()" title="Share">
+
+                🔗
+
+              </div>
+
+            </div>
+
+            <img id="productImage" src="" alt="product">
+
+          </div>
+
+          <div class="thumbs" id="thumbGrid"></div>
+
+        </div>
+
+        <!-- INFO -->
+        <div class="info-col">
+
+          <div class="brand-row">
+
+            <span class="brand-lnk">
+              Safa World
+            </span>
+
+            <span class="v-badge">
+              ✔ Verified
+            </span>
+
+            <span class="sku-lbl" id="productSKU"></span>
+
+          </div>
+
+          <div>
+
+            <div class="prod-title" id="productTitle">
+
+              Loading...
+
+            </div>
+
+            <div class="prod-bn bn" id="productShortDescription"></div>
+
+          </div>
+
+          <div class="stars-row">
+
+            <div class="stars" id="prodStars"></div>
+
+            <span class="r-score">
+              0.0
+            </span>
+
+            <span class="r-cnt">
+              0 ratings
+            </span>
+
+            <div class="r-sep"></div>
+
+            <span class="r-sold">
+              0 sold
+            </span>
+
+            <span class="stock-chip" id="stockStatus"></span>
+
+          </div>
+
+          <!-- PRICE -->
+          <div class="price-box">
+
+            <div class="price-row">
+
+              <span class="price-main" id="productPrice"></span>
+
+              <span class="price-orig" id="productOldPrice"></span>
+
+              <span class="price-disc" id="productDiscount"></span>
+
+            </div>
+
+          </div>
+          <div id="variantPickerWrap" class="variant-picker-wrap"></div>
+          <!-- QUANTITY -->
+          <div class="qty-row-wrap">
+
+            <span class="qty-note">
+
+              Only
+              <span id="stockLeft"></span>
+              left
+
+            </span>
+
+          </div>
+
+          <!-- BUTTONS -->
+          <div>
+
+            <div class="btn-group" style="margin-bottom:7px">
+
+              <button class="btn-buy" id="buyBtn">
+
+                🛒 Buy Now
+
+              </button>
+
+              <button class="btn-cart" id="cartBtn">
+
+                + Add to Cart
+
+              </button>
+
+            </div>
+
+            <div class="btn-sec-row">
+
+              <button class="btn-wish" id="wishBtn">
+
+                ♡ Wishlist
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ⑤ TABS -->
+    <div class="lp-section" id="tabsSection">
+
+      <div class="tabs-nav">
+
+        <button class="tab-btn on" onclick="switchTab('desc', event)">
+
+          Description
+
+        </button>
+
+        <button class="tab-btn" onclick="switchTab('feat', event)">
+
+          Features & Specs
+
+        </button>
+
+        <button class="tab-btn" onclick="switchTab('reviews', event)">
+
+          Reviews
+
+        </button>
+
+        <button class="tab-btn" onclick="switchTab('faq', event)">
+
+          FAQ
+
+        </button>
+
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="tab-pane on" id="pane-desc">
+
+        <p class="desc-body" id="productDescription">
+
+          Loading description...
+
+        </p>
+
+        <table class="spec-tbl" id="specTable"></table>
+
+      </div>
+
+      <!-- FEATURES (populated by renderFeatures() in product-details.js) -->
+      <div class="tab-pane" id="pane-feat">
+
+        <div class="feat-grid" id="featureGrid">
+
+          <div class="feat-empty">Loading features...</div>
+
+        </div>
+
+      </div>
+
+      <!-- REVIEWS (populated by renderReviews() in product-details.js) -->
+      <div class="tab-pane" id="pane-reviews">
+
+        <div class="rv-header">
+
+          <div class="rv-big">
+
+            <div class="rv-num" id="reviewScore">
+
+              0.0
+
+            </div>
+
+            <div class="rv-big-stars" id="bigStars"></div>
+
+            <div class="rv-out" id="reviewCountText">
+
+              0 reviews
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rv-list" id="reviewList">
+
+          <div class="rv-item">
+
+            <p>
+              Loading reviews...
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- FAQ (populated by renderFAQs() in product-details.js) -->
+      <div class="tab-pane" id="pane-faq">
+
+        <div class="faq-list" id="faqList">
+
+          <div class="faq-item">
+
+            <div class="faq-q">
+
+              <span class="faq-q-txt">
+                Loading FAQs...
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ⑥ CTA -->
+    <div class="lp-cta-section">
+
+      <div class="lp-cta-copy">
+
+        <div class="lp-cta-title bn">
+          এখনই অর্ডার করুন
+        </div>
+
+        <div class="lp-cta-sub">
+          Fast delivery · Cash on Delivery
+        </div>
+
+      </div>
+
+      <div class="lp-cta-btns">
+
+        <button class="btn-buy" id="ctaBuyBtn">
+
+          🛒 Buy Now
+
+        </button>
+
+        <button class="lp-cta-btn-wa" id="ctaWhatsappBtn">
+
+          💬 WhatsApp
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ⑦ RELATED PRODUCTS -->
+    <div class="lp-section">
+
+      <div class="lp-head">
+
+        <div class="lp-title">
+          You May Also Like
+        </div>
+
+        <span onclick="window.location.href='product-list.html'" style="
+            font-size:12px;
+            color:var(--br);
+            font-weight:600;
+            cursor:pointer
+          ">
+
+          See All →
+
+        </span>
+
+      </div>
+
+      <div class="related-grid" id="relatedProducts">
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+
+
+  <!-- STICKY BAR -->
+  <div class="sticky-bar">
+
+    <div class="sticky-bar-inner">
+
+      <div class="sticky-price">
+
+        <div class="sticky-p" id="stickyPrice"></div>
+
+        <div class="sticky-p-orig" id="stickyOldPrice"></div>
+
+      </div>
+
+      <div class="sticky-btns">
+
+        <button class="btn-cart" id="cartBtnSticky">
+
+          + Cart
+
+        </button>
+
+        <button class="btn-buy" id="stickyBuyBtn">
+
+          🛒 Buy Now
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SHARE MODAL -->
+  <div id="shareOverlay" class="share-overlay" onclick="closeShare(event)">
+    <div class="share-box" id="shareBox">
+
+      <!-- CLOSE -->
+      <div class="share-close" onclick="closeShare()">
+        ✕
+      </div>
+
+      <!-- ICON ROW -->
+      <div class="share-row">
+
+        <!-- WhatsApp -->
+        <button class="share-btn wa" onclick="shareTo('wa')">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+        </button>
+
+        <!-- Facebook -->
+        <button class="share-btn fb" onclick="shareTo('fb')">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
+        </button>
+
+        <!-- Instagram (copy link, because direct share not supported) -->
+        <button class="share-btn ig" onclick="shareTo('ig')">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+        </button>
+
+        <!-- Copy -->
+        <button class="share-btn cp" onclick="shareTo('copy')">
+          <img src="https://cdn-icons-png.flaticon.com/512/126/126498.png">
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/env.js?v=12"></script>
+  <script src="js/tracking.js?v=12"></script>
+  <script>window.__DEFER_TRACKING_INIT__ = true;</script>
+  <script src="js/marketing.js?v=12"></script>
+  <script src="js/config.js?v=12"></script>
+  <script src="js/main.js?v=12"></script>
+  <script src="js/loadComponents.js?v=12"></script>
+  <script src="js/site-content.js?v=12"></script>
+  <script src="js/cart.js?v=12"></script>
+  <script src="js/wishlist.js?v=12"></script>
+  <script src="js/product-details.js?v=12"></script>
+  <script src="js/auth.js?v=12"></script>
+  <script src="js/product_list.js?v=12"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Safa World</title>
+  <meta name="description"
+    content="Get in touch with Safa World Bangladesh. Send us a message, find our contact details, or reach us via WhatsApp. Available 9am–9pm, 7 days a week.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <!-- COMPONENTS -->
+  <div id="toast-container"></div>
+  <div id="float-wa"></div>
+  <div id="float-cart"></div>
+  <div id="drawer-container"></div>
+  <div id="topnavbar-container"></div>
+  <div id="subnavbar-container"></div>
+
+  <div id="bc-br" class="bc-br-section"><title>Contact Us</title></div>
+
+  <!-- PAGE -->
+  <div class="page">
+
+    <!-- CONTACT FORM + INFO -->
+    <div class="lp-section">
+      <div class="lp-head">
+        <div class="lp-title">Send Us a Message</div>
+      </div>
+      <div class="lp-body">
+        <div class="contact-layout">
+
+          <!-- FORM -->
+          <div>
+            <!-- Success message (hidden until submit) -->
+            <div class="cf-success" id="cfSuccess" role="alert" aria-live="polite">
+              <span class="cf-success-icon">✅</span>
+              <div>
+                <strong>Message sent!</strong> Thank you for reaching out. We'll get back to you within 24 hours.
+              </div>
+            </div>
+
+            <form id="contactForm" class="contact-form-section" novalidate>
+
+              <div class="contact-form-row">
+                <!-- Name -->
+                <div class="cf-group">
+                  <label class="cf-label" for="cfName">Full Name <span class="cf-req" aria-label="required">*</span></label>
+                  <input
+                    class="cf-input"
+                    type="text"
+                    id="cfName"
+                    name="name"
+                    placeholder="Your full name"
+                    autocomplete="name"
+                    required>
+                  <span class="cf-error-msg" id="cfNameErr">Please enter your name.</span>
+                </div>
+
+                <!-- Email -->
+                <div class="cf-group">
+                  <label class="cf-label" for="cfEmail">Email Address <span class="cf-req" aria-label="required">*</span></label>
+                  <input
+                    class="cf-input"
+                    type="email"
+                    id="cfEmail"
+                    name="email"
+                    placeholder="your@email.com"
+                    autocomplete="email"
+                    required>
+                  <span class="cf-error-msg" id="cfEmailErr">Please enter a valid email address.</span>
+                </div>
+              </div>
+
+              <div class="contact-form-row">
+                <!-- Phone -->
+                <div class="cf-group">
+                  <label class="cf-label" for="cfPhone">Phone Number</label>
+                  <input
+                    class="cf-input"
+                    type="tel"
+                    id="cfPhone"
+                    name="phone"
+                    placeholder="01XXXXXXXXX"
+                    autocomplete="tel">
+                </div>
+
+                <!-- Subject -->
+                <div class="cf-group">
+                  <label class="cf-label" for="cfSubject">Subject <span class="cf-req" aria-label="required">*</span></label>
+                  <select class="cf-select cf-input" id="cfSubject" name="subject" required>
+                    <option value="">Select a subject…</option>
+                    <option value="order">Order Enquiry</option>
+                    <option value="product">Product Question</option>
+                    <option value="return">Return / Refund</option>
+                    <option value="delivery">Delivery / Shipping</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="corporate">Corporate / Bulk Order</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <span class="cf-error-msg" id="cfSubjectErr">Please select a subject.</span>
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div class="cf-group">
+                <label class="cf-label" for="cfMessage">Message <span class="cf-req" aria-label="required">*</span></label>
+                <textarea
+                  class="cf-textarea"
+                  id="cfMessage"
+                  name="message"
+                  placeholder="Describe your question or issue in detail…"
+                  required></textarea>
+                <span class="cf-error-msg" id="cfMessageErr">Please enter a message (at least 10 characters).</span>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit" class="cf-submit-btn" id="cfSubmitBtn">
+                <span class="cf-btn-text">Send Message</span>
+                <span class="cf-spinner" aria-hidden="true"></span>
+              </button>
+
+            </form>
+          </div>
+
+          <!-- CONTACT INFO SIDEBAR -->
+          <aside>
+            <div class="contact-info-card">
+
+              <div class="ci-item">
+                <div class="ci-icon" aria-hidden="true">📍</div>
+                <div class="ci-body">
+                  <div class="ci-label">Address</div>
+                  <div class="ci-value">Bangladesh</div>
+                </div>
+              </div>
+
+              <hr class="ci-divider">
+
+              <div class="ci-item">
+                <div class="ci-icon" aria-hidden="true">📞</div>
+                <div class="ci-body">
+                  <div class="ci-label">Phone / WhatsApp</div>
+                  <div class="ci-value">
+                    <a href="tel:+8801311210855">+8801311210855</a>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="ci-divider">
+
+              <div class="ci-item">
+                <div class="ci-icon" aria-hidden="true">✉️</div>
+                <div class="ci-body">
+                  <div class="ci-label">Email</div>
+                  <div class="ci-value">
+                    <a href="mailto:safaworld20@gmail.com">safaworld20@gmail.com</a>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="ci-divider">
+
+              <div class="ci-item">
+                <div class="ci-icon" aria-hidden="true">🌐</div>
+                <div class="ci-body">
+                  <div class="ci-label">Website</div>
+                  <div class="ci-value">
+                    <a href="https://safaworldbd.com" target="_blank">safaworldbd.com</a>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="ci-divider">
+
+              <div class="ci-item">
+                <div class="ci-icon" aria-hidden="true">🕘</div>
+                <div class="ci-body">
+                  <div class="ci-label">Business Hours</div>
+                  <div class="contact-hours-grid">
+                    <div class="ch-row">
+                      <span class="ch-day">Sat – Thu</span>
+                      <span>9:00 AM – 9:00 PM</span>
+                    </div>
+                    <div class="ch-row">
+                      <span class="ch-day">Friday</span>
+                      <span>2:00 PM – 9:00 PM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- QUICK LINKS -->
+            <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+              <a href="return-policy.html" class="feat-card" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                <div class="ci-icon" aria-hidden="true">↩️</div>
+                <div>
+                  <div style="font-size: 13px; font-weight: 600; color: var(--text);">Return &amp; Refund Policy</div>
+                  <div style="font-size: 11.5px; color: var(--mid);">Know your rights &amp; options</div>
+                </div>
+              </a>
+              <a href="privacy-policy.html" class="feat-card" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                <div class="ci-icon" aria-hidden="true">🔒</div>
+                <div>
+                  <div style="font-size: 13px; font-weight: 600; color: var(--text);">Privacy Policy</div>
+                  <div style="font-size: 11.5px; color: var(--mid);">How we protect your data</div>
+                </div>
+              </a>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TRUST STRIP -->
+    <div class="proof-banner">
+      <div class="proof-stat">
+        <div class="proof-num">24h</div>
+        <div class="proof-lbl">Response Time</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-num">7 Days</div>
+        <div class="proof-lbl">Support Available</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-num">WhatsApp</div>
+        <div class="proof-lbl">Instant Support</div>
+      </div>
+      <div class="proof-stat">
+        <div class="proof-num">COD</div>
+        <div class="proof-lbl">Safe Ordering</div>
+      </div>
+    </div>
+
+  </div><!-- /page -->
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/env.js?v=12"></script>
+  <script src="js/tracking.js?v=12"></script>
+  <script src="js/marketing.js?v=12"></script>
+  <script src="js/config.js?v=12"></script>
+  <script src="js/main.js?v=12"></script>
+  <script src="js/loadComponents.js?v=12"></script>
+  <script src="js/site-content.js?v=12"></script>
+  <script src="js/cart.js?v=12"></script>
+  <script src="js/wishlist.js?v=12"></script>
+  <script src="js/auth.js?v=12"></script>
+  <script src="https://kit.fontawesome.com/6965595432.js" crossorigin="anonymous"></script>
+
+  <!-- CONTACT FORM LOGIC -->
+  <script>
+    (function () {
+      const form = document.getElementById('contactForm');
+      const btn = document.getElementById('cfSubmitBtn');
+      const successEl = document.getElementById('cfSuccess');
+
+      function getField(id) { return document.getElementById(id); }
+      function getErr(id) { return document.getElementById(id + 'Err'); }
+
+      function showError(fieldId, show) {
+        const field = getField(fieldId);
+        const err = getErr(fieldId);
+        if (!field || !err) return;
+        field.classList.toggle('error', show);
+        err.classList.toggle('show', show);
+      }
+
+      function validateForm() {
+        let valid = true;
+
+        const name = getField('cfName').value.trim();
+        if (!name) { showError('cfName', true); valid = false; } else { showError('cfName', false); }
+
+        const email = getField('cfEmail').value.trim();
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!emailOk) { showError('cfEmail', true); valid = false; } else { showError('cfEmail', false); }
+
+        const subject = getField('cfSubject').value;
+        if (!subject) { showError('cfSubject', true); valid = false; } else { showError('cfSubject', false); }
+
+        const msg = getField('cfMessage').value.trim();
+        if (msg.length < 10) { showError('cfMessage', true); valid = false; } else { showError('cfMessage', false); }
+
+        return valid;
+      }
+
+      // Clear errors on input
+      ['cfName', 'cfEmail', 'cfSubject', 'cfMessage'].forEach(function (id) {
+        var el = getField(id);
+        if (el) {
+          el.addEventListener('input', function () { showError(id, false); });
+          el.addEventListener('change', function () { showError(id, false); });
+        }
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!validateForm()) return;
+
+        btn.classList.add('loading');
+        btn.disabled = true;
+
+        setTimeout(function () {
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          form.style.display = 'none';
+          successEl.classList.add('show');
+          successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 900);
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

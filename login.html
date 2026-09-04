@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Safa World</title>
+
+  <meta name="description"
+    content="Login to your Safa World account to track orders and manage your profile.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="css/auth.css?v=12">
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/products.css?v=12">
+  <link rel="stylesheet" href="css/product.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <!-- COMPONENTS -->
+  <div id="toast-container"></div>
+  <div id="float-wa"></div>
+  <div id="float-cart"></div>
+  <div id="drawer-container"></div>
+  <div id="topnavbar-container"></div>
+  <div id="subnavbar-container"></div>
+
+  <!-- AUTH PAGE -->
+  <div class="auth-page">
+
+    <div class="auth-box">
+
+      <div class="auth-tabs">
+        <button class="tab on">Login</button>
+      </div>
+
+      <!-- STEP 1: PHONE -->
+      <div id="phoneStep" class="auth-form">
+        <input type="tel" id="loginPhone" placeholder="Phone Number (e.g. 01XXXXXXXXX)">
+        <button onclick="submitPhoneStep()">Next</button>
+      </div>
+
+      <!-- STEP 2: PASSWORD -->
+      <div id="passwordStep" class="auth-form" style="display:none">
+
+        <p id="passwordStepLabel" style="margin:0 0 5px; font-size:14px; color:#555;">
+          Enter your password
+        </p>
+
+        <div id="setPasswordNameField" style="display:none;">
+          <input type="text" id="setPasswordName" placeholder="Your Name">
+        </div>
+
+        <div style="position:relative;">
+          <input type="password" id="loginPassword" placeholder="Password" style="width:100%; padding-right:40px;">
+          <span id="togglePasswordIcon" onclick="togglePasswordVisibility()"
+            style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; user-select:none; display:flex; align-items:center; color:#888;">
+            <!-- eye (closed = show password state) -->
+            <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <svg id="eyeClosed" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              style="display:none;">
+              <path
+                d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a19.86 19.86 0 0 1 5.06-6.06M9.9 4.24A10.4 10.4 0 0 1 12 4c7 0 11 8 11 8a19.86 19.86 0 0 1-2.16 3.19">
+              </path>
+              <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"></path>
+              <line x1="1" y1="1" x2="23" y2="23"></line>
+            </svg>
+          </span>
+        </div>
+
+        <button id="submitPasswordBtn" onclick="submitPasswordStep()">Continue</button>
+
+        <button type="button" onclick="backToPhoneStep()" style="background:transparent; color:#666; box-shadow:none;">
+          ← Back
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/env.js?v=11"></script>
+  <script src="js/tracking.js?v=11"></script>
+  <script src="js/marketing.js?v=11"></script>
+  <script src="js/config.js?v=11"></script>
+  <script src="js/main.js?v=11"></script>
+  <script src="js/loadComponents.js?v=11"></script>
+  <script src="js/site-content.js?v=11"></script>
+  <script src="js/cart.js?v=11"></script>
+  <script src="js/wishlist.js?v=11"></script>
+  <script src="js/auth.js?v=11"></script>
+
+
+  <div id="loginLoader" class="login-loader">
+    <div class="loader-box">
+      <div class="spinner"></div>
+      <p>Please wait...</p>
+    </div>
+  </div>
+
+</body>
+
+</html>

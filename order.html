@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Details — Safa World</title>
+  <meta name="description" content="View full order details, items, delivery info and reorder easily.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/orders.css?v=12">
+  <link rel="stylesheet" href="css/order.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+  <link rel="stylesheet" href="css/profile.css?v=12">
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <body>
+
+    <!-- Components -->
+    <div id="toast-container"></div>
+    <div id="float-wa"></div>
+    <div id="float-cart"></div>
+    <div id="drawer-container"></div>
+
+    <div id="topnavbar-container"></div>
+    <div id="subnavbar-container"></div>
+    <div id="bc-br" class="bc-br-section">
+      <title>Order Details</title>
+    </div>
+
+    <!-- ══ ORDER DETAILS PAGE ══ -->
+    <div class="page order-page">
+
+      <div class="account-links">
+        <a href="profile.html">
+          <i class="fa fa-user"></i> <span>Profile</span>
+        </a>
+        <a href="my-orders.html">
+          <!-- <i class="fa fa-box-open"></i> -->
+          📦 <span>My Orders</span>
+        </a>
+        <a href="address.html">
+          <i class="fa fa-location-arrow"></i> <span>Address Book</span>
+        </a>
+        <a onclick="logoutUser()">
+          ⏻ <span>Logout</span>
+        </a>
+      </div>
+
+      <div class="order-header">
+        <div>
+          <h1>Order #<span id="orderId"></span></h1>
+          <p class="order-date"></p>
+        </div>
+        <div class="order-status" id="orderStatus"></div>
+      </div>
+
+      <div class="order-grid">
+
+        <!-- LEFT -->
+        <div class="order-left">
+
+          <!-- ITEMS -->
+          <div class="card">
+            <h2>Items</h2>
+            <div class="order-items" id="orderItems"></div>
+          </div>
+
+          <!-- DELIVERY -->
+          <div class="card" id="orderDelivery"></div>
+
+          <!-- PAYMENT -->
+          <div class="card">
+            <h2>Payment</h2>
+            <p>Cash on Delivery</p>
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="order-right">
+          <div class="card" id="orderSummary"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-section">
+      <div id="eco-container"></div>
+      <div id="footer-container"></div>
+    </div>
+
+    <!-- JS -->
+    <script src="js/env.js?v=12"></script>
+    <script src="js/tracking.js?v=12"></script>
+    <script src="js/marketing.js?v=12"></script>
+    <script src="js/config.js?v=12"></script>
+    <script src="js/main.js?v=12"></script>
+    <script src="js/loadComponents.js?v=12"></script>
+    <script src="js/site-content.js?v=12"></script>
+    <script src="js/order.js?v=12"></script>
+    <script src="js/auth.js?v=12"></script>
+    <script src="js/product_list.js?v=12"></script>
+
+  </body>
+
+</html>

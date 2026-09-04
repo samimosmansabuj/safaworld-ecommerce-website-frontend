@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders — Safa World</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/orders.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+  <link rel="stylesheet" href="css/profile.css?v=12">
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <div id="toast-container"></div>
+  <div id="float-wa"></div>
+  <div id="float-cart"></div>
+  <div id="drawer-container"></div>
+  <div id="topnavbar-container"></div>
+  <div id="subnavbar-container"></div>
+
+  <div id="bc-br" class="bc-br-section"><title>My Orders</title></div>
+
+  <div class="page">
+
+    <div class="account-links">
+      <a href="profile.html">
+        <i class="fa fa-user"></i> <span>Profile</span>
+      </a>
+      <a href="my-orders.html">
+        <!-- <i class="fa fa-box-open"></i> -->
+        📦 <span>My Orders</span>
+      </a>
+      <a href="address.html">
+        <i class="fa fa-location-arrow"></i> <span>Address Book</span>
+      </a>
+      <a onclick="logoutUser()">
+        ⏻ <span>Logout</span>
+      </a>
+    </div>
+
+    <!-- FILTER -->
+    <div class="orders-filter">
+      <button class="of-btn active" onclick="filterOrders('all', this)">All</button>
+      <button class="of-btn" onclick="filterOrders('new', this)">Pending</button>
+      <button class="of-btn" onclick="filterOrders('follow_up', this)">Follow Up</button>
+      <button class="of-btn" onclick="filterOrders('confirmed', this)">Confirmed</button>
+      <button class="of-btn" onclick="filterOrders('shipped', this)">Shipped</button>
+      <button class="of-btn" onclick="filterOrders('delivered', this)">Delivered</button>
+      <button class="of-btn" onclick="filterOrders('cancelled', this)">Cancelled</button>
+      <button class="of-btn" onclick="filterOrders('returned', this)">Returned</button>
+    </div>
+
+    <!-- LIST -->
+    <div class="orders-list" id="ordersList"></div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+  
+  <!-- JS -->
+  <script src="js/env.js?v=12"></script>
+  <script src="js/tracking.js?v=12"></script>
+  <script src="js/marketing.js?v=12"></script>
+  <script src="js/config.js?v=12"></script>
+  <script src="js/main.js?v=12"></script>
+  <script src="js/loadComponents.js?v=12"></script>
+  <script src="js/site-content.js?v=12"></script>
+  <script src="js/my-orders.js?v=12"></script>
+  <script src="js/auth.js?v=12"></script>
+  <script src="js/product_list.js?v=12"></script>
+
+</body>
+
+</html>

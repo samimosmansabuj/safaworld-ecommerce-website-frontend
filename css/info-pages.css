@@ -1,0 +1,519 @@
+﻿/* ──────────────────────────────────────────────
+   PAGE HERO / BREADCRUMB BANNER
+   ────────────────────────────────────────────── */
+.info-page-hero {
+    background: linear-gradient(135deg, #111111 0%, #2a2a2a 60%, #444444 100%);
+    border-radius: var(--r-lg);
+    padding: 15px 25px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.info-page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.03'%3E%3Cpath d='M20 20.5V18H0v5h5v5H0v5h20v-9.5zm-2 4.5h-1v-1h1v1zm-1-7h1v1h-1v-1zM0 23h3v3H0v-3zm0-5h3v3H0v-3z'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: .4;
+    pointer-events: none;
+}
+
+.info-hero-bc {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, .55);
+    /* margin-bottom: 14px; */
+    flex-wrap: wrap;
+}
+
+.info-hero-bc a {
+    color: rgba(255, 255, 255, .75);
+    transition: color var(--t);
+}
+
+.info-hero-bc a:hover {
+    color: white;
+}
+
+.info-hero-bc span {
+    color: rgba(255, 255, 255, .35);
+}
+
+.info-hero-bc .bc-cur {
+    color: rgba(255, 255, 255, .85);
+    font-weight: 600;
+}
+
+.info-hero-title {
+    position: relative;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.25;
+    margin-bottom: 8px;
+}
+
+.info-hero-sub {
+    position: relative;
+    font-size: 13px;
+    color: rgba(255, 255, 255, .65);
+    line-height: 1.6;
+    max-width: 560px;
+}
+
+/* ──────────────────────────────────────────────
+   INFO PAGE CONTENT — Prose / Policy Text
+   ────────────────────────────────────────────── */
+.info-content {
+    max-width: 860px;
+}
+
+.info-content h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 22px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-l);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-content h2::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 16px;
+    background: #111111;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.info-content h3 {
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 16px 0 6px;
+}
+
+.info-content p {
+    font-size: 13.5px;
+    color: var(--mid);
+    line-height: 1.75;
+    margin-bottom: 10px;
+}
+
+.info-content ul,
+.info-content ol {
+    margin: 8px 0 12px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-content li {
+    font-size: 13.5px;
+    color: var(--mid);
+    line-height: 1.65;
+}
+
+.info-content a {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.info-content a:hover {
+    color: #111111;
+}
+
+.info-content strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* ──────────────────────────────────────────────
+   ABOUT PAGE — MISSION / VISION CARDS
+   ────────────────────────────────────────────── */
+.about-mv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.about-mv-card {
+    background: var(--cream);
+    border: 1px solid var(--border-l);
+    border-radius: var(--r);
+    padding: 20px;
+    transition: all var(--t);
+}
+
+.about-mv-card:hover {
+    border-color: var(--br-l);
+    box-shadow: var(--sh);
+    transform: translateY(-2px);
+}
+
+.about-mv-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.about-mv-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 6px;
+}
+
+.about-mv-text {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.65;
+}
+
+/* ──────────────────────────────────────────────
+   ABOUT PAGE — STORY SECTION
+   ────────────────────────────────────────────── */
+.about-story {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.8;
+}
+
+.about-story p {
+    margin-bottom: 12px;
+}
+
+.about-story p:last-child {
+    margin-bottom: 0;
+}
+
+/* ──────────────────────────────────────────────
+   CONTACT PAGE — FORM
+   ────────────────────────────────────────────── */
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
+}
+
+.contact-form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.contact-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.cf-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cf-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: .02em;
+}
+
+.cf-label .cf-req {
+    color: var(--red);
+    margin-left: 2px;
+}
+
+.cf-input,
+.cf-textarea,
+.cf-select {
+    padding: 10px 13px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    font-size: 13.5px;
+    font-family: var(--ff);
+    color: var(--text);
+    background: white;
+    outline: none;
+    transition: border-color var(--t), box-shadow var(--t);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.cf-input:focus,
+.cf-textarea:focus,
+.cf-select:focus {
+    border-color: #111111;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, .08);
+}
+
+.cf-input.error,
+.cf-textarea.error {
+    border-color: var(--red);
+}
+
+.cf-error-msg {
+    font-size: 11.5px;
+    color: var(--red);
+    display: none;
+}
+
+.cf-error-msg.show {
+    display: block;
+}
+
+.cf-textarea {
+    resize: vertical;
+    min-height: 130px;
+    line-height: 1.6;
+}
+
+.cf-submit-btn {
+    padding: 12px 28px;
+    background: #111111;
+    color: white;
+    border: none;
+    border-radius: var(--r);
+    font-family: var(--ff);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background var(--t), transform var(--t);
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 150px;
+    justify-content: center;
+}
+
+.cf-submit-btn:hover {
+    background: var(--br-d);
+    transform: translateY(-1px);
+}
+
+.cf-submit-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.cf-submit-btn .cf-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, .4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: cf-spin .7s linear infinite;
+    display: none;
+}
+
+.cf-submit-btn.loading .cf-spinner {
+    display: block;
+}
+
+.cf-submit-btn.loading .cf-btn-text {
+    display: none;
+}
+
+@keyframes cf-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Success message */
+.cf-success {
+    display: none;
+    background: rgba(30, 140, 69, .06);
+    border: 1.5px solid rgba(30, 140, 69, .2);
+    border-radius: var(--r);
+    padding: 16px 18px;
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 500;
+    align-items: center;
+    gap: 10px;
+}
+
+.cf-success.show {
+    display: flex;
+}
+
+.cf-success-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+/* ──────────────────────────────────────────────
+   CONTACT PAGE — INFO SIDEBAR
+   ────────────────────────────────────────────── */
+.contact-info-card {
+    background: var(--cream);
+    border: 1px solid var(--border-l);
+    border-radius: var(--r);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ci-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.ci-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .08);
+    border: 1px solid rgba(0, 0, 0, .15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.ci-body {}
+
+.ci-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--lighter);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.ci-value {
+    font-size: 13.5px;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.ci-value a {
+    color: #111111;
+}
+
+.ci-value a:hover {
+    text-decoration: underline;
+}
+
+.ci-divider {
+    border: none;
+    border-top: 1px solid var(--border-l);
+    margin: 0;
+}
+
+.contact-hours-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ch-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--mid);
+}
+
+.ch-row .ch-day {
+    font-weight: 500;
+    color: var(--text);
+}
+
+/* ──────────────────────────────────────────────
+   INFO PAGE — UPDATE NOTICE CHIP
+   ────────────────────────────────────────────── */
+.info-update-notice {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 0, 0, .07);
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 11.5px;
+    color: #111111;
+    font-weight: 500;
+}
+
+/* ──────────────────────────────────────────────
+   STATIC FOOTER POLICY LINKS
+   ────────────────────────────────────────────── */
+.footer-policy-links {
+    border-top: 1px solid var(--border-l);
+    /* padding-top: 10px; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px 0;
+    font-size: 12px;
+}
+
+.footer-policy-links a {
+    color: var(--mid);
+    padding: 2px 8px;
+    transition: color var(--t);
+    white-space: nowrap;
+}
+
+.footer-policy-links a:hover {
+    color: #111111;
+}
+
+.footer-policy-sep {
+    color: var(--border);
+    user-select: none;
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE
+   ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .about-mv-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .info-page-hero {
+        padding: 15px 16px;
+    }
+
+    .info-hero-title {
+        font-size: 1.3rem;
+    }
+
+    .contact-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .cf-submit-btn {
+        width: 100%;
+        align-self: stretch;
+    }
+
+    .footer-policy-links {
+        gap: 2px 0;
+        font-size: 11px;
+    }
+}

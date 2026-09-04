@@ -1,0 +1,343 @@
+﻿/* ====== ORDER HEADER ====== */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+    gap: 10px;
+}
+
+.order-header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.order-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.order-status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.order-status.delivered { background: #28a745; }
+.order-status.pending   { background: #ffc107; color: #333; }
+.order-status.cancelled { background: #dc3545; }
+
+/* ====== ORDER TIMELINE ====== */
+.order-timeline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+    background: #eee;
+    padding: 10px 0;
+    border-radius: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+.step.done {
+    background: #28a745;
+    color: #fff;
+}
+
+/* ====== ORDER GRID ====== */
+.order-grid {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+/* LEFT & RIGHT COLUMN */
+.order-left {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.order-right {
+    flex: 1;
+}
+
+/* ====== CARD STYLING ====== */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* ====== ORDER ITEMS ====== */
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.oi-img {
+    font-size: 32px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.oi-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.oi-name {
+    font-weight: 500;
+}
+
+.oi-meta {
+    font-size: 14px;
+    color: #666;
+}
+
+.oi-price {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* ====== SUMMARY ====== */
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.summary-row.total {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.btn-reorder {
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 15px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.btn-reorder:hover {
+    background: #555;
+}
+
+/* ====== MOBILE RESPONSIVE ====== */
+@media (max-width: 768px) {
+
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        margin-bottom: 6px;
+    }
+
+    .order-header h1 {
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+
+    .order-date {
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .order-status {
+        padding: 4px 10px;
+        font-size: 11px;
+        margin-top: 2px;
+    }
+
+    .order-grid {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .order-left {
+        gap: 8px;
+    }
+
+    .order-right {
+        margin-top: 0;
+    }
+
+    .card {
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .card h2 {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .order-items {
+        gap: 8px;
+    }
+
+    .order-item {
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .oi-img {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        font-size: 22px;
+    }
+
+    .oi-img img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .oi-info {
+        gap: 1px;
+    }
+
+    .oi-name {
+        font-size: 14px;
+        line-height: 1.25;
+        margin-bottom: 1px;
+    }
+
+    .oi-meta {
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    .oi-price {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .summary-row {
+        margin-bottom: 6px;
+        font-size: 13px;
+    }
+
+    .summary-row.total {
+        font-size: 15px;
+    }
+
+    .btn-reorder {
+        margin-top: 8px;
+        padding: 8px 0;
+        font-size: 14px;
+    }
+
+    #orderDelivery p,
+    #orderSummary p,
+    .card p {
+        font-size: 13px;
+        line-height: 1.4;
+        margin: 3px 0;
+    }
+}
+
+/* ====== EXTRA SMALL DEVICES ====== */
+@media (max-width: 480px) {
+
+    .order-header {
+        margin-bottom: 4px;
+    }
+
+    .order-grid {
+        gap: 6px;
+    }
+
+    .order-left {
+        gap: 6px;
+    }
+
+    .card {
+        padding: 8px;
+    }
+
+    .card h2 {
+        margin-bottom: 5px;
+    }
+
+    .order-items {
+        gap: 6px;
+    }
+
+    .order-item {
+        gap: 6px;
+    }
+
+    .oi-img {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+    }
+
+    .oi-img img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .oi-name {
+        font-size: 13px;
+    }
+
+    .oi-meta {
+        font-size: 11px;
+    }
+
+    .oi-price {
+        font-size: 12px;
+    }
+
+    .summary-row {
+        margin-bottom: 5px;
+        font-size: 12px;
+    }
+
+    .summary-row.total {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details — Pencilwood</title>
+  <meta name="description" content="Complete your order. Fast delivery, Cash on Delivery available across Bangladesh.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/checkout.css?v=11">
+  <link rel="stylesheet" href="css/home.css?v=11">
+  <link rel="stylesheet" href="css/products.css?v=11">
+  <link rel="stylesheet" href="css/product.css?v=11">
+  <link rel="stylesheet" href="css/info-pages.css?v=11">
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader">
+    <img src="images/logo-loader.png" alt="Loading...">
+  </div>
+
+
+  <body>
+    <!-- Components placeholders -->
+    <div id="toast-container"></div>
+    <div id="float-wa"></div>
+  <div id="float-cart"></div>
+    <div id="drawer-container"></div>
+
+    <div id="topnavbar-container"></div>
+    <div id="subnavbar-container"></div>
+    <div id="bc-br" class="bc-br-section"><title>Product Details</title></div>
+
+
+
+    <!-- PAGE CONTENT HERE -->
+    <!-- ══ PAGE BODY ══ -->
+    <div class="page">
+
+      <!-- ① PRODUCT HERO -->
+      <div class="prod-hero" data-brand="buyolexleather" data-product-id="lth-w-001" data-category="wallet">
+        <div class="prod-hero-inner">
+
+          <!-- GALLERY -->
+          <div class="gal-col">
+            <div class="gal-main" id="galMain" onclick="zoomToggle()">
+              <div class="gal-top-badges"><span class="g-badge g-sale">-17% OFF</span><span
+                  class="g-badge g-best">Bestseller</span></div>
+              <div class="gal-top-right">
+                <div class="g-act" id="wishIco" onclick="event.stopPropagation();wishToggle()" title="Wishlist">♡</div>
+                <div class="g-act" onclick="event.stopPropagation();shareIt()" title="Share">🔗</div>
+              </div>
+              <span class="gal-emoji" id="galEmoji">👜</span>
+              <span class="gal-zoom-hint">🔍 Tap to zoom</span>
+            </div>
+            <div class="thumbs" id="thumbGrid">
+              <div class="thumb on" onclick="setThumb(this,'👜')">👜</div>
+              <div class="thumb" onclick="setThumb(this,'🔍')">🔍</div>
+              <div class="thumb" onclick="setThumb(this,'📐')">📐</div>
+              <div class="thumb" onclick="setThumb(this,'✨')">✨</div>
+              <div class="thumb" onclick="setThumb(this,'🎁')">🎁</div>
+            </div>
+            <div class="gal-share">
+              <span class="share-lbl">Share:</span>
+              <div class="share-ic" style="color:#4267B2" onclick="toast('Shared on Facebook!')">f</div>
+              <div class="share-ic" style="color:var(--wa)"
+                onclick="window.open('https://wa.me/?text=Check this: Multifunctional Cradle — Pencilwood','_blank')">W
+              </div>
+              <div class="share-ic" onclick="toast('Link copied!')">🔗</div>
+            </div>
+          </div>
+
+          <!-- INFO -->
+          <div class="info-col">
+            <div class="brand-row">
+              <span class="brand-lnk">Pencilwood Quality</span>
+              <span class="v-badge">✔ Verified Brand</span>
+              <span class="sku-lbl">SKU: LTH-W-001</span>
+            </div>
+
+            <div>
+              <div class="prod-title">Premium Leather Wallet — Slim Bifold, RFID Protected</div>
+              <div class="prod-bn bn" style="margin-top:5px">খাঁটি ফুল-গ্রেইন লেদার — টেকসই, স্টাইলিশ, প্রতিদিনের
+                ব্যবহারে আদর্শ</div>
+            </div>
+
+            <div class="stars-row">
+              <div class="stars" id="prodStars"></div>
+              <span class="r-score">4.8</span>
+              <a class="r-cnt" href="#" onclick="switchTab('reviews')">120 ratings</a>
+              <div class="r-sep"></div>
+              <span class="r-sold">340+ sold</span>
+              <span class="stock-chip">✔ In Stock</span>
+            </div>
+
+            <div class="price-box">
+              <div class="price-row">
+                <span class="price-main">৳ 2,500</span>
+                <span class="price-orig">৳ 3,000</span>
+                <span class="price-disc">17% OFF</span>
+              </div>
+              <div class="price-note bn">ঢাকায় ফ্রি ডেলিভারি · ক্যাশ অন ডেলিভারি পাওয়া যায়</div>
+              <div class="deal-timer">
+                <span class="deal-lbl">⚡ Deal ends in:</span>
+                <div class="t-units">
+                  <span class="t-unit" id="tH">08</span><span class="t-sep">:</span>
+                  <span class="t-unit" id="tM">34</span><span class="t-sep">:</span>
+                  <span class="t-unit" id="tS">17</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="var-block">
+              <div class="var-lbl">Color: <span id="selColor">Dark Brown</span></div>
+              <div class="color-opts">
+                <label class="c-opt"><input type="radio" name="color" value="Dark Brown" checked
+                    onchange="pickColor('Dark Brown','👜')">
+                  <div class="c-swatch">
+                    <div class="c-dot" style="background:#4B2E1E"></div><span class="c-name">Dark Brown</span>
+                  </div>
+                </label>
+                <label class="c-opt"><input type="radio" name="color" value="Black" onchange="pickColor('Black','🖤')">
+                  <div class="c-swatch">
+                    <div class="c-dot" style="background:#1A1A1A"></div><span class="c-name">Black</span>
+                  </div>
+                </label>
+                <label class="c-opt"><input type="radio" name="color" value="Tan" onchange="pickColor('Tan','🟤')">
+                  <div class="c-swatch">
+                    <div class="c-dot" style="background:#C49A6C"></div><span class="c-name">Tan</span>
+                  </div>
+                </label>
+                <label class="c-opt"><input type="radio" name="color" value="Burgundy"
+                    onchange="pickColor('Burgundy','🍷')">
+                  <div class="c-swatch">
+                    <div class="c-dot" style="background:#800020"></div><span class="c-name">Burgundy</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="qty-row-wrap">
+              <span
+                style="font-size:11.5px;font-weight:600;color:var(--mid);text-transform:uppercase;letter-spacing:.05em">Qty:</span>
+              <div class="qty-ctrl">
+                <button class="q-btn" id="qMinus" onclick="chgQ(-1)" disabled>−</button>
+                <input class="q-in" id="qVal" value="1" readonly>
+                <button class="q-btn" id="qPlus" onclick="chgQ(1)">+</button>
+              </div>
+              <span class="qty-note">Only <span id="stockLeft">18</span> left</span>
+            </div>
+
+            <div class="bullets">
+              <div class="bullet"><span class="b-ico">✔</span><span class="b-txt"><strong>100% Full-Grain Genuine
+                    Leather</strong> — No synthetic or PU material</span></div>
+              <div class="bullet" style="border-top:1px solid var(--border-l);padding-top:4px;margin-top:0"><span
+                  class="b-ico">✔</span><span class="b-txt"><strong>RFID Blocking</strong> — Electronic card theft
+                  protection</span></div>
+              <div class="bullet" style="border-top:1px solid var(--border-l);padding-top:4px;margin-top:0"><span
+                  class="b-ico">✔</span><span class="b-txt"><strong>8 Card Slots + 2 Bill Pockets</strong> — Slim
+                  profile, 1cm when empty</span></div>
+              <div class="bullet" style="border-top:1px solid var(--border-l);padding-top:4px;margin-top:0"><span
+                  class="b-ico">✔</span><span class="b-txt"><strong>Waxed Durable Stitching</strong> — Resists fraying
+                  for years</span></div>
+              <div class="bullet" style="border-top:1px solid var(--border-l);padding-top:4px;margin-top:0"><span
+                  class="b-ico">✔</span><span class="b-txt"><strong>Premium Gift Box Included</strong> — Ready to gift
+                  on arrival</span></div>
+              <div class="bullet" style="border-top:1px solid var(--border-l);padding-top:4px;margin-top:0"><span
+                  class="b-ico">✔</span><span class="b-txt"><strong>💼 Office · 🚶 Daily · ✈️ Travel · 🎁 Gift</strong>
+                  — All occasions</span></div>
+            </div>
+
+            <div>
+              <div class="btn-group" style="margin-bottom:7px">
+                <button class="btn-buy" onclick="buyNow()">🛒 Buy Now</button> 
+                <button class="btn-cart" id="cartBtn" onclick="addCart()">+ Add to Cart</button>
+              </div>
+              <div class="btn-sec-row">
+                <button class="btn-wish" id="wishBtn" onclick="wishToggle()">♡ Wishlist</button>
+                <button class="btn-cmp" onclick="toast('Added to compare')">⚖ Compare</button>
+              </div>
+            </div>
+          </div><!-- /info-col -->
+
+          <!-- DELIVERY COL -->
+          <div class="del-col">
+            <div class="del-head">Delivery</div>
+
+            <!-- Smart checker -->
+            <div class="del-checker">
+              <button class="del-trigger" id="delTrig" onclick="delToggle()">
+                <span style="display:flex;align-items:center;gap:7px"><span style="font-size:15px">📍</span><span
+                    id="delTrigLbl">Check delivery to your area</span></span>
+                <span id="delChev" style="font-size:9px;color:var(--lighter);transition:transform .25s">▼</span>
+              </button>
+              <div class="del-panel" id="delPanel">
+                <div class="del-step">
+                  <div class="del-step-lbl">Select Division</div>
+                  <div class="chips" id="divChips">
+                    <span class="chip" onclick="pickDiv(this,'dhaka')">Dhaka</span>
+                    <span class="chip" onclick="pickDiv(this,'chittagong')">Chittagong</span>
+                    <span class="chip" onclick="pickDiv(this,'sylhet')">Sylhet</span>
+                    <span class="chip" onclick="pickDiv(this,'rajshahi')">Rajshahi</span>
+                    <span class="chip" onclick="pickDiv(this,'khulna')">Khulna</span>
+                    <span class="chip" onclick="pickDiv(this,'barisal')">Barisal</span>
+                    <span class="chip" onclick="pickDiv(this,'rangpur')">Rangpur</span>
+                    <span class="chip" onclick="pickDiv(this,'mymensingh')">Mymensingh</span>
+                  </div>
+                </div>
+                <div class="del-step" id="areaStep" style="display:none">
+                  <div class="del-step-lbl">Select Area</div>
+                  <div class="chips">
+                    <span class="chip" onclick="pickArea(this,'savar')">Savar</span>
+                    <span class="chip" onclick="pickArea(this,'ashulia')">Ashulia</span>
+                    <span class="chip" onclick="pickArea(this,'mirpur')">Mirpur</span>
+                    <span class="chip" onclick="pickArea(this,'uttara')">Uttara</span>
+                    <span class="chip" onclick="pickArea(this,'dhanmondi')">Dhanmondi</span>
+                    <span class="chip" onclick="pickArea(this,'gulshan')">Gulshan</span>
+                    <span class="chip" onclick="pickArea(this,'motijheel')">Motijheel</span>
+                    <span class="chip" onclick="pickArea(this,'other')">Other</span>
+                  </div>
+                </div>
+                <div class="del-result" id="delResult">
+                  <div class="del-res-inner" id="delResInner"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Compact trust pills -->
+            <div class="trust-pills">
+              <span class="t-pill">↩️ 7-Day Return</span>
+              <span class="t-pill">🛡️ Quality Checked</span>
+              <span class="t-pill">🎁 Gift Box</span>
+              <span class="t-pill">💬 Support 9–9</span>
+              <span class="t-pill">🔒 Secure</span>
+            </div>
+
+            <!-- Seller -->
+            <div>
+              <div class="del-head">Sold by</div>
+              <div class="seller-box">
+                <div class="seller-name">Pencilwood Official</div>
+                <div class="seller-stats">
+                  <span class="seller-stat">⭐ <strong>4.9</strong></span>
+                  <span class="seller-stat">📦 <strong>98%</strong> on-time</span>
+                  <span class="seller-stat">↩️ <strong>0%</strong> returns</span>
+                </div>
+                <span class="seller-btn">Visit Store →</span>
+              </div>
+            </div>
+
+          </div><!-- /del-col -->
+        </div>
+
+
+      </div><!-- /prod-hero -->
+
+      
+
+      <!-- ⑤ TABS: Description / Features / Reviews / FAQ -->
+      <div class="lp-section" id="tabsSection">
+        <div class="tabs-nav">
+          <button class="tab-btn on" onclick="switchTab('desc')">Description</button>
+          <button class="tab-btn" onclick="switchTab('feat')">Features & Specs</button>
+          <button class="tab-btn" onclick="switchTab('reviews')" id="rvTabBtn">Reviews (120)</button>
+          <button class="tab-btn" onclick="switchTab('faq')">FAQ</button>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="tab-pane on" id="pane-desc">
+          <p class="desc-body">This Premium Leather Wallet is crafted from hand-selected full-grain leather sourced from
+            certified tanneries. The slim bifold profile fits comfortably in any pocket without bulk, while the interior
+            is structured for practical daily organization. Every stitch is reinforced with waxed thread, ensuring the
+            wallet ages beautifully rather than deteriorating.</p>
+          <div class="desc-bn-box">এই প্রিমিয়াম লেদার ওয়ালেটটি খাঁটি ফুল-গ্রেইন লেদার দিয়ে তৈরি। স্লিম বাইফোল্ড
+            ডিজাইন পকেটে সহজে ধরে। প্রতিটি সেলাই মোমযুক্ত সুতায় মজবুত — সময়ের সাথে লেদারের রঙ আরও সুন্দর হয়।</div>
+          <table class="spec-tbl">
+            <tr>
+              <td>Material</td>
+              <td>100% Full-Grain Genuine Leather</td>
+            </tr>
+            <tr>
+              <td>Dimensions</td>
+              <td>9.5 × 11 × 1 cm (when empty)</td>
+            </tr>
+            <tr>
+              <td>Weight</td>
+              <td>65 grams</td>
+            </tr>
+            <tr>
+              <td>Card Slots</td>
+              <td>8 slots + 2 hidden pockets</td>
+            </tr>
+            <tr>
+              <td>Bill Compartments</td>
+              <td>2 full-length compartments</td>
+            </tr>
+            <tr>
+              <td>RFID Protection</td>
+              <td>Yes — built-in blocking layer</td>
+            </tr>
+            <tr>
+              <td>Colors</td>
+              <td>Dark Brown, Black, Tan, Burgundy</td>
+            </tr>
+            <tr>
+              <td>Stitching</td>
+              <td>Waxed thread, hand-finished</td>
+            </tr>
+            <tr>
+              <td>Packaging</td>
+              <td>Premium Pencilwood gift box</td>
+            </tr>
+            <tr>
+              <td>Warranty</td>
+              <td>6 months</td>
+            </tr>
+            <tr>
+              <td>SKU</td>
+              <td>LTH-W-001</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="tab-pane" id="pane-feat">
+          <div class="feat-grid">
+            <div class="feat-card"><span class="feat-icon">🐄</span>
+              <div>
+                <div class="feat-name">Full-Grain Leather</div>
+                <div class="feat-desc">Hand-selected top-tier hide. Develops natural patina over time — grows more
+                  beautiful with use.</div>
+              </div>
+            </div>
+            <div class="feat-card"><span class="feat-icon">🔒</span>
+              <div>
+                <div class="feat-name">RFID Blocking</div>
+                <div class="feat-desc">Built-in shield protects bank cards from wireless theft in crowded places.</div>
+              </div>
+            </div>
+            <div class="feat-card"><span class="feat-icon">💳</span>
+              <div>
+                <div class="feat-name">8 Card Slots</div>
+                <div class="feat-desc">8 card slots, 2 hidden pockets, 2 bill compartments — fully organized without
+                  bulk.</div>
+              </div>
+            </div>
+            <div class="feat-card"><span class="feat-icon">🧵</span>
+              <div>
+                <div class="feat-name">Waxed Stitching</div>
+                <div class="feat-desc">Double-stitched waxed thread on all seams. Moisture and fray resistant.</div>
+              </div>
+            </div>
+            <div class="feat-card"><span class="feat-icon">✂️</span>
+              <div>
+                <div class="feat-name">Slim 1cm Profile</div>
+                <div class="feat-desc">Flat in front or back pockets. No uncomfortable bulge when empty or loaded.</div>
+              </div>
+            </div>
+            <div class="feat-card"><span class="feat-icon">🎁</span>
+              <div>
+                <div class="feat-name">Gift Box Included</div>
+                <div class="feat-desc">Ships in elegant Pencilwood branded box — perfect for gifts right from delivery.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="feat-tags" style="margin-top:14px">
+            <span style="font-size:12px;font-weight:600;color:var(--mid)">Ideal for:</span>
+            <span class="feat-tag">💼 Office</span>
+            <span class="feat-tag">🚶 Daily Carry</span>
+            <span class="feat-tag">✈️ Travel</span>
+            <span class="feat-tag">🎁 Gifting</span>
+            <span class="feat-tag">🎓 Graduation</span>
+            <span class="feat-tag">🎂 Birthday</span>
+            <span class="feat-tag">🕌 Eid Gift</span>
+          </div>
+        </div>
+
+        <!-- REVIEWS -->
+        <div class="tab-pane" id="pane-reviews">
+          <div class="rv-header">
+            <div class="rv-big">
+              <div class="rv-num">4.8</div>
+              <div class="rv-big-stars" id="bigStars"></div>
+              <div class="rv-out">120 reviews</div>
+            </div>
+            <div class="rv-bars">
+              <div class="rv-bar-row"><span class="rv-bar-lbl">5★</span>
+                <div class="rv-track">
+                  <div class="rv-fill" style="width:82%"></div>
+                </div><span class="rv-cnt">98</span>
+              </div>
+              <div class="rv-bar-row"><span class="rv-bar-lbl">4★</span>
+                <div class="rv-track">
+                  <div class="rv-fill" style="width:12%"></div>
+                </div><span class="rv-cnt">14</span>
+              </div>
+              <div class="rv-bar-row"><span class="rv-bar-lbl">3★</span>
+                <div class="rv-track">
+                  <div class="rv-fill" style="width:4%"></div>
+                </div><span class="rv-cnt">5</span>
+              </div>
+              <div class="rv-bar-row"><span class="rv-bar-lbl">2★</span>
+                <div class="rv-track">
+                  <div class="rv-fill" style="width:1%;background:#E0C080"></div>
+                </div><span class="rv-cnt">2</span>
+              </div>
+              <div class="rv-bar-row"><span class="rv-bar-lbl">1★</span>
+                <div class="rv-track">
+                  <div class="rv-fill" style="width:1%;background:#E0C080"></div>
+                </div><span class="rv-cnt">1</span>
+              </div>
+            </div>
+            <div class="rv-summary">
+              <div class="rv-s-card">
+                <div class="rv-s-num">98%</div>
+                <div class="rv-s-lbl">Recommend</div>
+              </div>
+              <div class="rv-s-card">
+                <div class="rv-s-num">23</div>
+                <div class="rv-s-lbl">With Photos</div>
+              </div>
+              <div class="rv-s-card">
+                <div class="rv-s-num">4.9</div>
+                <div class="rv-s-lbl">Delivery</div>
+              </div>
+            </div>
+          </div>
+          <div class="rv-filters">
+            <span class="rv-filter on" onclick="rvFilter(this)">All (120)</span>
+            <span class="rv-filter" onclick="rvFilter(this)">5★ (98)</span>
+            <span class="rv-filter" onclick="rvFilter(this)">4★ (14)</span>
+            <span class="rv-filter" onclick="rvFilter(this)">With Photos (23)</span>
+            <span class="rv-filter" onclick="rvFilter(this)">Verified Purchase</span>
+          </div>
+          <div class="rv-list">
+            <div class="rv-item">
+              <div class="rv-item-top">
+                <div class="rv-author-row">
+                  <div class="rv-avatar" style="background:#4B2E1E">SA</div>
+                  <div>
+                    <div class="rv-name">Sakib Ahmed</div>
+                    <div class="rv-meta"><span class="rv-date">Dec 2024</span><span class="rv-veri">✔
+                        Verified</span><span class="rv-ptag">Dark Brown</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="rv-stars-item" id="rv1s"></div>
+              <p class="rv-text">"Exceptional leather quality — far better than expected. Three months of daily use and
+                it's developing a beautiful natural patina. The RFID protection is a great bonus during travel."</p>
+              <p class="rv-text-bn">"অসাধারণ মানের লেদার। তিন মাস ব্যবহারেও একদম চমৎকার আছে। দাম অনুযায়ী মান অনেক
+                ভালো।"</p>
+              <div class="rv-photos">
+                <div class="rv-photo">👜</div>
+                <div class="rv-photo">🔍</div>
+              </div>
+              <div class="rv-helpful"><span class="rv-hlbl">Helpful?</span><button class="rv-hbtn"
+                  onclick="toast('Marked helpful')">👍 Yes (34)</button><button class="rv-hbtn"
+                  onclick="toast('Noted')">👎 No</button></div>
+            </div>
+            <div class="rv-item">
+              <div class="rv-item-top">
+                <div class="rv-author-row">
+                  <div class="rv-avatar" style="background:#7A4A32">RK</div>
+                  <div>
+                    <div class="rv-name">Rahim Khan</div>
+                    <div class="rv-meta"><span class="rv-date">Nov 2024</span><span class="rv-veri">✔
+                        Verified</span><span class="rv-ptag">Black</span><span class="rv-ptag">Gift</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="rv-stars-item" id="rv2s"></div>
+              <p class="rv-text">"Bought as a birthday gift. The gift box alone looked incredibly premium. Delivery
+                inside Dhaka took only 1 day. He absolutely loves it."</p>
+              <p class="rv-text-bn">"গিফট বক্স দেখেই বোঝা যায় কতটা প্রিমিয়াম। ১ দিনেই ডেলিভারি পেয়েছি।"</p>
+              <div class="rv-helpful"><span class="rv-hlbl">Helpful?</span><button class="rv-hbtn"
+                  onclick="toast('Marked helpful')">👍 Yes (18)</button><button class="rv-hbtn"
+                  onclick="toast('Noted')">👎 No</button></div>
+            </div>
+            <div class="rv-item">
+              <div class="rv-item-top">
+                <div class="rv-author-row">
+                  <div class="rv-avatar" style="background:#B07A50">MH</div>
+                  <div>
+                    <div class="rv-name">Mahbub Hossain</div>
+                    <div class="rv-meta"><span class="rv-date">Oct 2024</span><span class="rv-veri">✔
+                        Verified</span><span class="rv-ptag">Tan</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="rv-stars-item" id="rv3s"></div>
+              <p class="rv-text">"Very good leather quality. Cash on delivery made it completely risk-free. Wish it had
+                a coin pocket — otherwise absolutely perfect."</p>
+              <p class="rv-text-bn">"ক্যাশ অন ডেলিভারি সুবিধাটা অনেক ভালো লেগেছে। কয়েন পকেট থাকলে পূর্ণ মার্কস দিতাম।"
+              </p>
+              <div class="rv-helpful"><span class="rv-hlbl">Helpful?</span><button class="rv-hbtn"
+                  onclick="toast('Marked helpful')">👍 Yes (11)</button><button class="rv-hbtn"
+                  onclick="toast('Noted')">👎 No</button></div>
+            </div>
+          </div>
+          <div style="text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--border-l)">
+            <button onclick="toast('Loading more reviews...')"
+              style="font-size:13px;font-weight:600;padding:9px 26px;border:1.5px solid var(--border);border-radius:var(--r);color:var(--text);background:white;cursor:pointer;transition:all var(--t)"
+              onmouseover="this.style.borderColor='var(--br)';this.style.color='var(--br)'"
+              onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">Load More Reviews (117
+              remaining)</button>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="tab-pane" id="pane-faq">
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-q" onclick="faqToggle(this)"><span class="faq-q-txt">Is this 100% genuine
+                  leather?</span><i class="faq-ico">+</i></div>
+              <div class="faq-a">
+                <p>Yes — 100% full-grain genuine leather from certified tanneries. We never use synthetic, bonded, or PU
+                  leather.</p>
+                <p class="bn">হ্যাঁ, ১০০% খাঁটি ফুল-গ্রেইন লেদার। কোনো কৃত্রিম বা PU লেদার ব্যবহার হয় না।</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="faqToggle(this)"><span class="faq-q-txt">Do you offer Cash on
+                  Delivery?</span><i class="faq-ico">+</i></div>
+              <div class="faq-a">
+                <p>Yes, Cash on Delivery is available across all of Bangladesh. Pay when the product arrives at your
+                  door.</p>
+                <p class="bn">হ্যাঁ, সারা বাংলাদেশে ক্যাশ অন ডেলিভারি পাওয়া যায়। পণ্য হাতে পাওয়ার পর টাকা দিন।</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="faqToggle(this)"><span class="faq-q-txt">What is the delivery time and
+                  charge?</span><i class="faq-ico">+</i></div>
+              <div class="faq-a">
+                <p>Savar/Ashulia: Same-day (order before 1PM) · Free. Inside Dhaka: 1–2 days · ৳60. Outside Dhaka: 2–4
+                  days · ৳120.</p>
+                <p class="bn">সাভার/আশুলিয়া: আজই · ফ্রি। ঢাকার ভিতরে: ১–২ দিন · ৳৬০। ঢাকার বাইরে: ২–৪ দিন · ৳১২০।</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="faqToggle(this)"><span class="faq-q-txt">What is your return policy?</span><i
+                  class="faq-ico">+</i></div>
+              <div class="faq-a">
+                <p>7-day return for unused items in original condition. Defective items replaced at no cost. WhatsApp us
+                  to initiate.</p>
+                <p class="bn">৭ দিনের মধ্যে অব্যবহৃত পণ্য ফেরত দেওয়া যাবে। হোয়াটসঅ্যাপে যোগাযোগ করুন।</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="faqToggle(this)"><span class="faq-q-txt">Is it suitable as a gift?</span><i
+                  class="faq-ico">+</i></div>
+              <div class="faq-a">
+                <p>Absolutely. Every wallet comes in a premium Pencilwood branded gift box — ready to gift on arrival.
+                  Ideal for Eid, birthdays, graduations, and corporate gifts.</p>
+                <p class="bn">অবশ্যই। প্রতিটি ওয়ালেট প্রিমিয়াম গিফট বক্সে আসে — ঈদ, জন্মদিন, গ্র্যাজুয়েশন ও কর্পোরেট
+                  গিফটের জন্য আদর্শ।</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="faqToggle(this)"><span class="faq-q-txt">How do I care for the
+                  leather?</span><i class="faq-ico">+</i></div>
+              <div class="faq-a">
+                <p>Keep dry, away from direct sun. Apply leather conditioner every 3–6 months. Avoid overfilling. The
+                  natural patina that develops is a sign of quality aging.</p>
+                <p class="bn">রোদ থেকে দূরে রাখুন। ৩–৬ মাসে একবার লেদার কন্ডিশনার লাগান। অতিরিক্ত ভরাট করবেন না।</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑥ MID-PAGE CTA (Landing page style) -->
+      <div class="lp-cta-section">
+        <div class="lp-cta-copy">
+          <div class="lp-cta-title bn">এখনই অর্ডার করুন — সীমিত স্টক!</div>
+          <div class="lp-cta-sub">Free delivery in Dhaka · Cash on Delivery · 7-Day Return</div>
+          <div class="lp-cta-badges">
+            <span class="lp-cta-badge">✔ Genuine Leather</span>
+            <span class="lp-cta-badge">✔ RFID Protected</span>
+            <span class="lp-cta-badge">✔ Gift Box Included</span>
+            <span class="lp-cta-badge">✔ Only 18 Left</span>
+          </div>
+        </div>
+        <div class="lp-cta-btns">
+          <button class="btn-buy" onclick="buyNow()">🛒 Buy Now</button>
+          <button class="lp-cta-btn-wa"
+            onclick="window.open('https://wa.me/?text=I want to order: Premium Leather Wallet','_blank')">💬
+            WhatsApp</button>
+        </div>
+      </div>
+
+      <!-- ⑦ RELATED PRODUCTS -->
+      <div class="lp-section">
+        <div class="lp-head">
+          <div class="lp-title">You May Also Like</div><span onclick="toast('Viewing all...')"
+            style="font-size:12px;color:var(--br);font-weight:600;cursor:pointer">See All →</span>
+        </div>
+        <div class="related-grid">
+          <div class="rel-item" data-brand="buyolexleather" data-product-id="lth-002" data-category="passport-holder">
+            <div class="rel-img" style="background:linear-gradient(135deg,#F5EDE5,#EDD9C8)"><span
+                class="rel-badge">New</span>✈️</div>
+            <div class="rel-stars">★★★★★ (87)</div>
+            <div class="rel-name">Premium Passport Holder</div>
+            <div><span class="rel-price">৳ 1,650</span><span class="rel-orig">৳ 2,000</span></div>
+            <button class="rel-add" onclick="toast('Passport Holder added!')">+ Cart</button>
+          </div>
+          <div class="rel-item" data-brand="buyolexleather" data-product-id="lth-003" data-category="belt">
+            <div class="rel-img" style="background:linear-gradient(135deg,#EDE5D5,#DDD0B8)">👔</div>
+            <div class="rel-stars">★★★★☆ (62)</div>
+            <div class="rel-name">Classic Leather Belt</div>
+            <div><span class="rel-price">৳ 1,200</span></div>
+            <button class="rel-add" onclick="toast('Belt added!')">+ Cart</button>
+          </div>
+          <div class="rel-item" data-brand="buyolexleather" data-product-id="lth-004" data-category="accessories">
+            <div class="rel-img" style="background:linear-gradient(135deg,#E8DDD0,#D4C5B0)">🔑</div>
+            <div class="rel-stars">★★★★★ (48)</div>
+            <div class="rel-name">Leather Key Holder</div>
+            <div><span class="rel-price">৳ 950</span></div>
+            <button class="rel-add" onclick="toast('Key Holder added!')">+ Cart</button>
+          </div>
+          <div class="rel-item" data-brand="buyolexleather" data-product-id="lth-005" data-category="wallet">
+            <div class="rel-img" style="background:linear-gradient(135deg,#F0E8DC,#E0D0BC)"><span class="rel-badge"
+                style="background:var(--gold)">Top</span>💼</div>
+            <div class="rel-stars">★★★★★ (74)</div>
+            <div class="rel-name">Long Zip Wallet — 12 Cards</div>
+            <div><span class="rel-price">৳ 3,100</span><span class="rel-orig">৳ 3,600</span></div>
+            <button class="rel-add" onclick="toast('Zip Wallet added!')">+ Cart</button>
+          </div>
+          <div class="rel-item" data-brand="buyolexleather" data-product-id="lth-006" data-category="belt">
+            <div class="rel-img" style="background:linear-gradient(135deg,#F5EDE5,#EDD9C8)">🎯</div>
+            <div class="rel-stars">★★★★☆ (31)</div>
+            <div class="rel-name">Woven Leather Belt</div>
+            <div><span class="rel-price">৳ 1,800</span></div>
+            <button class="rel-add" onclick="toast('Woven Belt added!')">+ Cart</button>
+          </div>
+          <div class="rel-item" data-brand="buyolexleather" data-product-id="lth-007" data-category="accessories">
+            <div class="rel-img" style="background:linear-gradient(135deg,#EDE5D5,#DDD0B8)">💼</div>
+            <div class="rel-stars">★★★★★ (29)</div>
+            <div class="rel-name">Leather Card Holder</div>
+            <div><span class="rel-price">৳ 750</span></div>
+            <button class="rel-add" onclick="toast('Card Holder added!')">+ Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="eco-container"></div>
+
+    </div><!-- /page -->
+
+    <!-- STICKY BAR (mobile) -->
+    <div class="sticky-bar">
+      <div class="sticky-bar-inner">
+        <div class="sticky-price">
+          <div class="sticky-p">৳ 2,500</div>
+          <div class="sticky-p-orig">৳ 3,000</div>
+        </div>
+        <div class="sticky-btns">
+          <button class="btn-cart" id="cartBtnSticky" onclick="addCart()">+ Cart</button>
+          <button class="btn-buy" onclick="buyNow()">🛒 Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+  <div class="footer-section">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+
+    <!-- JS -->
+    <script src="js/env.js?v=11"></script>
+    <script src="js/main.js?v=11"></script>
+    <script src="js/loadComponents.js?v=11"></script>
+  </body>
+
+</html>

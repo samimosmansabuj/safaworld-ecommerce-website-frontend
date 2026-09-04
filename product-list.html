@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    All Products — Safa World
+  </title>
+
+  <meta name="description" content="Explore Safa World's premium product collection. Cash on delivery available.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/products.css?v=12">
+  <link rel="stylesheet" href="css/product.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <div id="toast-container"></div>
+  <div id="float-wa"></div>
+  <div id="float-cart"></div>
+  <div id="drawer-container"></div>
+  <div id="topnavbar-container"></div>
+  <div id="subnavbar-container"></div>
+
+  <div id="bc-br" class="bc-br-section"><title>Product List</title></div>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <!-- <div class="lp-section">
+      <div class="lp-head">
+        <div class="lp-title">
+          All Products
+        </div>
+        <div class="lp-sub">
+          Browse our premium collection
+        </div>
+      </div>
+    </div> -->
+
+    <!-- FILTER -->
+    <div class="filter-bar">
+
+      <div class="filter-left">
+
+        <label>
+
+          <span>Category:</span>
+
+          <select id="filterCategory" onchange="applyFilters()">
+
+            <option value="all">
+              All
+            </option>
+
+          </select>
+
+        </label>
+
+        <label>
+
+          <span>Sort by:</span>
+
+          <select id="sortBy" onchange="applyFilters()">
+
+            <option value="popularity">
+              Popularity
+            </option>
+
+            <option value="price-low-high">
+              Price: Low to High
+            </option>
+
+            <option value="price-high-low">
+              Price: High to Low
+            </option>
+
+            <option value="newest">
+              Newest
+            </option>
+
+          </select>
+
+        </label>
+
+      </div>
+
+      <div class="filter-right">
+
+        <span id="totalProducts">
+          Loading...
+        </span>
+
+      </div>
+
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="products-grid" id="productsGrid"></div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+
+      <button onclick="goPage(1)">
+        « First
+      </button>
+
+      <button onclick="prevPage()">
+        ‹ Prev
+      </button>
+
+      <span id="pageNumbers"></span>
+
+      <button onclick="nextPage()">
+        Next ›
+      </button>
+
+      <button onclick="goPage(Math.ceil(filteredProducts.length / perPage))">
+
+        Last »
+
+      </button>
+
+    </div>
+
+    <!-- SOCIAL -->
+    <!-- <div class="proof-banner">
+
+      <div class="proof-stat">
+        <div class="proof-num">500+</div>
+        <div class="proof-lbl">
+          Happy Customers
+        </div>
+      </div>
+
+      <div class="proof-stat">
+        <div class="proof-num">4.8★</div>
+        <div class="proof-lbl">
+          Average Rating
+        </div>
+      </div>
+
+      <div class="proof-stat">
+        <div class="proof-num">100%</div>
+        <div class="proof-lbl">
+          Genuine Products
+        </div>
+      </div>
+
+      <div class="proof-stat">
+        <div class="proof-num">0%</div>
+        <div class="proof-lbl">
+          Return Rate
+        </div>
+      </div>
+
+    </div> -->
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+
+
+
+
+  <!-- JS -->
+  <script src="js/env.js?v=12"></script>
+  <script src="js/tracking.js?v=12"></script>
+  <script src="js/marketing.js?v=12"></script>
+  <script src="js/config.js?v=12"></script>
+
+  <script src="js/main.js?v=12"></script>
+  <script src="js/loadComponents.js?v=12"></script>
+  <script src="js/site-content.js?v=12"></script>
+  <script src="js/cart.js?v=12"></script>
+  <script src="js/wishlist.js?v=12"></script>
+
+  <script src="js/auth.js?v=12"></script>
+  <script src="js/product_list.js?v=12"></script>
+
+</body>
+
+</html>

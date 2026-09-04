@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    Address Book — Safa World
+  </title>
+
+  <meta name="description" content="Manage your delivery addresses easily.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/address.css?v=12">
+  <link rel="stylesheet" href="css/profile.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <!-- COMPONENTS -->
+  <div id="toast-container"></div>
+
+  <div id="float-wa"></div>
+  <div id="float-cart"></div>
+
+  <div id="drawer-container"></div>
+
+  <div id="topnavbar-container"></div>
+
+  <div id="subnavbar-container"></div>
+
+  <div id="bc-br" class="bc-br-section"><title>My Addresses</title></div>
+
+  <!-- PAGE -->
+  <div class="page">
+    <div class="account-links">
+      <a href="profile.html">
+        <i class="fa fa-user"></i> <span>Profile</span>
+      </a>
+      <a href="my-orders.html">
+        <!-- <i class="fa fa-box-open"></i> -->
+        📦 <span>My Orders</span>
+      </a>
+      <a href="address.html">
+        <i class="fa fa-location-arrow"></i> <span>Address Book</span>
+      </a>
+      <a onclick="logoutUser()">
+        ⏻ <span>Logout</span>
+      </a>
+    </div>
+
+    <div class="address-head">
+
+      <div class="address-count" id="addressCount">
+
+        0 Saved
+
+      </div>
+
+    </div>
+
+    <!-- ADDRESS LIST -->
+    <div class="address-list" id="addressList">
+
+      <div class="addr-card">
+        Loading addresses...
+      </div>
+
+    </div>
+
+    <!-- ADD NEW -->
+    <div class="address-form">
+
+      <h2>
+        Add New Address
+      </h2>
+
+      <div class="form-grid">
+
+        <input type="text" id="addrName" placeholder="Full Name">
+
+        <input type="text" id="addrPhone" placeholder="Phone Number">
+
+      </div>
+
+      <!-- DISTRICT -->
+      <select id="deliverydistrict">
+
+        <option value="">
+          Select District
+        </option>
+
+      </select>
+
+      <!-- DELIVERY CHARGE -->
+      <div class="delivery-charge-box" id="deliveryChargeBox">
+
+        Delivery Charge:
+        <span id="deliveryChargeText">
+          ৳ 0
+        </span>
+
+      </div>
+
+      <textarea id="addrText" placeholder="Full Address"></textarea>
+
+      <button id="addAddressBtn">
+
+        Save Address
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/env.js?v=12"></script>
+  <script src="js/tracking.js?v=12"></script>
+  <script src="js/marketing.js?v=12"></script>
+  <script src="js/config.js?v=12"></script>
+  <script src="js/main.js?v=12"></script>
+  <script src="js/loadComponents.js?v=12"></script>
+  <script src="js/site-content.js?v=12"></script>
+  <script src="js/address.js?v=12"></script>
+  <script src="js/auth.js?v=12"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+﻿/* =========================
+   PAGE
+========================= */
+
+.wishlist-grid{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+/* =========================
+   ROW CARD
+========================= */
+
+.wishlist-row{
+    background:#fff;
+    border-radius:14px;
+    padding:10px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 4px 14px rgba(0,0,0,.06);
+    transition:.2s;
+}
+
+.wishlist-row:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================
+   IMAGE
+========================= */
+
+.wishlist-image{
+    width:90px;
+    height:90px;
+    flex-shrink:0;
+    border-radius:10px;
+    overflow:hidden;
+    background:#f5f5f5;
+    cursor:pointer;
+}
+
+.wishlist-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* =========================
+   INFO
+========================= */
+
+.wishlist-info{
+    flex:1;
+    min-width:0;
+}
+
+.wishlist-name{
+    font-size:15px;
+    font-weight:600;
+    line-height:1.4;
+    cursor:pointer;
+    margin-bottom:6px;
+}
+
+.wishlist-price{
+    font-size:16px;
+    font-weight:700;
+}
+
+.wishlist-old{
+    margin-left:6px;
+    font-size:13px;
+    color:#888;
+    text-decoration:line-through;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.wishlist-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    background:transparent;
+    border-radius:50%;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    transition:.25s ease;
+}
+
+.cart-btn{
+    color:#fff;
+}
+
+.cart-btn:hover{
+    opacity:1;
+    background:#efd7bf;
+    transform:scale(1.08);
+}
+
+.remove-btn{
+    background:#fff0f0;
+    color:#e53935;
+    font-weight:700;
+    opacity:.55;
+}
+
+.remove-btn:hover{
+    opacity:1;
+    background:rgba(255,0,0,.08);
+    color:#e53935;
+    transform:scale(1.08);
+}
+
+/* CLICK / ACTIVE */
+.cart-btn:active{
+    opacity:1;
+    background:#efd7bf;;
+    transform:scale(.95);
+}
+
+.remove-btn:active{
+    opacity:1;
+    background:rgba(255,0,0,.15);
+    color:#e53935;
+    transform:scale(.95);
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.wishlist-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  margin-top: 20px;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  background: #f4f6f8;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #111;
+}
+
+.empty-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.empty-sub {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.btn-shop {
+  border: none;
+  background: #111;
+  color: #fff;
+  border-radius: 12px;
+  padding: 16px 32px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.btn-shop:hover {
+  background: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+    .page{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+    .wishlist-grid{
+        gap:8px;
+    }
+
+    .wishlist-row{
+        padding:8px;
+        gap:8px;
+    }
+
+    .wishlist-image{
+        width:70px;
+        height:70px;
+    }
+
+    .wishlist-name{
+        font-size:13px;
+        margin-bottom:4px;
+    }
+
+    .wishlist-price{
+        font-size:14px;
+    }
+
+    .wishlist-old{
+        font-size:11px;
+    }
+
+    .wishlist-actions{
+        gap:6px;
+    }
+
+    .icon-btn{
+        width:36px;
+        height:36px;
+        font-size:18px;
+    }
+
+    .wishlist-title{
+        font-size:22px;
+    }
+}

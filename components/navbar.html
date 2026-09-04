@@ -1,0 +1,126 @@
+<!-- TOP NAV -->
+<div class="topnav">
+  <div class="topnav-in">
+
+    <!-- LOGO (left) -->
+    <a class="logo-wrap" href="/">
+      <div class="logo-icon">
+        <img src="images/safa-world-logo.jpg" alt="Safa World Logo"
+          onerror="this.style.display='none';this.parentElement.innerHTML='SW'">
+      </div>
+      <div class="logo-name">
+        <img src="images/logo-with-character.jpg" alt="" style="height: 36px;">
+        <!-- <small>Premium Store</small> -->
+      </div>
+    </a>
+
+    <!-- DESKTOP: Search in middle -->
+    <div class="nav-middle">
+      <div class="search-wrap">
+        <input class="search-in" type="text" placeholder="Search products...">
+        <button class="search-go">🔍</button>
+      </div>
+    </div>
+
+    <!-- DESKTOP NAV ICONS (right) -->
+    <div class="nav-right">
+      <!-- LOGIN (desktop) -->
+      <div class="nav-ic login-btn" onclick="window.location.href='login.html'">
+        <span class="nav-ic-icon"><i class="fa fa-user"></i></span>
+        Login
+      </div>
+
+      <!-- ACCOUNT (desktop) -->
+      <div class="nav-ic account-btn" onclick="window.location.href='profile.html'" style="display:none;">
+        <span class="nav-ic-icon">
+          <i class="fa fa-user"></i>
+        </span>
+        Account
+      </div>
+
+      <!-- WISHLIST (desktop) -->
+      <div class="nav-ic" onclick="openWishlist()">
+        <span class="nav-ic-icon">
+          <i class="fa fa-heart"></i>
+          <span class="cart-dot" id="wishCount">0</span>
+        </span>
+        Wishlist
+      </div>
+    </div>
+
+    <!-- MOBILE: Search button (right side of topnav) -->
+    <button class="mobile-search-btn" onclick="openSearch()" aria-label="Search">
+      <i class="fa fa-search"></i>
+    </button>
+
+  </div>
+</div>
+
+
+<!-- SUBNAV (desktop) -->
+<div class="subnav">
+  <div class="subnav-in">
+    <a href="/">Home</a>
+    <a href="product-list.html">All Products</a>
+    <!-- Additional links are managed from dashboard: Site Settings > Navbar Menu Links.
+         They are appended dynamically here by js/site-content.js -->
+  </div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div id="searchOverlay" class="search-overlay">
+  <div class="search-box">
+    <input type="text" id="mobileSearchInput" placeholder="Search products...">
+    <button id="mobileSearchBtn">🔍</button>
+    <button id="closeSearch">✕</button>
+  </div>
+  <div id="searchSuggestions" class="search-suggestions"></div>
+</div>
+
+<!-- ═══════════════════════════════════
+     MOBILE BOTTOM NAVIGATION BAR
+═══════════════════════════════════ -->
+<nav class="mob-bottom-nav" id="mobBottomNav">
+
+  <!-- Support -->
+  <a class="mob-nav-item" href="contact-us.html">
+    <span class="mob-nav-icon"><i class="fa fa-headphones"></i></span>
+    <span class="mob-nav-label">Support</span>
+  </a>
+
+  <!-- Account (login-btn = not logged in) -->
+  <a class="mob-nav-item login-btn" href="login.html">
+    <span class="mob-nav-icon"><i class="fa fa-user-o"></i></span>
+    <span class="mob-nav-label">Login</span>
+  </a>
+
+  <!-- HOME (center, special) -->
+  <a class="mob-nav-item mob-nav-home" href="/">
+    <span class="mob-nav-home-ring">
+      <i class="fa fa-home"></i>
+    </span>
+    <span class="mob-nav-label">Home</span>
+  </a>
+
+  <!-- All Category -->
+  <a class="mob-nav-item" href="product-list.html">
+    <span class="mob-nav-icon"><i class="fa fa-th-large"></i></span>
+    <span class="mob-nav-label">Category</span>
+  </a>
+
+  <!-- Wishlist -->
+  <a class="mob-nav-item" onclick="openWishlist()">
+    <span class="mob-nav-icon" style="position:relative;">
+      <i class="fa fa-heart-o"></i>
+      <span class="cart-dot" id="wishCountMob">0</span>
+    </span>
+    <span class="mob-nav-label">Wishlist</span>
+  </a>
+
+  <!-- Account (account-btn = logged in) — hidden by default, shown by JS -->
+  <a class="mob-nav-item account-btn" href="profile.html" style="display:none;">
+    <span class="mob-nav-icon"><i class="fa fa-user"></i></span>
+    <span class="mob-nav-label">Account</span>
+  </a>
+
+</nav>

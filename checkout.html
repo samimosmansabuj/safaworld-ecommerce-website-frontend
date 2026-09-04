@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    Checkout — Safa World
+  </title>
+
+  <meta name="description" content="Secure checkout and place your order easily.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/checkout.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <!-- COMPONENTS -->
+  <div id="toast-container"></div>
+
+  <div id="float-wa"></div>
+  <div id="float-cart"></div>
+
+  <div id="drawer-container"></div>
+
+  <div id="topnavbar-container"></div>
+
+  <div id="subnavbar-container"></div>
+
+  <div id="bc-br" class="bc-br-section">
+    <title>Checkout</title>
+  </div>
+
+  <!-- PAGE -->
+  <div class="page">
+
+    <!-- PRODUCTS -->
+    <div id="checkoutProducts" class="ck-products">
+
+      <div class="ck-product">
+        Loading checkout...
+      </div>
+
+    </div>
+
+    <!-- CHECKOUT -->
+    <div class="checkout-wrap">
+
+      <!-- LEFT -->
+      <div class="checkout-left">
+
+        <!-- DELIVERY INFO -->
+        <div class="ck-card">
+
+          <div class="ck-title">
+            Delivery Information
+          </div>
+
+          <div class="ck-field">
+
+            <label>
+              Full Name
+            </label>
+
+            <input id="ckName" type="text" placeholder="Your full name">
+
+          </div>
+
+          <div class="ck-field">
+
+            <label>
+              Phone Number
+            </label>
+
+            <input id="ckPhone" type="text" placeholder="01XXXXXXXXX">
+
+          </div>
+
+          <!-- SAVED ADDRESS -->
+          <div class="ck-field">
+
+            <label>
+              Select Saved Address
+            </label>
+
+            <select id="ckAddressSelect">
+
+              <option value="">
+                Select Address
+              </option>
+
+            </select>
+
+          </div>
+
+          <!-- NEW ADDRESS -->
+          <div class="ck-field">
+
+            <label>
+              Or Enter New Address
+            </label>
+
+            <div class="ck-address-row">
+
+              <input type="text" id="ckAddress" class="ck-address-input" placeholder="Area / Road / House">
+
+              <select id="ckDistrict" class="ck-district">
+
+                <option value="">
+                  Select District
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+          <!-- DELIVERY -->
+          <div class="delivery-box">
+
+            Delivery Charge:
+            <span id="deliveryChargeText">
+              ৳ 0
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- PAYMENT -->
+        <div class="ck-card">
+          <div class="ck-title">
+            Payment Method
+          </div>
+          <label class="pay-opt active">
+            <input type="radio" name="pay" value="cod" checked>
+            Cash on Delivery
+          </label>
+          <!-- <label class="pay-opt">
+            <input type="radio" name="pay" value="online">
+            Online Payment
+          </label> -->
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="checkout-right">
+        <div class="summary-box">
+          <!-- COUPON -->
+          <div class="coupon-box">
+            <div class="coupon-row">
+              <input id="ckCouponInput" type="text" placeholder="Coupon code" autocomplete="off">
+              <button type="button" class="btn-coupon" id="couponApplyBtn" onclick="applyCoupon()">
+                Apply
+              </button>
+            </div>
+            <div id="couponMessage" class="coupon-message"></div>
+          </div>
+
+          <div class="summary-title">
+            Order Summary
+          </div>
+
+          <div id="checkoutSummaryItems"></div>
+
+          <!-- SUBTOTAL -->
+          <div class="sum-row">
+            <span>
+              Subtotal
+            </span>
+            <span>
+              ৳
+              <span id="ckSubtotal">
+                0
+              </span>
+            </span>
+          </div>
+
+          <div class="sum-row coupon-discount-row" id="couponDiscountRow" style="display:none;">
+            <span>
+              Coupon Discount
+              <span id="ckCouponCode" class="coupon-applied-code"></span>
+            </span>
+            <span>
+              − ৳
+              <span id="ckCouponDiscount">
+                0
+              </span>
+            </span>
+          </div>
+
+          <div class="sum-row" id="subtotalAfterDiscountRow" style="display:none; font-weight:600;">
+            <span>
+              Subtotal after discount
+            </span>
+            <span>
+              ৳
+              <span id="ckSubtotalAfterDiscount">
+                0
+              </span>
+            </span>
+          </div>
+
+          <!-- SHIPPING -->
+          <div class="sum-row">
+            <span>
+              Delivery Charge
+            </span>
+            <span>
+              ৳
+              <span id="ckShipping">
+                0
+              </span>
+            </span>
+          </div>
+
+          <!-- DELIVERY BREAKDOWN TOGGLE -->
+          <div class="delivery-breakdown-wrap">
+            <div class="delivery-breakdown-toggle" onclick="toggleDeliveryBreakdown()">
+              <span>
+                Delivery Charge Details
+              </span>
+              <span id="deliveryArrow">
+                ▼
+              </span>
+            </div>
+            <div id="deliveryBreakdown" class="delivery-breakdown-list">
+            </div>
+          </div>
+
+          <!-- TOTAL -->
+          <div class="sum-row sum-total">
+            <span>
+              Total
+            </span>
+            <span>
+              ৳
+              <span id="ckTotal">
+                0
+              </span>
+            </span>
+          </div>
+
+          <!-- BUTTON -->
+          <button class="btn-place" id="placeOrderBtn" onclick="placeOrder()">
+            Place Order
+          </button>
+
+          <div class="ck-note">
+            Cash on Delivery available across Bangladesh
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-section">
+    <div id="eco-container"></div>
+    <div id="footer-container"></div>
+  </div>
+
+  <!-- JS -->
+  <script src="js/env.js?v=12"></script>
+  <script src="js/tracking.js?v=12"></script>
+  <script src="js/marketing.js?v=12"></script>
+  <script src="js/config.js?v=12"></script>
+  <script src="js/main.js?v=12"></script>
+  <script src="js/cart.js?v=12"></script>
+  <script src="js/loadComponents.js?v=12"></script>
+  <script src="js/site-content.js?v=12"></script>
+  <script src="js/blockOtp.js?v=12"></script>
+  <script src="js/checkout.js?v=12"></script>
+  <script src="js/wishlist.js?v=12"></script>
+  <script src="js/auth.js?v=12"></script>
+  <script src="js/product_list.js?v=12"></script>
+
+</body>
+
+</html>

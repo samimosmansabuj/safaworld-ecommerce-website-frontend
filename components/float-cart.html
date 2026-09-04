@@ -1,0 +1,72 @@
+<!-- FLOAT CART -->
+<div class="float-cart-btn" onclick="openCart()">
+  <span class="float-cart-icon"><i class="fa fa-cart-arrow-down"></i></span>
+  <span class="cart-dot" id="cartDot">0</span>
+</div>
+
+<!-- CART SLIDE DRAWER OVERLAY -->
+<div id="cartDrawerOverlay" class="cart-drawer-overlay" onclick="closeCartDrawer()"></div>
+
+<!-- CART SLIDE DRAWER -->
+<div id="cartDrawer" class="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping Cart Drawer">
+  
+  <!-- Header -->
+  <div class="cart-drawer-header">
+    <div class="cart-drawer-head-left">
+      <span class="cart-drawer-icon"><i class="fa fa-shopping-bag"></i></span>
+      <div class="cart-drawer-title-wrap">
+        <h3 class="cart-drawer-title">Shopping Cart</h3>
+        <span class="cart-drawer-count" id="cartDrawerItemCount">0 Items</span>
+      </div>
+    </div>
+    <button class="cart-drawer-close" onclick="closeCartDrawer()" aria-label="Close cart">&times;</button>
+  </div>
+
+  <!-- Body (Items or Empty State) -->
+  <div class="cart-drawer-body">
+    <!-- Items container -->
+    <div class="cart-drawer-items" id="cartDrawerItemsContainer">
+      <div class="cart-drawer-loading">
+        <div class="cart-spinner"></div>
+        <p>Loading your cart...</p>
+      </div>
+    </div>
+
+    <!-- Empty State Box -->
+    <div class="cart-drawer-empty" id="cartDrawerEmptyBox" style="display:none;">
+      <div class="drawer-empty-icon-wrap">
+        <i class="fa fa-shopping-basket"></i>
+      </div>
+      <h4 class="drawer-empty-title">Your cart is empty</h4>
+      <p class="drawer-empty-sub">Explore Safa World's premium products and add your favorites to the cart!</p>
+      <button class="btn-drawer-shop" onclick="closeCartDrawer(); window.location.href='product-list.html'">
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer (Summary + Checkout) -->
+  <div class="cart-drawer-footer" id="cartDrawerFooter">
+    <div class="cart-drawer-summary">
+      <div class="cart-drawer-summary-list" id="cartDrawerSummaryList"></div>
+      <div class="cart-drawer-subtotal-row">
+        <span class="drawer-subtotal-label">Subtotal</span>
+        <span class="drawer-subtotal-val" id="cartDrawerSubtotal">৳ 0</span>
+      </div>
+      <div class="cart-drawer-shipping-info">
+        <i class="fa fa-truck"></i> Delivery charge will be calculated at checkout
+      </div>
+    </div>
+
+    <div class="cart-drawer-actions">
+      <button class="btn-drawer-checkout" onclick="goToCheckout()">
+        <span>Proceed to Checkout</span>
+        <i class="fa fa-arrow-right"></i>
+      </button>
+      <button class="btn-drawer-continue-link" onclick="closeCartDrawer()">
+        ← Continue Shopping
+      </button>
+    </div>
+  </div>
+
+</div>

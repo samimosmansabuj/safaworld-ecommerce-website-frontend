@@ -1,0 +1,579 @@
+﻿/* ───────────── GLOBAL ───────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  font-size: 15px;
+  margin: 0;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ───────────── CHECKOUT LAYOUT ───────────── */
+.checkout-wrap {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 14px;
+  padding: 14px;
+}
+
+.checkout-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.checkout-right {
+  position: sticky;
+  top: 16px;
+  height: fit-content;
+}
+
+/* ───────────── CARD ───────────── */
+.ck-card {
+  background: #fff;
+  border: 1px solid var(--border-l);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.ck-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* ───────────── INPUTS ───────────── */
+.ck-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.ck-field:last-child { margin-bottom: 0; }
+
+.ck-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mid);
+}
+
+.ck-field input,
+.ck-field textarea,
+.ck-field select {
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 16px; /* prevents zoom */
+  font-family: inherit;
+  background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+}
+
+.ck-field input:focus,
+.ck-field textarea:focus,
+.ck-field select:focus {
+  border-color: #111111;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+  outline: none;
+}
+
+.ck-field textarea {
+  resize: none;
+  min-height: 70px;
+}
+
+/* ───────────── ADDRESS ROW ───────────── */
+.ck-address-row {
+  display: flex;
+  gap: 8px;
+}
+
+.ck-address-input { flex: 2; min-width: 0; }
+.ck-district { flex: 1; min-width: 0; }
+
+/* ───────────── PAYMENT ───────────── */
+.pay-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid var(--border);
+  padding: 11px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  transition: border-color .2s, background .2s;
+}
+
+.pay-opt:last-child { margin-bottom: 0; }
+
+.pay-opt input {
+  transform: scale(1.15);
+  accent-color: #111111;
+}
+
+.pay-opt.active {
+  border-color: #111111;
+  background: #F5F5F5;
+}
+
+/* ───────────── CHECKOUT PRODUCTS ───────────── */
+.ck-products {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ck-product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid var(--border-l);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.ck-product-info { flex: 1; min-width: 0; }
+
+.ck-product-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ck-product-meta {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--mid);
+}
+
+.ck-product-right { flex-shrink: 0; }
+
+.ck-product-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ───────────── COUPON ───────────── */
+.coupon-box {
+  margin-bottom: 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-l);
+}
+
+.coupon-row {
+  display: flex;
+  gap: 8px;
+}
+
+.coupon-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.coupon-row input:focus {
+  border-color: #111111;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+  outline: none;
+}
+
+.btn-coupon {
+  flex-shrink: 0;
+  padding: 0 16px;
+  border: none;
+  border-radius: 10px;
+  background: #111111;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s, opacity .15s;
+}
+
+.btn-coupon:active { transform: scale(0.97); }
+.btn-coupon:disabled { opacity: .6; cursor: not-allowed; }
+
+.btn-coupon.remove {
+  background: #fff;
+  color: #dc2626;
+  border: 1.5px solid #dc2626;
+}
+
+.coupon-message {
+  font-size: 12px;
+  margin-top: 6px;
+  min-height: 15px;
+}
+
+.coupon-message.success { color: #16a34a; font-weight: 600; }
+.coupon-message.error { color: #dc2626; font-weight: 600; }
+
+.coupon-discount-row span:last-child { color: #dc2626; font-weight: 700; }
+
+.coupon-applied-code {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 20px;
+  background: #f0fdf4;
+  color: #16a34a;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* ───────────── SUMMARY ───────────── */
+.summary-box {
+  background: #fff;
+  border: 1px solid var(--border-l);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sum-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  padding: 4px 0;
+  color: var(--mid);
+}
+
+.sum-row span:first-child { text-align: left; }
+.sum-row span:last-child { text-align: right; font-weight: 500; }
+
+.sum-total {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  border-top: 1px solid var(--border-l);
+  margin-top: 4px;
+  padding-top: 8px;
+}
+
+/* ───────────── BUTTON ───────────── */
+.btn-place {
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 10px;
+  background: #111111;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s;
+}
+
+.btn-place:active { transform: scale(0.97); }
+
+.ck-note {
+  font-size: 11px;
+  color: var(--lighter);
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* ───────────── DELIVERY BREAKDOWN ───────────── */
+.delivery-breakdown-wrap {
+  margin: 0 0 6px;
+}
+
+.delivery-breakdown-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 400;
+  color: #555555;
+  cursor: pointer;
+  user-select: none;
+}
+
+#deliveryArrow {
+  font-size: 9px;
+  transition: .25s;
+}
+
+.delivery-breakdown-list {
+  display: none;
+  margin-top: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-l);
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.delivery-breakdown-list.show { display: block; }
+
+.delivery-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  padding: 4px 0;
+  color: var(--mid);
+}
+
+.delivery-item-name { flex: 1; }
+.delivery-item-charge { font-weight: 600; }
+
+.field-locked {
+  background: #f2f2f2;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* ───────────── VALIDATION ───────────── */
+.field-error {
+  border: 1.5px solid #dc2626 !important;
+  background-color: #fef2f2 !important;
+  animation: fieldShake 0.3s ease;
+}
+
+.field-error:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+.field-error-msg {
+  color: #dc2626;
+  font-size: 11px;
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+@keyframes fieldShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* ───────────── TOAST ───────────── */
+#toast-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.toast {
+  background: #1f2937;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ───────────── ORDER SUCCESS MODAL ───────────── */
+#orderSuccessModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  padding: 16px;
+  animation: fadeIn .25s ease;
+}
+
+.success-modal {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,.18);
+  animation: scaleIn .25s ease;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #16a34a;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-modal h2 {
+  font-size: 20px;
+  margin: 0 0 8px;
+  color: #222;
+}
+
+.success-modal p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #666;
+  margin: 0 0 14px;
+}
+
+.success-order-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ───────────── TABLET ───────────── */
+@media (max-width: 900px) {
+  .checkout-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-right {
+    position: static;
+  }
+}
+
+/* ───────────── MOBILE ───────────── */
+@media (max-width: 600px) {
+  .checkout-wrap {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .ck-card {
+    padding: 10px;
+  }
+
+  .ck-title {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .ck-field {
+    margin-bottom: 8px;
+    gap: 4px;
+  }
+
+  .ck-field input,
+  .ck-field textarea,
+  .ck-field select {
+    padding: 10px 11px;
+  }
+
+  /* STACK ADDRESS */
+  .ck-address-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* BIGGER TOUCH */
+  .pay-opt {
+    padding: 11px;
+    margin-bottom: 6px;
+  }
+
+  .btn-place {
+    height: 46px;
+    font-size: 13px;
+  }
+
+  .ck-products {
+    gap: 6px;
+  }
+
+  .ck-product {
+    padding: 8px 10px;
+  }
+
+  .ck-product-name {
+    font-size: 12px;
+  }
+
+  .ck-product-meta {
+    font-size: 10px;
+  }
+
+  .ck-product-price {
+    font-size: 13px;
+  }
+
+  .summary-box {
+    padding: 10px;
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .coupon-row input {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  .btn-coupon {
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .sum-row {
+    font-size: 12px;
+    padding: 3px 0;
+  }
+
+  .sum-total {
+    font-size: 14px;
+  }
+
+  .success-modal {
+    max-width: 100%;
+    padding: 20px 16px;
+  }
+
+  .success-modal h2 {
+    font-size: 18px;
+  }
+
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 26px;
+  }
+}

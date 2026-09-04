@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products — Safa World</title>
+  <meta name="description"
+    content="Explore Safa World's collection of premium quality products. Cash on delivery available across Bangladesh.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/home.css?v=12">
+  <link rel="stylesheet" href="css/products.css?v=12">
+  <link rel="stylesheet" href="css/info-pages.css?v=12">
+</head>
+
+<body>
+  <!-- GLOBAL LOADER -->
+  <div id="global-loader" class="global-loader"></div>
+
+
+  <body>
+
+    <!-- Components placeholders -->
+    <div id="toast-container"></div>
+    <div id="float-wa"></div>
+  <div id="float-cart"></div>
+    <div id="drawer-container"></div>
+
+    <div id="topnavbar-container"></div>
+    <div id="subnavbar-container"></div>
+    <div id="bc-br" class="bc-br-section"><title>All Products</title></div>
+
+
+    <!-- PAGE CONTENT -->
+    <div class="page">
+
+      <!-- ① PAGE HEADER -->
+      <div class="lp-section">
+        <div class="lp-head">
+          <div class="lp-title">All Products</div>
+          <div class="lp-sub">Browse our premium collection</div>
+        </div>
+      </div>
+
+      <!-- ② FILTER / SORT -->
+      <div class="filter-bar">
+        <div class="filter-left">
+          <label><span>Category:</span>
+            <select id="filterCategory" onchange="applyFilters()">
+              <option value="all">All</option>
+              <option value="wallet">Wallet</option>
+              <option value="belt">Belt</option>
+              <option value="card-holder">Card Holder</option>
+              <option value="accessories">Accessories</option>
+              <option value="passport-holder">Passport Holder</option>
+            </select>
+          </label>
+          <label><span>Sort by:</span>
+            <select id="sortBy" onchange="applyFilters()">
+              <option value="popularity">Popularity</option>
+              <option value="price-low-high">Price: Low to High</option>
+              <option value="price-high-low">Price: High to Low</option>
+              <option value="newest">Newest</option>
+            </select>
+          </label>
+        </div>
+        <div class="filter-right">
+          <span id="totalProducts">Showing 12 products</span>
+        </div>
+      </div>
+
+      <!-- ③ PRODUCT GRID -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Example product card -->
+        <div class="prod-card" data-category="wallet" data-price="2500" data-popularity="340">
+          <div class="prod-img" style="background:linear-gradient(135deg,#F0E8DC,#E0D0BC)">💼<span
+              class="prod-badge">Top</span></div>
+          <div class="prod-name" onclick="window.location.href='index.html'">Premium Leather Wallet</div>
+          <div class="prod-price">৳ 2,500 <span class="prod-orig">৳ 3,000</span></div>
+          <div class="prod-stars">★★★★★ (340)</div>
+          <button class="prod-cart" onclick="toast('Added to cart')">+ Cart</button>
+        </div>
+        <!-- Add more cards similarly -->
+      </div>
+
+      <!-- ④ PAGINATION -->
+      <div class="pagination">
+        <button onclick="goPage(1)">« First</button>
+        <button onclick="prevPage()">‹ Prev</button>
+        <span id="pageNumbers"></span>
+        <button onclick="nextPage()">Next ›</button>
+        <button onclick="goPage(5)">Last »</button>
+      </div>
+
+      <!-- ② SOCIAL PROOF BANNER -->
+      <div class="proof-banner">
+        <div class="proof-stat">
+          <div class="proof-num">500+</div>
+          <div class="proof-lbl">Happy Customers</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-num">4.8★</div>
+          <div class="proof-lbl">Average Rating</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-num">100%</div>
+          <div class="proof-lbl">Genuine Products</div>
+        </div>
+        <div class="proof-stat">
+          <div class="proof-num">0%</div>
+          <div class="proof-lbl">Return Rate</div>
+        </div>
+      </div>
+
+      <!-- ③ WHY BUY FROM US -->
+      <div class="lp-section">
+        <div class="lp-head">
+          <div class="lp-title">Why Choose Safa World</div>
+        </div>
+        <div class="lp-body">
+          <div class="why-grid">
+            <div class="why-card">
+              <div class="why-icon">✨</div>
+              <div class="why-name">Elegant Minimal Design</div>
+              <div class="why-desc">Slim profiles, clean lines. Designed for the modern professional who values
+                substance alongside refined aesthetics.</div>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">🚚</div>
+              <div class="why-name">Fast Local Delivery</div>
+              <div class="why-desc">Same-day in Savar/Ashulia. Inside Dhaka in 1–2 days. Nationwide within 4 business
+                days.</div>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">💵</div>
+              <div class="why-name">Cash on Delivery</div>
+              <div class="why-desc">Pay when your product arrives at your door. No upfront payment needed — order with
+                zero risk.</div>
+            </div>
+            <div class="why-card">
+              <div class="why-icon">🤝</div>
+              <div class="why-name">WhatsApp Support</div>
+              <div class="why-desc">Real humans, fast replies. Reach us 9am–9pm, 7 days a week via WhatsApp or Facebook.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ④ LIFESTYLE -->
+      <div class="lp-section">
+        <div class="lp-head">
+          <div class="lp-title">See It in Real Life</div>
+        </div>
+        <div class="lp-body">
+          <div class="lifestyle-grid">
+            <div class="ls-card">
+              <div class="ls-img a">👔<div class="ls-overlay"></div>
+              </div>
+              <div class="ls-copy">
+                <div class="ls-copy-title">Designed for Professionals</div>
+                <div class="ls-copy-sub">Office-ready, boardroom-approved</div>
+              </div>
+            </div>
+            <div class="ls-card">
+              <div class="ls-img b">✈️<div class="ls-overlay"></div>
+              </div>
+              <div class="ls-copy">
+                <div class="ls-copy-title">Your Travel Companion</div>
+                <div class="ls-copy-sub">RFID-safe for crowded places</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page -->
+
+    <!-- FOOTER -->
+    <div class="footer-section">
+      <div id="eco-container"></div>
+      <div id="footer-container"></div>
+    </div>
+
+    <!-- JS -->
+    <script src="js/env.js?v=12"></script>
+    <script src="js/auth.js?v=12"></script>
+    <script src="js/main.js?v=12"></script>
+    <script src="js/loadComponents.js?v=12"></script>
+    <script src="js/product_list.js?v=12"></script>
+    <script>
+      // JS: Filtering and sorting
+      function applyFilters() {
+        const category = document.getElementById('filterCategory').value;
+        const sort = document.getElementById('sortBy').value;
+        const products = [...document.querySelectorAll('.prod-card')];
+
+        let filtered = products.filter(p => category === 'all' || p.dataset.category === category);
+
+        // Sorting
+        if (sort === 'price-low-high') filtered.sort((a, b) => a.dataset.price - b.dataset.price);
+        if (sort === 'price-high-low') filtered.sort((a, b) => b.dataset.price - a.dataset.price);
+        if (sort === 'popularity') filtered.sort((a, b) => b.dataset.popularity - a.dataset.popularity);
+
+        const grid = document.getElementById('productsGrid');
+        grid.innerHTML = '';
+        filtered.forEach(p => grid.appendChild(p));
+
+        document.getElementById('totalProducts').innerText = `Showing ${filtered.length} products`;
+      }
+
+      applyFilters(); // initial
+    </script>
+  </body>
+
+</html>
