@@ -1,5 +1,5 @@
 {
-  "name": "Safa World — Premium Online Shop",
+  "name": "Safa World",
   "short_name": "Safa World",
   "description": "Bangladesh's premium online shop. Quality products delivered to your doorstep. Cash on delivery nationwide.",
   "start_url": "/",
@@ -8,7 +8,11 @@
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#000000",
-  "categories": ["shopping", "lifestyle", "ecommerce"],
+  "categories": [
+    "shopping",
+    "lifestyle",
+    "ecommerce"
+  ],
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
