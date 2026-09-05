@@ -15,8 +15,16 @@ async function loadComponent(id, file) {
     }
 
     try {
-        const resp = await fetch(file);
-        if (!resp.ok) throw new Error(`Failed to fetch ${file}: ${resp.status}`);
+        const cleanPath = file.replace(/^\/+/, '');
+        const rootPath = '/' + cleanPath;
+
+        // Attempt root-relative fetch first; fall back to relative path if root fails
+        let resp = await fetch(rootPath);
+        if (!resp.ok) {
+            resp = await fetch(cleanPath);
+        }
+        if (!resp.ok) throw new Error(`Failed to fetch component: ${resp.status}`);
+
         const html = await resp.text();
         el.innerHTML = html;
 
@@ -35,18 +43,17 @@ async function loadComponent(id, file) {
    INIT COMPONENTS
 ========================= */
 async function initComponents() {
-    await loadComponent("topnavbar-container", "components/navbar.html");
-    await loadComponent("global-loader", "components/global-loader.html")
-    loadComponent("drawer-container", "components/drawer.html");
-    loadComponent("toast-container", "components/toast.html");
-    loadComponent("float-wa", "components/float-wa.html");
-    loadComponent("float-cart", "components/float-cart.html");
-    loadComponent("eco-container", "components/eco-bar.html");
-    loadComponent("bc-br", "components/breadcrumb.html");
-
-    if (document.getElementById("footer-container")) {
-        await loadComponent("footer-container", "components/footer.html");
-    }
+    await Promise.allSettled([
+        loadComponent("topnavbar-container", "/components/navbar.html"),
+        loadComponent("global-loader", "/components/global-loader.html"),
+        loadComponent("drawer-container", "/components/drawer.html"),
+        loadComponent("toast-container", "/components/toast.html"),
+        loadComponent("float-wa", "/components/float-wa.html"),
+        loadComponent("float-cart", "/components/float-cart.html"),
+        loadComponent("eco-container", "/components/eco-bar.html"),
+        loadComponent("bc-br", "/components/breadcrumb.html"),
+        document.getElementById("footer-container") ? loadComponent("footer-container", "/components/footer.html") : Promise.resolve()
+    ]);
 
     setTimeout(() => {
         // Ensure cart.js is loaded on any page

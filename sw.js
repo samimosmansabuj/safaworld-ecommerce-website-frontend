@@ -4,7 +4,7 @@
    in VS Code Live Server and modern static environments.
    ======================================================= */
 
-const CACHE_NAME = 'safaworld-routing-v1';
+const CACHE_NAME = 'safaworld-routing-v2';
 
 const STATIC_ROUTES = {
     'product-list': 'product-list.html',
@@ -29,7 +29,13 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-    event.waitUntil(self.clients.claim());
+    event.waitUntil(
+        caches.keys().then((keys) => {
+            return Promise.all(
+                keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+            );
+        }).then(() => self.clients.claim())
+    );
 });
 
 self.addEventListener('fetch', (event) => {
@@ -41,8 +47,8 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // Ignore API calls and static assets with extensions
-    if (url.pathname.startsWith('/api') || url.pathname.includes('.')) {
+    // Ignore API calls, components, and static assets with extensions
+    if (url.pathname.startsWith('/api') || url.pathname.startsWith('/components/') || url.pathname.includes('.')) {
         return;
     }
 
