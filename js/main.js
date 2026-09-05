@@ -535,7 +535,7 @@ function applyFilters() {
 ========================= */
 function openProduct(slug) {
     if (!slug) return;
-    try { sessionStorage.setItem("current_product_slug", slug); } catch (e) {}
+    try { sessionStorage.setItem("current_product_slug", slug); } catch (e) { }
     if (typeof window.spaNavigate === "function") {
         window.spaNavigate(`/product/${slug}`);
     } else {
@@ -954,7 +954,7 @@ window.addEventListener("DOMContentLoaded", () => {
         loadProducts();
     }
 
-    if (document.getElementById("kidzProductsGrid")){
+    if (document.getElementById("DropSholderProductsGrid")) {
         featureSectionAdd();
     }
 
@@ -979,7 +979,7 @@ window.addEventListener("DOMContentLoaded", () => {
 /* ==========================================================
    GLOBAL LOADER 
 ========================================================== */
-window.showLoader = function() {
+window.showLoader = function () {
     let loader = document.getElementById("global-loader");
     if (!loader) {
         loader = document.createElement("div");
@@ -991,7 +991,7 @@ window.showLoader = function() {
     loader.classList.remove("hidden");
 };
 
-window.hideLoader = function() {
+window.hideLoader = function () {
     const loader = document.getElementById("global-loader");
     if (loader) {
         loader.classList.add("hidden");
@@ -1074,7 +1074,7 @@ function makeDraggable(el, storageKey) {
         }
 
         if (isDragging) {
-            if(e.cancelable) e.preventDefault();
+            if (e.cancelable) e.preventDefault();
 
             let newLeft = initialLeft + dx;
             let newTop = initialTop + dy;
@@ -1111,7 +1111,7 @@ function makeDraggable(el, storageKey) {
 
             const padding = 10;
             let percentTop = (rect.top / h) * 100;
-            
+
             // Constrain top percentage so it doesn't go off screen
             percentTop = Math.max(0, Math.min(percentTop, 100));
 

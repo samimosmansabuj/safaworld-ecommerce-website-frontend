@@ -1,7 +1,6 @@
 /* =========================
    PRODUCT LIST PAGE
 ========================= */
-
 async function loadProducts() {
     const grid = document.getElementById("productsGrid");
     const total = document.getElementById("totalProducts");
@@ -79,17 +78,16 @@ async function loadProducts() {
                 Failed to load products
             </p>
         `;
-        
+
         if (typeof window.hideLoader === "function") window.hideLoader();
     }
 }
 
 async function featureSectionAdd() {
-    const kidzProductsGrid = document.getElementById("kidzProductsGrid");
-    if (!kidzProductsGrid) return;
+    const DropSholderProductsGrid = document.getElementById("DropSholderProductsGrid");
+    if (!DropSholderProductsGrid) return;
     try {
         const params = new URLSearchParams(window.location.search);
-
         const search = params.get("search");
         const category = params.get("category");
         const sort = params.get("sort");
@@ -109,31 +107,32 @@ async function featureSectionAdd() {
         const res = await fetch(apiUrl);
 
         const data = await res.json();
+        console.log("this is first products:", data);
 
-        let kidz_products = [];
+        let DropSholder_products = [];
 
         if (data?.results?.data) {
-            kidz_products = data.results.data;
+            DropSholder_products = data.results.data;
         }
         else if (data?.data) {
-            kidz_products = data.data;
+            DropSholder_products = data.data;
         }
         else if (Array.isArray(data)) {
-            kidz_products = data;
+            DropSholder_products = data;
         }
 
-        if (!Array.isArray(kidz_products)) {
+        if (!Array.isArray(DropSholder_products)) {
             throw new Error("Invalid API response");
         }
 
-        kidzProductsGrid.innerHTML = "";
-        if (!kidz_products.length) {
-            kidzProductsGrid.innerHTML = `<p>No products found</p>`;
+        DropSholderProductsGrid.innerHTML = "";
+        if (!DropSholder_products.length) {
+            DropSholderProductsGrid.innerHTML = `<p>No products found</p>`;
             return;
         }
 
-        kidz_products.forEach(p => {
-            if (p.category.name !== "Kidz") return;
+        DropSholder_products.forEach(p => {
+            if (p.category.name !== "Drop-Sholder") return;
 
             const slug = p.slug || makeSlug(p.name);
             let image = "";
@@ -146,7 +145,7 @@ async function featureSectionAdd() {
 
             const hasVariants = !!p.has_variants;
 
-            kidzProductsGrid.innerHTML += `
+            DropSholderProductsGrid.innerHTML += `
             <div class="prod-card">
 
                 <div class="prod-img" onclick="openProduct('${slug}')">
@@ -178,7 +177,7 @@ async function featureSectionAdd() {
             err
         );
 
-        kidzProductsGrid.innerHTML = `
+        DropSholderProductsGrid.innerHTML = `
             <p style="color:red">
                 Failed to load products
             </p>
