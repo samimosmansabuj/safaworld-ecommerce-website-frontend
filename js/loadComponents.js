@@ -43,6 +43,13 @@ async function loadComponent(id, file) {
    INIT COMPONENTS
 ========================= */
 async function initComponents() {
+    let pwaContainer = document.getElementById("pwa-install-container");
+    if (!pwaContainer) {
+        pwaContainer = document.createElement("div");
+        pwaContainer.id = "pwa-install-container";
+        document.body.appendChild(pwaContainer);
+    }
+
     await Promise.allSettled([
         loadComponent("topnavbar-container", "/components/navbar.html"),
         loadComponent("global-loader", "/components/global-loader.html"),
@@ -52,10 +59,25 @@ async function initComponents() {
         loadComponent("float-cart", "/components/float-cart.html"),
         loadComponent("eco-container", "/components/eco-bar.html"),
         loadComponent("bc-br", "/components/breadcrumb.html"),
+        loadComponent("pwa-install-container", "/components/pwa-install.html"),
         document.getElementById("footer-container") ? loadComponent("footer-container", "/components/footer.html") : Promise.resolve()
     ]);
 
     setTimeout(() => {
+        // Load Meta Manager if not already loaded
+        if (typeof window.updateMetaTags !== "function") {
+            const sm = document.createElement("script");
+            sm.src = "js/meta-manager.js?v=20";
+            document.head.appendChild(sm);
+        }
+
+        // Load PWA Installer if not already loaded
+        if (typeof window.showPwaInstallPrompt !== "function") {
+            const sp = document.createElement("script");
+            sp.src = "js/pwa-installer.js?v=20";
+            document.body.appendChild(sp);
+        }
+
         // Ensure cart.js is loaded on any page
         if (typeof loadCartItems !== "function") {
             const s = document.createElement("script");

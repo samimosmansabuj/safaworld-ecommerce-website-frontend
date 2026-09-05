@@ -47,9 +47,14 @@ RewriteCond %{DOCUMENT_ROOT}/$1.html -f
 RewriteRule ^([a-zA-Z0-9_-]+)$ $1.html [L,QSA]
 
 # ----------------------------------------------------------------------
-# 6. INTERNAL REWRITE: DYNAMIC PRODUCT SLUGS
-#    e.g. /bike-throttle-design-drop-sholder-t-shirt -> product-details.html?slug=...
-#    Strictly excludes static asset directories and API calls
+# 6. INTERNAL REWRITE: DYNAMIC PRODUCT SLUGS (/product/:slug and /p/:slug)
+#    e.g. /product/bike-throttle-... -> product-details.html?slug=...
+# ----------------------------------------------------------------------
+RewriteRule ^(?:product|p)/([a-zA-Z0-9_-]+)/?$ product-details.html?slug=$1 [L,QSA]
+
+# ----------------------------------------------------------------------
+# 7. LEGACY INTERNAL REWRITE: DIRECT ROOT SLUGS (Backward Compatibility)
+#    e.g. /bike-throttle-... -> product-details.html?slug=...
 # ----------------------------------------------------------------------
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -67,4 +72,6 @@ RewriteRule ^([a-zA-Z0-9_-]+)$ product-details.html?slug=$1 [L,QSA]
     AddType application/javascript .js
     AddType image/svg+xml .svg
     AddType image/webp .webp
+    AddType application/manifest+json .webmanifest
+    AddType application/json .json
 </IfModule>

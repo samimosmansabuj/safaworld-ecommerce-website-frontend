@@ -69,14 +69,27 @@
             };
         }
 
+        // Product Details Page (/product/:slug or /p/:slug)
+        const pathParts = cleanPath.split('/');
+        if ((pathParts[0] === 'product' || pathParts[0] === 'p') && pathParts[1]) {
+            const slug = pathParts[1];
+            return {
+                cleanPath: `product/${slug}`,
+                fetchUrl: `/product-details.html?slug=${encodeURIComponent(slug)}`,
+                cleanUrl: `/product/${slug}`,
+                isProduct: true,
+                slug: slug
+            };
+        }
+
         // Product Details Page (handles /product-details, /product-details.html, /product-details.html?slug=...)
         if (cleanPath === 'product-details' || cleanPath === 'product-details.html') {
             const params = new URLSearchParams(search);
             const querySlug = params.get('slug') || sessionStorage.getItem('current_product_slug') || '';
             return {
-                cleanPath: querySlug || 'product-details',
+                cleanPath: querySlug ? `product/${querySlug}` : 'product-details',
                 fetchUrl: `/product-details.html${search || (querySlug ? `?slug=${encodeURIComponent(querySlug)}` : '')}`,
-                cleanUrl: querySlug ? `/${querySlug}` : `/product-details${search || ''}`,
+                cleanUrl: querySlug ? `/product/${querySlug}` : `/product-details${search || ''}`,
                 isProduct: true,
                 slug: querySlug
             };
@@ -92,13 +105,13 @@
             };
         }
 
-        // Dynamic Product Slug (e.g. /bike-throttle-design-drop-sholder-t-shirt)
+        // Dynamic Product Slug legacy fallback (e.g. /bike-throttle-design-drop-sholder-t-shirt -> /product/...)
         if (!cleanPath.includes('/')) {
             const slug = cleanPath;
             return {
-                cleanPath: slug,
+                cleanPath: `product/${slug}`,
                 fetchUrl: `/product-details.html?slug=${encodeURIComponent(slug)}`,
-                cleanUrl: `/${slug}`,
+                cleanUrl: `/product/${slug}`,
                 isProduct: true,
                 slug: slug
             };
@@ -243,7 +256,7 @@
         if (typeof closeDrw === 'function') closeDrw();
         if (typeof closeSearch === 'function') closeSearch();
 
-        if (isProduct || cleanPath === 'product-details') {
+        if (isProduct || cleanPath === 'product-details' || cleanPath.startsWith('product/')) {
             const activeSlug = slug || searchParams.get('slug') || sessionStorage.getItem('current_product_slug') || '';
             sessionStorage.setItem('current_product_slug', activeSlug);
 
@@ -257,12 +270,18 @@
             if (typeof initGalleryZoom === 'function') {
                 initGalleryZoom();
             }
-        } else if (!cleanPath || cleanPath === 'index') {
-            if (typeof loadProducts === 'function') loadProducts();
-            if (typeof featureSectionAdd === 'function') featureSectionAdd();
-            if (typeof loadHeroSlider === 'function') loadHeroSlider();
-            if (typeof loadShowcase === 'function') loadShowcase();
-        } else if (cleanPath === 'product-list' || cleanPath === 'all_product') {
+        } else {
+            // Update dynamic SEO & Meta tags for static route
+            if (typeof window.updateMetaForRoute === 'function') {
+                window.updateMetaForRoute(cleanPath);
+            }
+
+            if (!cleanPath || cleanPath === 'index') {
+                if (typeof loadProducts === 'function') loadProducts();
+                if (typeof featureSectionAdd === 'function') featureSectionAdd();
+                if (typeof loadHeroSlider === 'function') loadHeroSlider();
+                if (typeof loadShowcase === 'function') loadShowcase();
+            } else if (cleanPath === 'product-list' || cleanPath === 'all_product') {
             if (typeof ALL_PRODUCTS !== 'undefined' && typeof goPage === 'function') {
                 if (typeof currentPage !== 'undefined') currentPage = 1;
             }

@@ -14,4 +14,6 @@
 /cart                    /cart.html                    200
 /address                 /address.html                 200
 /all_product             /all_product.html             200
+/product/:slug           /product-details.html?slug=:slug 200
+/p/:slug                 /product-details.html?slug=:slug 200
 /:slug                   /product-details.html?slug=:slug 200

@@ -359,9 +359,9 @@ function handleListCartClick(productId, slug, hasVariants) {
     if (hasVariants) {
         sessionStorage.setItem("prompt_variant_on_load", "cart");
         if (typeof window.spaNavigate === 'function') {
-            window.spaNavigate(`/${slug}`);
+            window.spaNavigate(`/product/${slug}`);
         } else {
-            window.location.href = `/${slug}`;
+            window.location.href = `/product/${slug}`;
         }
         return;
     }
@@ -537,9 +537,9 @@ function openProduct(slug) {
     if (!slug) return;
     try { sessionStorage.setItem("current_product_slug", slug); } catch (e) {}
     if (typeof window.spaNavigate === "function") {
-        window.spaNavigate(`/${slug}`);
+        window.spaNavigate(`/product/${slug}`);
     } else {
-        window.location.href = `/${slug}`;
+        window.location.href = `/product/${slug}`;
     }
 }
 

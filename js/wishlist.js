@@ -82,9 +82,9 @@ function openProduct(slug) {
     if (!slug) return;
     try { sessionStorage.setItem("current_product_slug", slug); } catch (e) {}
     if (typeof window.spaNavigate === 'function') {
-        window.spaNavigate(`/${slug}`);
+        window.spaNavigate(`/product/${slug}`);
     } else {
-        window.location.href = `/${slug}`;
+        window.location.href = `/product/${slug}`;
     }
 }
 

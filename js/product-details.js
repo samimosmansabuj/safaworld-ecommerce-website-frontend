@@ -97,13 +97,19 @@ function getProductSlug() {
     let slug = params.get("slug");
     if (slug) return slug;
 
-    // 2. Check path (e.g. /bike-throttle-design-drop-sholder-t-shirt)
+    // 2. Check path: /product/:slug or /p/:slug
     const cleanPath = window.location.pathname.replace(/^\/+|\/+$/g, '');
+    const parts = cleanPath.split('/');
+    if ((parts[0] === 'product' || parts[0] === 'p') && parts[1]) {
+        return parts[1];
+    }
+
+    // 3. Fallback to clean direct slug (e.g. /bike-throttle-design-drop-sholder-t-shirt)
     if (cleanPath && cleanPath !== "product-details" && cleanPath !== "product-details.html" && !cleanPath.includes('/')) {
         return cleanPath;
     }
 
-    // 3. Check history state or sessionStorage
+    // 4. Check history state or sessionStorage
     return history.state?.slug || sessionStorage.getItem("current_product_slug") || "";
 }
 
@@ -138,9 +144,9 @@ async function loadProductDetails(explicitSlug) {
         return;
     }
 
-    // Clean address bar immediately to /:slug
-    if (window.location.pathname.includes("product-details") || window.location.search.includes("slug=")) {
-        window.history.replaceState({ slug }, document.title, `/${slug}`);
+    // Clean address bar immediately to /product/:slug
+    if (window.location.pathname.includes("product-details") || window.location.search.includes("slug=") || !window.location.pathname.startsWith("/product/")) {
+        window.history.replaceState({ slug }, document.title, `/product/${slug}`);
     }
     sessionStorage.setItem("current_product_slug", slug);
 
@@ -171,6 +177,23 @@ async function loadProductDetails(explicitSlug) {
         if (window.__runTracking) window.__runTracking();
         SELECTED_VARIANT = null;
         VARIANT_ATTR_STATE = {};
+
+        // Dynamically update SEO & Meta tags (OG, Twitter, Canonical) for this product
+        if (typeof window.updateMetaTags === 'function') {
+            let cleanDesc = (product.description || "").replace(/[\r\n]+/g, " ").trim();
+            if (cleanDesc.length > 160) cleanDesc = cleanDesc.slice(0, 157) + "...";
+            let mainImg = (Array.isArray(product.images) && product.images.length > 0) ? product.images[0] : (product.image || "");
+            if (mainImg && !mainImg.startsWith("http")) {
+                mainImg = apiBase + mainImg;
+            }
+            window.updateMetaTags({
+                title: `${product.name} — Safa World`,
+                description: cleanDesc || `Buy ${product.name} online in Bangladesh at Safa World.`,
+                image: mainImg || "https://safaworldbd.com/images/safa-world-logo.jpg",
+                url: `https://safaworldbd.com/product/${slug}`,
+                type: "product"
+            });
+        }
 
         if (typeof GAViewItemEvent === 'function') {
             GAViewItemEvent(product);
