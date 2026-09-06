@@ -107,7 +107,6 @@ async function featureSectionAdd() {
         const res = await fetch(apiUrl);
 
         const data = await res.json();
-        console.log("this is first products:", data);
 
         let DropSholder_products = [];
 

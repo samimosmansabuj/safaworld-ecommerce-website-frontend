@@ -277,22 +277,24 @@
             }
 
             if (!cleanPath || cleanPath === 'index') {
+                if (typeof perPage !== 'undefined') perPage = 12;
                 if (typeof loadProducts === 'function') loadProducts();
                 if (typeof featureSectionAdd === 'function') featureSectionAdd();
                 if (typeof loadHeroSlider === 'function') loadHeroSlider();
                 if (typeof loadShowcase === 'function') loadShowcase();
             } else if (cleanPath === 'product-list' || cleanPath === 'all_product') {
-            if (typeof ALL_PRODUCTS !== 'undefined' && typeof goPage === 'function') {
-                if (typeof currentPage !== 'undefined') currentPage = 1;
-            }
-            if (typeof loadProducts === 'function') loadProducts();
-        } else if (cleanPath === 'profile') {
-            if (typeof isLoggedIn === 'function' && !isLoggedIn()) {
-                window.spaNavigate('/login');
-                return;
-            }
-            if (typeof loadProfile === 'function') loadProfile();
-        } else if (cleanPath === 'my-orders') {
+                if (typeof perPage !== 'undefined') perPage = 12;
+                if (typeof ALL_PRODUCTS !== 'undefined' && typeof goPage === 'function') {
+                    if (typeof currentPage !== 'undefined') currentPage = 1;
+                }
+                if (typeof loadProducts === 'function') loadProducts();
+            } else if (cleanPath === 'profile') {
+                if (typeof isLoggedIn === 'function' && !isLoggedIn()) {
+                    window.spaNavigate('/login');
+                    return;
+                }
+                if (typeof loadProfile === 'function') loadProfile();
+            } else if (cleanPath === 'my-orders') {
             if (typeof loadOrders === 'function') loadOrders();
         } else if (cleanPath === 'order') {
             if (typeof loadOrderDetails === 'function') loadOrderDetails();

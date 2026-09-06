@@ -15,7 +15,7 @@ let sliderPaused = false;
 
 /* PAGINATION */
 let currentPage = 1;
-let perPage = 6;
+let perPage = 12;
 
 /* SERVICE WORKER REGISTRATION (Clean URLs) */
 if ('serviceWorker' in navigator) {
@@ -31,12 +31,12 @@ if ('serviceWorker' in navigator) {
     }
 }
 
-/* PRODUCT LIST PAGE = 10 */
+/* PRODUCT LIST PAGE = 12 */
 if (
     window.location.pathname
         .includes("product-list")
 ) {
-    perPage = 10;
+    perPage = 12;
 }
 /* DYNAMIC CATEGORY */
 let ALL_CATEGORIES = [];
