@@ -9,7 +9,7 @@
     const SITE_NAME = "Safa World";
     const BASE_URL = "https://safaworldbd.com";
     const DEFAULT_IMAGE = "https://safaworldbd.com/images/safa-world-logo.jpg";
-    const DEFAULT_TITLE = "Safa World — Premium Online Shop Bangladesh";
+    const DEFAULT_TITLE = "Safa World — Your Best Choice";
     const DEFAULT_DESC = "Safa World — Bangladesh's premium online shop. Quality products delivered to your doorstep. Cash on delivery available.";
 
     const ROUTE_META_MAP = {
