@@ -192,6 +192,119 @@
         setOrCreateMeta('name', 'twitter:image', image);
     }
 
+    /* ==========================================================
+       Facebook Pixel — Product Microdata Injection
+       Injects OpenGraph product namespace tags + JSON-LD
+       Required for: "Add products with Pixel" in Meta Catalog
+       Ref: https://www.facebook.com/business/help/1175004275966513
+    ========================================================== */
+
+    /**
+     * Injects all required Facebook product microdata into <head>:
+     *   1. OpenGraph product namespace meta tags (og:id, price, availability etc.)
+     *   2. JSON-LD Schema.org Product markup
+     *
+     * @param {Object} product  — raw product object from API
+     * @param {string} slug     — URL slug of the product
+     */
+    function injectProductMicrodata(product, slug) {
+        if (!product || !product.id) return;
+
+        const apiBase = window.API_BASE || 'https://crm.safaworldbd.com';
+
+        /* ── Resolve values ── */
+        const productId   = String(product.id);
+        const productName = product.name || '';
+        const productDesc = (product.description || '').replace(/[\r\n]+/g, ' ').trim();
+        const productUrl  = BASE_URL + '/product/' + slug;
+        const currency    = 'BDT';
+
+        // Price: prefer discount_price, fall back to price
+        const rawPrice    = parseFloat(product.discount_price || product.price || 0);
+        const priceStr    = rawPrice.toFixed(2) + ' ' + currency;  // e.g. "450.00 BDT"
+
+        // Availability
+        const stock       = Number(product.stock ?? product.quantity ?? 1);
+        const inStock     = stock > 0;
+        const availability       = inStock ? 'in stock' : 'out of stock';          // OG format
+        const schemaAvailability = inStock
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock';
+
+        // Image
+        let imageUrl = '';
+        if (Array.isArray(product.images) && product.images.length > 0) {
+            imageUrl = product.images[0];
+        } else if (product.image) {
+            imageUrl = product.image;
+        }
+        if (imageUrl && !imageUrl.startsWith('http')) {
+            imageUrl = apiBase + imageUrl;
+        }
+
+        // Brand / Category
+        const brand = product.brand ||
+            (typeof product.category === 'object' ? (product.category?.name || '') : (product.category || '')) ||
+            SITE_NAME;
+
+        /* ── 1. OpenGraph product namespace tags (Facebook reads these) ── */
+        setOrCreateMeta('property', 'og:type',                 'product');
+        setOrCreateMeta('property', 'product:id',              productId);
+        setOrCreateMeta('property', 'product:price:amount',    rawPrice.toFixed(2));
+        setOrCreateMeta('property', 'product:price:currency',  currency);
+        setOrCreateMeta('property', 'product:availability',    availability);
+        setOrCreateMeta('property', 'product:condition',       'new');
+        setOrCreateMeta('property', 'product:brand',           brand);
+        setOrCreateMeta('property', 'product:retailer_item_id', productId);
+        if (product.sku) {
+            setOrCreateMeta('property', 'product:retailer_part_no', product.sku);
+        }
+
+        /* ── 2. JSON-LD Schema.org Product (Google + Facebook fallback) ── */
+        // Remove any previously injected product JSON-LD to avoid duplicates
+        const existingLd = document.getElementById('fb-product-jsonld');
+        if (existingLd) existingLd.remove();
+
+        const jsonLd = {
+            '@context': 'https://schema.org',
+            '@type':    'Product',
+            'productID': productId,
+            'name':      productName,
+            'description': productDesc,
+            'url':       productUrl,
+            'image':     imageUrl,
+            'sku':       product.sku || productId,
+            'brand': {
+                '@type': 'Brand',
+                'name':  brand
+            },
+            'offers': {
+                '@type':           'Offer',
+                'price':           rawPrice.toFixed(2),
+                'priceCurrency':   currency,
+                'availability':    schemaAvailability,
+                'itemCondition':   'https://schema.org/NewCondition',
+                'url':             productUrl,
+                'priceValidUntil': new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+                    .toISOString().split('T')[0]
+            }
+        };
+
+        // Add category/category name if available
+        if (product.category) {
+            const catName = typeof product.category === 'object'
+                ? (product.category.name || '')
+                : product.category;
+            if (catName) jsonLd['category'] = catName;
+        }
+
+        const script   = document.createElement('script');
+        script.id      = 'fb-product-jsonld';
+        script.type    = 'application/ld+json';
+        script.textContent = JSON.stringify(jsonLd);
+        document.head.appendChild(script);
+    }
+
     function updateMetaForRoute(cleanPath) {
         const normalized = cleanPath ? cleanPath.replace(/^\/+|\/+$/g, '') : '';
         if (ROUTE_META_MAP[normalized]) {
@@ -199,8 +312,9 @@
         }
     }
 
-    window.updateMetaTags = updateMetaTags;
-    window.updateMetaForRoute = updateMetaForRoute;
+    window.updateMetaTags        = updateMetaTags;
+    window.updateMetaForRoute    = updateMetaForRoute;
+    window.injectProductMicrodata = injectProductMicrodata;
 
     // Run on initial load
     const initialRoute = window.location.pathname.replace(/^\/+|\/+$/g, '');

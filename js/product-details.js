@@ -202,6 +202,12 @@ async function loadProductDetails(explicitSlug) {
             });
         }
 
+        // ── Facebook Pixel Product Microdata ──
+        // Injects og:id, product:price, product:availability etc.
+        // required for "Add products with Pixel" in Meta Catalog.
+        if (typeof window.injectProductMicrodata === 'function') {
+            window.injectProductMicrodata(product, slug);
+        }
 
 
         const name = product.name || "";
