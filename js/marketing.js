@@ -174,7 +174,14 @@ function GAAddToCartEvent(product) {
         });
     }
 
-    logEventToBackend('add_to_cart', { product_id: product.id, content_name: product.name, content_type: 'product', value: product.discount_price, currency: 'BDT' });
+    logEventToBackend('add_to_cart', {
+            content_ids: [String(product.id)],
+            content_name: product.name,
+            content_type: 'product',
+            value: Number(product.discount_price),
+            currency: 'BDT'
+        }
+    );
 }
 
 function GAInitiateCheckoutEvent(products, total) {
@@ -196,7 +203,9 @@ function GAInitiateCheckoutEvent(products, total) {
     if (window.__TRACKING_CONFIG__?.facebook_pixel?.enabled && window.fbq) {
         fbq('track', 'InitiateCheckout', {
             content_ids: products.map(p => String(p.id)),
-            contents: products.map(p => ({ id: String(p.id), quantity: Number(p.quantity) })),
+            contents: products.map(product => (
+                { id: String(product.id), name: product.name, price: Number(product.price), quantity: Number(product.quantity) }
+            )),
             content_type: 'product',
             value: Number(total),
             currency: 'BDT',
@@ -239,7 +248,9 @@ function GAInitiatePurchaseEvent(products, total, orderId) {
     if (window.__TRACKING_CONFIG__?.facebook_pixel?.enabled && window.fbq) {
         fbq('track', 'Purchase', {
             content_ids: products.map(p => String(p.id)),
-            contents: products.map(p => ({ id: String(p.id), quantity: Number(p.quantity) })),
+            contents: products.map(product => (
+                { id: String(product.id), name: product.name, price: Number(product.price), quantity: Number(product.quantity) }
+            )),
             content_type: 'product',
             value: Number(total),
             currency: 'BDT',
@@ -247,5 +258,16 @@ function GAInitiatePurchaseEvent(products, total, orderId) {
         });
     }
 
-    logEventToBackend('purchase', { order_id: transactionId, total, items: products.length });
+    logEventToBackend('purchase', {
+            transaction_id: transactionId,
+            currency: "BDT",
+            value: Number(total),
+            items: products.map(product => ({
+                item_id: String(product.id),
+                item_name: product.name,
+                price: Number(product.price),
+                quantity: Number(product.quantity)
+            }))
+        }
+    );
 }
