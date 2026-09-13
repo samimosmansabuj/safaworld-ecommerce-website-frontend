@@ -295,245 +295,246 @@
                 }
                 if (typeof loadProfile === 'function') loadProfile();
             } else if (cleanPath === 'my-orders') {
-            if (typeof loadOrders === 'function') loadOrders();
-        } else if (cleanPath === 'order') {
-            if (typeof loadOrderDetails === 'function') loadOrderDetails();
-        } else if (cleanPath === 'wishlist') {
-            if (typeof loadWishlist === 'function') loadWishlist();
-        } else if (cleanPath === 'cart') {
-            if (typeof loadCartItems === 'function') loadCartItems();
-        } else if (cleanPath === 'checkout') {
-            if (typeof initCheckoutPage === 'function') {
-                await initCheckoutPage();
+                if (typeof loadOrders === 'function') loadOrders();
+            } else if (cleanPath === 'order') {
+                if (typeof loadOrderDetails === 'function') loadOrderDetails();
+            } else if (cleanPath === 'wishlist') {
+                if (typeof loadWishlist === 'function') loadWishlist();
+            } else if (cleanPath === 'cart') {
+                if (typeof loadCartItems === 'function') loadCartItems();
+            } else if (cleanPath === 'checkout') {
+                if (typeof initCheckoutPage === 'function') {
+                    await initCheckoutPage();
+                }
+            } else if (cleanPath === 'address') {
+                if (typeof loadDistricts === 'function') loadDistricts();
+                if (typeof loadAddresses === 'function') loadAddresses();
+                const addBtn = document.getElementById("addAddressBtn");
+                if (addBtn && typeof addAddress === 'function') {
+                    addBtn.onclick = addAddress;
+                }
+            } else if (cleanPath === 'login') {
+                if (typeof initLoginPage === 'function') initLoginPage();
+            } else if (cleanPath === 'contact-us') {
+                if (typeof initContactForm === 'function') initContactForm();
             }
-        } else if (cleanPath === 'address') {
-            if (typeof loadDistricts === 'function') loadDistricts();
-            if (typeof loadAddresses === 'function') loadAddresses();
-            const addBtn = document.getElementById("addAddressBtn");
-            if (addBtn && typeof addAddress === 'function') {
-                addBtn.onclick = addAddress;
-            }
-        } else if (cleanPath === 'login') {
-            if (typeof initLoginPage === 'function') initLoginPage();
-        } else if (cleanPath === 'contact-us') {
-            if (typeof initContactForm === 'function') initContactForm();
+
+            // Global UI updates
+            if (typeof setMobNavActive === 'function') setMobNavActive();
+            if (typeof updateAuthButtons === 'function') updateAuthButtons();
+            if (typeof updateCartCountFromBackend === 'function') updateCartCountFromBackend();
+            if (typeof updateWishlistCount === 'function') updateWishlistCount();
+
+            // Scroll to top instantly
+            window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
-        // Global UI updates
-        if (typeof setMobNavActive === 'function') setMobNavActive();
-        if (typeof updateAuthButtons === 'function') updateAuthButtons();
-        if (typeof updateCartCountFromBackend === 'function') updateCartCountFromBackend();
-        if (typeof updateWishlistCount === 'function') updateWishlistCount();
+        /**
+         * Core SPA Navigate Method
+         */
+        async function spaNavigate(targetPath, pushHistory = true) {
+            if (!targetPath) return;
 
-        // Scroll to top instantly
-        window.scrollTo({ top: 0, behavior: 'instant' });
+            // Parse target URL
+            let urlObj;
+            try {
+                urlObj = new URL(targetPath, window.location.origin);
+            } catch (e) {
+                console.error('Invalid navigation URL:', targetPath, e);
+                window.location.href = targetPath;
+                return;
+            }
+
+            const routeInfo = resolveRoute(urlObj.pathname, urlObj.search);
+
+            // Don't re-navigate if already at the exact same route and search params
+            if (pushHistory && currentActiveRoute === routeInfo.cleanPath && currentActiveSearch === urlObj.search) {
+                return;
+            }
+
+            if (isNavigating) return;
+            isNavigating = true;
+
+            // 1. Show Global Loader immediately
+            if (typeof window.showLoader === 'function') {
+                window.showLoader();
+            }
+
+            const startTime = Date.now();
+
+            try {
+                // 2. Fetch destination HTML
+                const [htmlText] = await Promise.all([
+                    fetchHtml(routeInfo.fetchUrl),
+                    sleep(MIN_TRANSITION_MS) // guarantee smooth loader display
+                ]);
+
+                // 3. Parse fetched HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+
+                // Update title
+                if (doc.title) {
+                    document.title = doc.title;
+                }
+
+                // Update meta description
+                const newMeta = doc.querySelector('meta[name="description"]');
+                if (newMeta) {
+                    let curMeta = document.querySelector('meta[name="description"]');
+                    if (!curMeta) {
+                        curMeta = document.createElement('meta');
+                        curMeta.name = 'description';
+                        document.head.appendChild(curMeta);
+                    }
+                    curMeta.setAttribute('content', newMeta.getAttribute('content'));
+                }
+
+                // Update breadcrumb (handles creation, insertion, styling, and title)
+                updateBreadcrumb(routeInfo, doc);
+
+                // Swap main content container (.page or .auth-page)
+                const newContent = doc.querySelector('.page') || doc.querySelector('.auth-page');
+                const curContent = document.querySelector('.page') || document.querySelector('.auth-page');
+
+                if (newContent && curContent) {
+                    const imported = document.importNode(newContent, true);
+                    curContent.parentNode.replaceChild(imported, curContent);
+                } else if (newContent && !curContent) {
+                    const imported = document.importNode(newContent, true);
+                    const footerSec = document.querySelector('.footer-section');
+                    if (footerSec) {
+                        document.body.insertBefore(imported, footerSec);
+                    } else {
+                        document.body.appendChild(imported);
+                    }
+                }
+
+                // Dynamically load any missing stylesheets into <head>
+                const docStyles = doc.querySelectorAll('link[rel="stylesheet"]');
+                docStyles.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (!href) return;
+                    const exists = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+                        .some(l => l.getAttribute('href')?.split('?')[0] === href.split('?')[0]);
+                    if (!exists) {
+                        const newLink = document.createElement('link');
+                        newLink.rel = 'stylesheet';
+                        newLink.href = href;
+                        document.head.appendChild(newLink);
+                    }
+                });
+
+                // Dynamically load any missing external scripts
+                const docScripts = doc.querySelectorAll('script[src]');
+                for (const s of docScripts) {
+                    const src = s.getAttribute('src');
+                    if (!src) continue;
+                    await loadScriptAsync(src);
+                }
+
+                // Execute inline scripts from incoming doc
+                const docInline = doc.querySelectorAll('script:not([src])');
+                docInline.forEach(s => {
+                    try {
+                        const inlineEl = document.createElement('script');
+                        inlineEl.textContent = s.textContent;
+                        document.body.appendChild(inlineEl);
+                        document.body.removeChild(inlineEl);
+                    } catch (e) {
+                        console.warn('Inline script execution error:', e);
+                    }
+                });
+
+                // 4. Update browser URL & history
+                if (pushHistory) {
+                    window.history.pushState(
+                        { spa: true, url: routeInfo.cleanUrl, slug: routeInfo.slug },
+                        document.title,
+                        routeInfo.cleanUrl
+                    );
+                }
+
+                currentActiveRoute = routeInfo.cleanPath;
+                currentActiveSearch = urlObj.search;
+
+                // 5. Execute lifecycle hooks for destination page
+                await executePageLifecycle(routeInfo, urlObj.searchParams);
+
+            } catch (err) {
+                console.error('SPA Navigation error, falling back to full navigation:', err);
+                window.location.href = targetPath;
+                return;
+            } finally {
+                // 6. Smoothly hide Global Loader
+                isNavigating = false;
+                if (typeof window.hideLoader === 'function') {
+                    window.hideLoader();
+                }
+            }
+        }
+
+        // Expose global navigate
+        window.spaNavigate = spaNavigate;
+
+        /**
+         * Global Link Click Interceptor
+         */
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+
+            const rawHref = link.getAttribute('href');
+            if (!rawHref) return;
+
+            // Skip hashes, javascript:, mailto:, tel:
+            if (rawHref.startsWith('#') || rawHref.startsWith('javascript:') || rawHref.startsWith('mailto:') || rawHref.startsWith('tel:')) {
+                return;
+            }
+
+            // Skip external target=_blank or downloads
+            if (link.target === '_blank' || link.hasAttribute('download')) {
+                return;
+            }
+
+            // Check if origin matches
+            let url;
+            try {
+                url = new URL(link.href, window.location.origin);
+            } catch (err) {
+                return;
+            }
+
+            if (url.origin !== window.location.origin) {
+                return;
+            }
+
+            // Prevent full browser reload!
+            e.preventDefault();
+            window.spaNavigate(url.pathname + url.search + url.hash);
+        });
+
+        /**
+         * Handle browser Back/Forward buttons without reload
+         */
+        window.addEventListener('popstate', () => {
+            window.spaNavigate(window.location.pathname + window.location.search + window.location.hash, false);
+        });
+
+        /**
+         * Initial startup check:
+         * If the user loaded a clean sub-path (e.g. /product-list, /about-us, /:slug)
+         * but the server returned index.html (e.g. due to Live Server fallback on Ctrl+Shift+R or production SPA rewrite),
+         * hydrate the actual route seamlessly without waiting for a click!
+         */
+        const initialRoute = window.location.pathname.replace(/^\/+|\/+$/g, '');
+        if (initialRoute && initialRoute !== 'index' && initialRoute !== 'index.html') {
+            const isHomePageDom = !!document.getElementById('whyChooseSection');
+            if (isHomePageDom) {
+                // index.html was served as fallback for a subroute
+                spaNavigate(window.location.pathname + window.location.search + window.location.hash, false);
+            }
+        }
+
     }
-
-    /**
-     * Core SPA Navigate Method
-     */
-    async function spaNavigate(targetPath, pushHistory = true) {
-        if (!targetPath) return;
-
-        // Parse target URL
-        let urlObj;
-        try {
-            urlObj = new URL(targetPath, window.location.origin);
-        } catch (e) {
-            console.error('Invalid navigation URL:', targetPath, e);
-            window.location.href = targetPath;
-            return;
-        }
-
-        const routeInfo = resolveRoute(urlObj.pathname, urlObj.search);
-
-        // Don't re-navigate if already at the exact same route and search params
-        if (pushHistory && currentActiveRoute === routeInfo.cleanPath && currentActiveSearch === urlObj.search) {
-            return;
-        }
-
-        if (isNavigating) return;
-        isNavigating = true;
-
-        // 1. Show Global Loader immediately
-        if (typeof window.showLoader === 'function') {
-            window.showLoader();
-        }
-
-        const startTime = Date.now();
-
-        try {
-            // 2. Fetch destination HTML
-            const [htmlText] = await Promise.all([
-                fetchHtml(routeInfo.fetchUrl),
-                sleep(MIN_TRANSITION_MS) // guarantee smooth loader display
-            ]);
-
-            // 3. Parse fetched HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlText, 'text/html');
-
-            // Update title
-            if (doc.title) {
-                document.title = doc.title;
-            }
-
-            // Update meta description
-            const newMeta = doc.querySelector('meta[name="description"]');
-            if (newMeta) {
-                let curMeta = document.querySelector('meta[name="description"]');
-                if (!curMeta) {
-                    curMeta = document.createElement('meta');
-                    curMeta.name = 'description';
-                    document.head.appendChild(curMeta);
-                }
-                curMeta.setAttribute('content', newMeta.getAttribute('content'));
-            }
-
-            // Update breadcrumb (handles creation, insertion, styling, and title)
-            updateBreadcrumb(routeInfo, doc);
-
-            // Swap main content container (.page or .auth-page)
-            const newContent = doc.querySelector('.page') || doc.querySelector('.auth-page');
-            const curContent = document.querySelector('.page') || document.querySelector('.auth-page');
-
-            if (newContent && curContent) {
-                const imported = document.importNode(newContent, true);
-                curContent.parentNode.replaceChild(imported, curContent);
-            } else if (newContent && !curContent) {
-                const imported = document.importNode(newContent, true);
-                const footerSec = document.querySelector('.footer-section');
-                if (footerSec) {
-                    document.body.insertBefore(imported, footerSec);
-                } else {
-                    document.body.appendChild(imported);
-                }
-            }
-
-            // Dynamically load any missing stylesheets into <head>
-            const docStyles = doc.querySelectorAll('link[rel="stylesheet"]');
-            docStyles.forEach(link => {
-                const href = link.getAttribute('href');
-                if (!href) return;
-                const exists = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-                    .some(l => l.getAttribute('href')?.split('?')[0] === href.split('?')[0]);
-                if (!exists) {
-                    const newLink = document.createElement('link');
-                    newLink.rel = 'stylesheet';
-                    newLink.href = href;
-                    document.head.appendChild(newLink);
-                }
-            });
-
-            // Dynamically load any missing external scripts
-            const docScripts = doc.querySelectorAll('script[src]');
-            for (const s of docScripts) {
-                const src = s.getAttribute('src');
-                if (!src) continue;
-                await loadScriptAsync(src);
-            }
-
-            // Execute inline scripts from incoming doc
-            const docInline = doc.querySelectorAll('script:not([src])');
-            docInline.forEach(s => {
-                try {
-                    const inlineEl = document.createElement('script');
-                    inlineEl.textContent = s.textContent;
-                    document.body.appendChild(inlineEl);
-                    document.body.removeChild(inlineEl);
-                } catch (e) {
-                    console.warn('Inline script execution error:', e);
-                }
-            });
-
-            // 4. Update browser URL & history
-            if (pushHistory) {
-                window.history.pushState(
-                    { spa: true, url: routeInfo.cleanUrl, slug: routeInfo.slug },
-                    document.title,
-                    routeInfo.cleanUrl
-                );
-            }
-
-            currentActiveRoute = routeInfo.cleanPath;
-            currentActiveSearch = urlObj.search;
-
-            // 5. Execute lifecycle hooks for destination page
-            await executePageLifecycle(routeInfo, urlObj.searchParams);
-
-        } catch (err) {
-            console.error('SPA Navigation error, falling back to full navigation:', err);
-            window.location.href = targetPath;
-            return;
-        } finally {
-            // 6. Smoothly hide Global Loader
-            isNavigating = false;
-            if (typeof window.hideLoader === 'function') {
-                window.hideLoader();
-            }
-        }
-    }
-
-    // Expose global navigate
-    window.spaNavigate = spaNavigate;
-
-    /**
-     * Global Link Click Interceptor
-     */
-    document.addEventListener('click', (e) => {
-        const link = e.target.closest('a');
-        if (!link) return;
-
-        const rawHref = link.getAttribute('href');
-        if (!rawHref) return;
-
-        // Skip hashes, javascript:, mailto:, tel:
-        if (rawHref.startsWith('#') || rawHref.startsWith('javascript:') || rawHref.startsWith('mailto:') || rawHref.startsWith('tel:')) {
-            return;
-        }
-
-        // Skip external target=_blank or downloads
-        if (link.target === '_blank' || link.hasAttribute('download')) {
-            return;
-        }
-
-        // Check if origin matches
-        let url;
-        try {
-            url = new URL(link.href, window.location.origin);
-        } catch (err) {
-            return;
-        }
-
-        if (url.origin !== window.location.origin) {
-            return;
-        }
-
-        // Prevent full browser reload!
-        e.preventDefault();
-        window.spaNavigate(url.pathname + url.search + url.hash);
-    });
-
-    /**
-     * Handle browser Back/Forward buttons without reload
-     */
-    window.addEventListener('popstate', () => {
-        window.spaNavigate(window.location.pathname + window.location.search + window.location.hash, false);
-    });
-
-    /**
-     * Initial startup check:
-     * If the user loaded a clean sub-path (e.g. /product-list, /about-us, /:slug)
-     * but the server returned index.html (e.g. due to Live Server fallback on Ctrl+Shift+R or production SPA rewrite),
-     * hydrate the actual route seamlessly without waiting for a click!
-     */
-    const initialRoute = window.location.pathname.replace(/^\/+|\/+$/g, '');
-    if (initialRoute && initialRoute !== 'index' && initialRoute !== 'index.html') {
-        const isHomePageDom = !!document.getElementById('whyChooseSection');
-        if (isHomePageDom) {
-            // index.html was served as fallback for a subroute
-            spaNavigate(window.location.pathname + window.location.search + window.location.hash, false);
-        }
-    }
-
-})();
+) ();

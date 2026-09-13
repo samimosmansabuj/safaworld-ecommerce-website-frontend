@@ -142,7 +142,7 @@ function GAViewItemEvent(product) {
         });
     }
 
-    logEventToBackend('view_item', { product_id: product.id, value: product.discount_price });
+    logEventToBackend('view_item', { product_id: product.id, content_name: product.name, content_type: 'product', value: product.discount_price, currency: 'BDT'});
 }
 
 function GAAddToCartEvent(product) {
@@ -173,7 +173,7 @@ function GAAddToCartEvent(product) {
         });
     }
 
-    logEventToBackend('add_to_cart', { product_id: product.id, value: product.discount_price });
+    logEventToBackend('add_to_cart', { product_id: product.id, content_name: product.name, content_type: 'product', value: product.discount_price, currency: 'BDT'});
 }
 
 function GAInitiateCheckoutEvent(products, total) {
@@ -203,7 +203,17 @@ function GAInitiateCheckoutEvent(products, total) {
         });
     }
 
-    logEventToBackend('begin_checkout', { total, items: products.length });
+    logEventToBackend('begin_checkout', {
+            currency: "BDT",
+            value: Number(total),
+            items: products.map(product => ({
+                item_id: String(product.id),
+                item_name: product.name,
+                price: Number(product.price),
+                quantity: Number(product.quantity)
+            }))
+        }
+    );
 }
 
 function GAInitiatePurchaseEvent(products, total, orderId) {

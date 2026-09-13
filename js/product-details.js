@@ -150,7 +150,7 @@ async function loadProductDetails(explicitSlug) {
     }
     sessionStorage.setItem("current_product_slug", slug);
 
-    const apiBase = window.API_BASE || (typeof API_BASE !== 'undefined' ? API_BASE : "https://apitest.pencilwoodbd.org");
+    const apiBase = window.API_BASE || (typeof API_BASE !== 'undefined' ? API_BASE : "https://crm.safaworldbd.com");
 
     try {
 
