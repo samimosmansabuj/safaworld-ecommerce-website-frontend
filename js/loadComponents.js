@@ -67,21 +67,21 @@ async function initComponents() {
         // Load Meta Manager if not already loaded
         if (typeof window.updateMetaTags !== "function") {
             const sm = document.createElement("script");
-            sm.src = "js/meta-manager.js?v=23";
+            sm.src = "js/meta-manager.js?v=24";
             document.head.appendChild(sm);
         }
 
         // Load PWA Installer if not already loaded
         if (typeof window.showPwaInstallPrompt !== "function") {
             const sp = document.createElement("script");
-            sp.src = "js/pwa-installer.js?v=23";
+            sp.src = "js/pwa-installer.js?v=24";
             document.body.appendChild(sp);
         }
 
         // Ensure cart.js is loaded on any page
         if (typeof loadCartItems !== "function") {
             const s = document.createElement("script");
-            s.src = "js/cart.js?v=23";
+            s.src = "js/cart.js?v=24";
             s.onload = () => {
                 if (typeof updateCartCountFromBackend === "function") updateCartCountFromBackend();
                 if (typeof loadCartItems === "function") loadCartItems();
