@@ -178,6 +178,13 @@ async function loadProductDetails(explicitSlug) {
         SELECTED_VARIANT = null;
         VARIANT_ATTR_STATE = {};
 
+        // Fire ViewContent after tracking is fully initialized (fbq & __TRACKING_CONFIG__ ready)
+        Promise.resolve(window.__TRACKING_READY__).then(() => {
+            if (typeof GAViewItemEvent === 'function') {
+                GAViewItemEvent(product);
+            }
+        });
+
         // Dynamically update SEO & Meta tags (OG, Twitter, Canonical) for this product
         if (typeof window.updateMetaTags === 'function') {
             let cleanDesc = (product.description || "").replace(/[\r\n]+/g, " ").trim();
@@ -195,9 +202,7 @@ async function loadProductDetails(explicitSlug) {
             });
         }
 
-        if (typeof GAViewItemEvent === 'function') {
-            GAViewItemEvent(product);
-        }
+
 
         const name = product.name || "";
         const sku = product.sku || "";

@@ -11,7 +11,8 @@ window.__TRACKING_READY__ = new Promise((resolve) => {
 // ---------------------------------------------------------------------
 // 1. Fetch active tracking settings from backend and inject base scripts
 // ---------------------------------------------------------------------
-async function initTracking() {    try {
+async function initTracking() {
+    try {
         const pid = window.__CURRENT_PRODUCT_ID__ ? `?product_id=${window.__CURRENT_PRODUCT_ID__}` : "";
         const res = await fetch(`${window.API_BASE}/api/tracking-settings/${pid}`);
         const json = await res.json();
@@ -104,7 +105,7 @@ function logEventToBackend(eventName, payload) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ event_name: eventName, payload }),
-        }).catch(() => {});
+        }).catch(() => { });
     } catch (e) { /* non-blocking, ignore */ }
 }
 
@@ -142,7 +143,7 @@ function GAViewItemEvent(product) {
         });
     }
 
-    logEventToBackend('view_item', { product_id: product.id, content_name: product.name, content_type: 'product', value: product.discount_price, currency: 'BDT'});
+    logEventToBackend('view_item', { product_id: product.id, content_name: product.name, content_type: 'product', value: product.discount_price, currency: 'BDT' });
 }
 
 function GAAddToCartEvent(product) {
@@ -173,7 +174,7 @@ function GAAddToCartEvent(product) {
         });
     }
 
-    logEventToBackend('add_to_cart', { product_id: product.id, content_name: product.name, content_type: 'product', value: product.discount_price, currency: 'BDT'});
+    logEventToBackend('add_to_cart', { product_id: product.id, content_name: product.name, content_type: 'product', value: product.discount_price, currency: 'BDT' });
 }
 
 function GAInitiateCheckoutEvent(products, total) {
@@ -204,15 +205,15 @@ function GAInitiateCheckoutEvent(products, total) {
     }
 
     logEventToBackend('begin_checkout', {
-            currency: "BDT",
-            value: Number(total),
-            items: products.map(product => ({
-                item_id: String(product.id),
-                item_name: product.name,
-                price: Number(product.price),
-                quantity: Number(product.quantity)
-            }))
-        }
+        currency: "BDT",
+        value: Number(total),
+        items: products.map(product => ({
+            item_id: String(product.id),
+            item_name: product.name,
+            price: Number(product.price),
+            quantity: Number(product.quantity)
+        }))
+    }
     );
 }
 
