@@ -326,29 +326,7 @@ function renderProducts(products) {
 
         const hasVariants = !!p.has_variants;
 
-        grid.innerHTML += `
-        <div class="prod-card">
-
-            <div class="prod-img" onclick="openProduct('${slug}')">
-                <img src="${image}" alt="${productName}">
-            </div>
-
-            <div class="prod-name" onclick="openProduct('${slug}')">
-                ${productName}
-            </div>
-
-            <div class="prod-price">
-                ৳ ${p.discount_price || p.price}
-            </div>
-
-            <button
-                class="prod-cart"
-                onclick="handleListCartClick(${p.id}, '${slug}', ${hasVariants})">
-                + Cart
-            </button>
-
-        </div>
-        `;
+        grid.innerHTML += listProductCard(p);
     });
 }
 

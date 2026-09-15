@@ -135,7 +135,6 @@ function showProductError(msg) {
 }
 
 async function loadProductDetails(explicitSlug) {
-
     const slug = explicitSlug || getProductSlug();
 
     if (!slug) {
@@ -153,9 +152,7 @@ async function loadProductDetails(explicitSlug) {
     const apiBase = window.API_BASE || (typeof API_BASE !== 'undefined' ? API_BASE : "https://crm.safaworldbd.com");
 
     try {
-
         const res = await fetch(`${apiBase}/api/ecom/products/${slug}/`);
-        
         if (!res.ok) {
             console.error("Product fetch failed HTTP status:", res.status);
             showProductError("Product not found");
@@ -163,7 +160,6 @@ async function loadProductDetails(explicitSlug) {
         }
 
         const data = await res.json();
-
         let product = data?.data ? data.data : data;
 
         if (!product || product.detail === "Not found." || data.status === false) {
@@ -220,7 +216,7 @@ async function loadProductDetails(explicitSlug) {
         if (titleEl) titleEl.textContent = name;
 
         const shortDescEl = document.getElementById("productShortDescription");
-        if (shortDescEl) shortDescEl.textContent = product.description || "";
+        if (shortDescEl) shortDescEl.textContent = product.short_description || "";
 
         const skuEl = document.getElementById("productSKU");
         if (skuEl) skuEl.textContent = sku ? `SKU: ${sku}` : "";
@@ -231,7 +227,7 @@ async function loadProductDetails(explicitSlug) {
         }
 
         const desc = document.getElementById("productDescription");
-        if (desc) desc.textContent = product.description || "No description available.";
+        if (desc) desc.textContent = product.details || "No description available.";
 
         /* =========================
            RATING
@@ -1110,7 +1106,7 @@ async function loadRelatedProducts(product) {
                     <img src="${image}" alt="${p.name}">
                 </div>
                 <div class="prod-name" onclick="openProduct('${slug}')">${p.name}</div>
-                <div class="prod-price">৳ ${p.discount_price || p.price}</div>
+                <div class="prod-price">৳ ${p.discount_price || p.price} <span class="price-orig">৳ ${product.price}</span></div>
                 <button class="prod-cart" onclick="quickAddCart(${p.id})">+ Cart</button>
             </div>
             `;

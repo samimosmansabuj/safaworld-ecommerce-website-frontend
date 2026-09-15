@@ -230,6 +230,24 @@ function GAInitiatePurchaseEvent(products, total, orderId) {
     if (!products || !products.length) return;
     const transactionId = orderId ? String(orderId) : Date.now().toString();
 
+    // customer = customer || {};
+    // const fullName = (customer.name || "").trim();
+    // const nameParts = fullName.split(/\s+/).filter(Boolean);
+    // const firstName = nameParts[0] || "";
+    // const lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : "";
+
+    // const userData = {
+    //     email_address: customer.email || undefined,
+    //     phone_number: customer.phone || undefined,
+    //     address: {
+    //         first_name: firstName || undefined,
+    //         last_name: lastName || undefined,
+    //         street: customer.address || undefined,
+    //         city: customer.district || undefined,
+    //         country: "BD"
+    //     }
+    // };
+
     dataLayer.push({
         event: "purchase",
         ecommerce: {
@@ -243,6 +261,15 @@ function GAInitiatePurchaseEvent(products, total, orderId) {
                 quantity: Number(product.quantity)
             }))
         }
+        // user_data: userData,
+        // customer_data: {
+        //     name: fullName || undefined,
+        //     phone: customer.phone || undefined,
+        //     email: customer.email || undefined,
+        //     address: customer.address || undefined,
+        //     district: customer.district || undefined,
+        //     order_id: transactionId
+        // }
     });
 
     if (window.__TRACKING_CONFIG__?.facebook_pixel?.enabled && window.fbq) {

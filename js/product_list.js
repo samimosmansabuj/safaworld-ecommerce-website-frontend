@@ -6,6 +6,7 @@
  * fetchAllProducts — backend এ pagination আছে (১২ per page),
  * তাই সব pages ধরে ধরে fetch করে পুরো product list বানায়।
  */
+
 async function fetchAllProducts(baseApiUrl) {
     let allProducts = [];
     let nextUrl = baseApiUrl;
@@ -143,41 +144,7 @@ async function featureSectionAdd() {
 
         DropSholder_products.forEach(p => {
             if (p.category.name !== "Drop-Sholder") return;
-
-            const slug = p.slug || makeSlug(p.name);
-            let image = "";
-            if (p.image) {
-                image = p.image.startsWith("http") ? p.image : API_BASE + p.image;
-            }
-
-            const productName = p.name
-                .split(' ').slice(0, 5).join(' ') + (p.name.split(' ').length > 5 ? '...' : '');
-
-            const hasVariants = !!p.has_variants;
-
-            DropSholderProductsGrid.innerHTML += `
-            <div class="prod-card">
-
-                <div class="prod-img" onclick="openProduct('${slug}')">
-                    <img src="${image}" alt="${productName}">
-                </div>
-
-                <div class="prod-name" onclick="openProduct('${slug}')">
-                    ${productName}
-                </div>
-
-                <div class="prod-price">
-                    ৳ ${p.discount_price || p.price}
-                </div>
-
-                <button
-                    class="prod-cart"
-                    onclick="handleListCartClick(${p.id}, '${slug}', ${hasVariants})">
-                    + Cart
-                </button>
-
-            </div>
-            `;
+            DropSholderProductsGrid.innerHTML += listProductCard(p);
         });
 
     } catch (err) {
@@ -189,4 +156,30 @@ async function featureSectionAdd() {
             </p>
         `;
     }
+}
+
+
+function listProductCard(product) {
+    const slug = product.slug || makeSlug(product.name);
+    let image = "";
+
+    if (product.image && product.image.length > 0) {
+        image = product.image.startsWith("http") ? product.image : API_BASE + product.image;
+    }
+
+    const productName = product.name
+        .split(' ').slice(0, 5).join(' ') + (product.name.split(' ').length > 5 ? '...' : '');
+
+    const hasVariants = !!product.has_variants;
+
+    return `
+    <div class="prod-card">
+        <div class="prod-img" onclick="openProduct('${slug}')">
+            <img src="${image}" alt="${productName}">
+        </div>
+        <div class="prod-name" onclick="openProduct('${slug}')">${productName}</div>
+        <div class="prod-price">৳ ${product.discount_price || product.price} <span class="price-orig">৳ ${product.price}</span></div>
+        <button class="prod-cart" onclick="handleListCartClick(${product.id}, '${slug}', ${hasVariants})">+ Cart</button>
+    </div>
+    `
 }
