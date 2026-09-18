@@ -162,7 +162,7 @@ async function loadProductDetails(explicitSlug) {
         const data = await res.json();
         let product = data?.data ? data.data : data;
 
-        if (!product || product.detail === "Not found." || data.status === false) {
+        if (!product || data.status === false) {
             console.error("Product not found in API response:", data);
             showProductError("Product not found");
             return;
@@ -227,7 +227,9 @@ async function loadProductDetails(explicitSlug) {
         }
 
         const desc = document.getElementById("productDescription");
-        if (desc) desc.textContent = product.details || "No description available.";
+        if (desc) {
+            desc.innerHTML = product.description || "No description available.";
+        }
 
         /* =========================
            RATING

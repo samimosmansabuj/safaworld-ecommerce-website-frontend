@@ -42,11 +42,11 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="css/checkout.css?v=28">
-  <link rel="stylesheet" href="css/home.css?v=28">
-  <link rel="stylesheet" href="css/products.css?v=28">
-  <link rel="stylesheet" href="css/product.css?v=28">
-  <link rel="stylesheet" href="css/info-pages.css?v=28">
+  <link rel="stylesheet" href="css/checkout.css?v=29">
+  <link rel="stylesheet" href="css/home.css?v=29">
+  <link rel="stylesheet" href="css/products.css?v=29">
+  <link rel="stylesheet" href="css/product.css?v=29">
+  <link rel="stylesheet" href="css/info-pages.css?v=29">
 
 </head>
 
@@ -112,7 +112,7 @@
             <div class="prod-title" id="productTitle">
               Loading...
             </div>
-            <div class="prod-bn bn" id="productShortDescription"></div>
+            <div class="prod-bn bn" id="productShortDescription" style="white-space: pre-line;"></div>
           </div>
 
           <div class="stars-row">
@@ -175,44 +175,26 @@
     <div class="lp-section" id="tabsSection">
 
       <div class="tabs-nav">
-
         <button class="tab-btn on" onclick="switchTab('desc', event)">
-
           Description
-
         </button>
-
         <button class="tab-btn" onclick="switchTab('feat', event)">
-
           Features & Specs
-
         </button>
-
         <button class="tab-btn" onclick="switchTab('reviews', event)">
-
           Reviews
-
         </button>
-
         <button class="tab-btn" onclick="switchTab('faq', event)">
-
           FAQ
-
         </button>
-
       </div>
 
       <!-- DESCRIPTION -->
       <div class="tab-pane on" id="pane-desc">
-
-        <p class="desc-body" id="productDescription">
-
+        <div class="desc-body" id="productDescription">
           Loading description...
-
-        </p>
-
+        </div>
         <table class="spec-tbl" id="specTable"></table>
-
       </div>
 
       <!-- FEATURES (populated by renderFeatures() in product-details.js) -->
@@ -431,22 +413,22 @@
   </div>
 
   <!-- JS -->
-  <script src="js/env.js?v=28"></script>
-  <script src="js/tracking.js?v=28"></script>
+  <script src="js/env.js?v=29"></script>
+  <script src="js/tracking.js?v=29"></script>
   <script>window.__DEFER_TRACKING_INIT__ = true;</script>
-  <script src="js/marketing.js?v=28"></script>
-  <script src="js/config.js?v=28"></script>
-  <script src="js/main.js?v=28"></script>
-  <script src="js/spa-router.js?v=28"></script>
-  <script src="js/meta-manager.js?v=28"></script>
-  <script src="js/pwa-installer.js?v=28"></script>
-  <script src="js/loadComponents.js?v=28"></script>
-  <script src="js/site-content.js?v=28"></script>
-  <script src="js/cart.js?v=28"></script>
-  <script src="js/wishlist.js?v=28"></script>
-  <script src="js/product-details.js?v=28"></script>
-  <script src="js/auth.js?v=28"></script>
-  <script src="js/product_list.js?v=28"></script>
+  <script src="js/marketing.js?v=29"></script>
+  <script src="js/config.js?v=29"></script>
+  <script src="js/main.js?v=29"></script>
+  <script src="js/spa-router.js?v=29"></script>
+  <script src="js/meta-manager.js?v=29"></script>
+  <script src="js/pwa-installer.js?v=29"></script>
+  <script src="js/loadComponents.js?v=29"></script>
+  <script src="js/site-content.js?v=29"></script>
+  <script src="js/cart.js?v=29"></script>
+  <script src="js/wishlist.js?v=29"></script>
+  <script src="js/product-details.js?v=29"></script>
+  <script src="js/auth.js?v=29"></script>
+  <script src="js/product_list.js?v=29"></script>
 
 </body>
 
