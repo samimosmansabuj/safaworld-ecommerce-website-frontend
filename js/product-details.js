@@ -1075,7 +1075,12 @@ async function loadRelatedProducts(product) {
     if (!container) return;
 
     try {
-        const res = await fetch(`${API_BASE}/api/ecom/products/`);
+        if (sort){
+            queryParams.append("sort", sort);
+        } else {
+            queryParams.append("sort", "last_update");
+        }
+        const res = await fetch(`${API_BASE}/api/ecom/products/?sort=last_update&limit=20`);
         const data = await res.json();
 
         let products = [];

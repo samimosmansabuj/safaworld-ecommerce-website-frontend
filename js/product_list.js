@@ -10,8 +10,8 @@
 async function fetchAllProducts(baseApiUrl) {
     let allProducts = [];
     let nextUrl = baseApiUrl;
-
     while (nextUrl) {
+        console.log("Fetching all products from:", baseApiUrl);
         const res = await fetch(nextUrl);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -45,7 +45,8 @@ async function fetchAllProducts(baseApiUrl) {
 
         nextUrl = possibleNext;
     }
-
+    console.log(`Fetched ${allProducts.length} products in total.`);
+    console.log(`All products:`, allProducts);
     return allProducts;
 }
 
@@ -68,11 +69,14 @@ async function loadProducts() {
 
         if (search)   queryParams.append("search", search);
         if (category) queryParams.append("category", category);
-        if (sort)     queryParams.append("sort", sort);
-
+        if (sort){
+            queryParams.append("sort", sort);
+        } else {
+            queryParams.append("sort", "last_update");
+        }
+        
         const apiUrl = `${API_BASE}/api/ecom/products/?${queryParams.toString()}`;
 
-        /* সব pages fetch করি */
         const products = await fetchAllProducts(apiUrl);
 
         if (!Array.isArray(products)) {
@@ -125,7 +129,11 @@ async function featureSectionAdd() {
 
         if (search)   queryParams.append("search", search);
         if (category) queryParams.append("category", category);
-        if (sort)     queryParams.append("sort", sort);
+        if (sort){
+            queryParams.append("sort", sort);
+        } else {
+            queryParams.append("sort", "last_update");
+        }
 
         const apiUrl = `${API_BASE}/api/ecom/products/?${queryParams.toString()}`;
 
