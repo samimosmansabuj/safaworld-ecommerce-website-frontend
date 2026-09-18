@@ -148,7 +148,7 @@ async function featureSectionAdd() {
         }
 
         DropSholder_products.forEach(p => {
-            if (p.category.name !== "Drop-Sholder") return;
+            if (p.category.id !== 6) return;
             DropSholderProductsGrid.innerHTML += listProductCard(p);
         });
 
