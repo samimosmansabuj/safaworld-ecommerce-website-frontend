@@ -11,7 +11,6 @@ async function fetchAllProducts(baseApiUrl) {
     let allProducts = [];
     let nextUrl = baseApiUrl;
     while (nextUrl) {
-        console.log("Fetching all products from:", baseApiUrl);
         const res = await fetch(nextUrl);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -45,8 +44,6 @@ async function fetchAllProducts(baseApiUrl) {
 
         nextUrl = possibleNext;
     }
-    console.log(`Fetched ${allProducts.length} products in total.`);
-    console.log(`All products:`, allProducts);
     return allProducts;
 }
 
@@ -90,7 +87,7 @@ async function loadProducts() {
         loadCategories(products);
 
         /* NEWEST FIRST DEFAULT */
-        filteredProducts.sort((a, b) => (b.id || 0) - (a.id || 0));
+        // filteredProducts.sort((a, b) => (b.id || 0) - (a.id || 0));
 
         goPage(1);
 
