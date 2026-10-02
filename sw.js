@@ -10,18 +10,18 @@ const PRECACHE_ASSETS = [
     '/',
     '/offline.html',
     '/manifest.json',
-    '/css/home.css?v=31',
-    '/css/products.css?v=31',
-    '/css/product.css?v=31',
+    '/css/home.css?v=32',
+    '/css/products.css?v=32',
+    '/css/product.css?v=32',
     '/images/safa-world-logo.jpg',
     '/images/logo-loader.png',
     '/images/icons/icon-192x192.png',
     '/images/icons/icon-512x512.png',
-    '/js/spa-router.js?v=312113',
-    '/js/loadComponents.js?v=31',
-    '/js/main.js?v=312112',
-    '/js/meta-manager.js?v=31',
-    '/js/pwa-installer.js?v=31'
+    '/js/spa-router.js?v=322113',
+    '/js/loadComponents.js?v=32',
+    '/js/main.js?v=322112',
+    '/js/meta-manager.js?v=32',
+    '/js/pwa-installer.js?v=32'
 ];
 
 const STATIC_ROUTES = {

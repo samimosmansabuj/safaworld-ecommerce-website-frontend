@@ -10,6 +10,7 @@ let VARIANT_ATTR_STATE = {};
 function initGalleryZoom() {
     const galMain = document.getElementById('galMain');
     const img = document.getElementById('productImage');
+
     if (!galMain || !img) return;
 
     if (galMain.dataset.zoomInitialized) return;
@@ -22,12 +23,24 @@ function initGalleryZoom() {
 
     function setZoomPoint(clientX, clientY) {
         const rect = galMain.getBoundingClientRect();
-        const x = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100));
-        const y = Math.min(100, Math.max(0, ((clientY - rect.top) / rect.height) * 100));
+
+        const x = Math.min(
+            100,
+            Math.max(0, ((clientX - rect.left) / rect.width) * 100)
+        );
+
+        const y = Math.min(
+            100,
+            Math.max(0, ((clientY - rect.top) / rect.height) * 100)
+        );
+
         img.style.transformOrigin = `${x}% ${y}%`;
     }
 
-    // ---- DESKTOP: hover to zoom, move to pan ----
+    // =========================================
+    // DESKTOP
+    // =========================================
+
     galMain.addEventListener('mouseenter', () => {
         galMain.classList.add('zoomed');
     });
@@ -41,22 +54,43 @@ function initGalleryZoom() {
         img.style.transformOrigin = 'center center';
     });
 
-    // ---- MOBILE: touch and hold + slide to zoom/pan ----
-    galMain.addEventListener('touchstart', (e) => {
-        const t = e.touches[0];
-        setZoomPoint(t.clientX, t.clientY);
-        galMain.classList.add('zoomed');
+    // =========================================
+    // IMPORTANT:
+    // Mouse wheel must scroll the PAGE normally.
+    // Do NOT use preventDefault() here.
+    // =========================================
+
+    galMain.addEventListener('wheel', (e) => {
+        // Intentionally empty.
+        // Browser will handle normal page scrolling.
     }, { passive: true });
 
-    galMain.addEventListener('touchmove', (e) => {
-        const t = e.touches[0];
-        setZoomPoint(t.clientX, t.clientY);
-    }, { passive: true });
 
-    galMain.addEventListener('touchend', () => {
-        galMain.classList.remove('zoomed');
-        img.style.transformOrigin = 'center center';
-    });
+    // =========================================
+    // MOBILE
+    // =========================================
+
+    // galMain.addEventListener('touchstart', (e) => {
+    //     const t = e.touches[0];
+
+    //     setZoomPoint(t.clientX, t.clientY);
+    //     galMain.classList.add('zoomed');
+
+    // }, { passive: true });
+
+
+    // galMain.addEventListener('touchmove', (e) => {
+    //     const t = e.touches[0];
+
+    //     setZoomPoint(t.clientX, t.clientY);
+
+    // }, { passive: true });
+
+
+    // galMain.addEventListener('touchend', () => {
+    //     galMain.classList.remove('zoomed');
+    //     img.style.transformOrigin = 'center center';
+    // });
 }
 window.initGalleryZoom = initGalleryZoom;
 

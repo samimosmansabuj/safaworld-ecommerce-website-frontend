@@ -386,14 +386,23 @@
   touch-action: none;
 }
 
+/* .gal-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  cursor: all-scroll;
+  transition: transform .15s ease;
+  transform-origin: center center;
+} */
 .gal-main img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
-  cursor: zoom-in;
-  transition: transform .15s ease;
-  transform-origin: center center;
+  cursor: default;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .gal-top-badges {
@@ -518,10 +527,10 @@
 }
 
 /* ================= HOVER/DRAG ZOOM (no click needed) ================= */
-.gal-main.zoomed img {
+/* .gal-main.zoomed img {
   transform: scale(2.2);
   cursor: zoom-out;
-}
+} */
 
 .zoom-hint {
   position: absolute;
