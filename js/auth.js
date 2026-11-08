@@ -10,6 +10,9 @@ let LOGIN_FLOW_ACTION = ""; // "login" or "set_password"
 function saveAuthData(data) {
     if (data.access) localStorage.setItem("access", data.access);
     if (data.refresh) localStorage.setItem("refresh", data.refresh);
+
+    if (typeof window.identifyVisitor === "function") window.identifyVisitor();
+    if (typeof window.trackEvent === "function") window.trackEvent("login", {});
 }
 
 /* =========================

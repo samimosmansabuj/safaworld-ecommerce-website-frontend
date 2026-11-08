@@ -26,6 +26,7 @@ async function initCheckoutPage() {
     bindDistrictChange();
     bindAddressSelect();
     bindLiveValidationClear();
+    bindOrderAttemptCapture();
 }
 window.initCheckoutPage = initCheckoutPage;
 
@@ -679,13 +680,74 @@ function bindLiveValidationClear() {
     });
 }
 
-/**
- * Validates all required checkout fields.
- * Highlights every missing field, shows an inline message under each one,
- * shows a single summary toast, and scrolls to + focuses the first
- * missing field.
- * Returns true if the form is valid, false otherwise.
- */
+/* =========================================
+   ORDER ATTEMPT
+========================================= */
+let lastOrderAttemptSignature = "";
+
+function bindOrderAttemptCapture() {
+    const phoneField = document.getElementById("ckPhone");
+    if (!phoneField) return;
+
+    if (phoneField.dataset.attemptBound === "1") return;
+    phoneField.dataset.attemptBound = "1";
+
+    phoneField.addEventListener("blur", saveOrderAttemptIfPossible);
+}
+
+async function saveOrderAttemptIfPossible() {
+    const phone = document.getElementById("ckPhone")?.value.trim();
+    if (!phone || phone.length < 11) return;
+
+    const items = checkoutData?.items || [];
+    if (!items.length) return;
+
+    const attribution = window.getAttributionData ? window.getAttributionData() : {};
+
+    const payload = {
+        customer: {
+            name: document.getElementById("ckName")?.value.trim() || "",
+            phone,
+            address: document.getElementById("ckAddress")?.value.trim() || "",
+            district: document.getElementById("ckDistrict")?.value || ""
+        },
+        products: items.map(item => ({
+            id: item.product_id,
+            quantity: item.quantity
+        })),
+        source: "checkout",
+        utm_source: attribution.utm_source || null,
+        utm_medium: attribution.utm_medium || null,
+        utm_campaign: attribution.utm_campaign || null
+    };
+
+    const signature = JSON.stringify(payload);
+    if (signature === lastOrderAttemptSignature) return;
+
+    try {
+        const res = await fetch(`${API_BASE}/site/api/order-attempt/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: signature
+        });
+        if (res.ok) lastOrderAttemptSignature = signature;
+    } catch (err) {
+        console.error("ORDER ATTEMPT SAVE ERROR:", err);
+    }
+}
+
+/* =========================================
+   VISITOR ACTIVITY: order_placed
+========================================= */
+function trackOrderPlacedEvent(orderId) {
+    if (typeof window.trackEvent !== "function") return;
+    window.trackEvent("order_placed", {
+        order_id: orderId,
+        total: checkoutData?.subtotal || 0,
+        item_count: (checkoutData?.items || []).length,
+    });
+}
+
 function validateCheckoutForm() {
     clearAllFieldErrors();
 
@@ -768,6 +830,8 @@ async function placeOrder() {
         const data = await res.json();
 
         if (data.status) {
+            trackOrderPlacedEvent(data.order_id);
+
             GAInitiatePurchaseEvent(
                 (checkoutData?.items || []).map(item => ({
                     id: item.product_id,
@@ -809,6 +873,7 @@ async function placeOrder() {
                     orderEndpoint: "/api/checkout/place-order/",
                     orderPayload: body,
                     onSuccess: function (successData) {
+                        trackOrderPlacedEvent(successData && successData.order_id);
                         showOrderSuccess(successData);
                     }
                 });
