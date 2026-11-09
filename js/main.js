@@ -859,6 +859,10 @@ function applySearch(query) {
 function goSearch(query) {
     if (!query) return;
 
+    if (typeof window.trackEvent === "function") {
+        window.trackEvent("search", { query: query });
+    }
+
     if (typeof window.spaNavigate === "function") {
         window.spaNavigate(`/product-list?search=${encodeURIComponent(query)}`);
     } else {

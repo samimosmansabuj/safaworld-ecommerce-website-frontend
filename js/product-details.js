@@ -205,6 +205,7 @@ async function loadProductDetails(explicitSlug) {
         CURRENT_PRODUCT = product;
         window.__CURRENT_PRODUCT_ID__ = product.id;
         if (window.__runTracking) window.__runTracking();
+        if (typeof window.trackProductView === "function") window.trackProductView(product.id);
         SELECTED_VARIANT = null;
         VARIANT_ATTR_STATE = {};
 
@@ -727,8 +728,17 @@ function selectVariantByAttributes(attrsWanted, variants, isUserClick = false) {
 
     if (!match) return;
 
+    const variantChanged = !SELECTED_VARIANT || SELECTED_VARIANT.id !== match.id;
     SELECTED_VARIANT = match;
     VARIANT_ATTR_STATE = { ...(match.attributes || {}) };
+
+    if (isUserClick && variantChanged && typeof window.trackEvent === "function" && CURRENT_PRODUCT) {
+        window.trackEvent("variant_view", {
+            product_id: CURRENT_PRODUCT.id,
+            variant_id: match.id,
+            attributes: match.attributes || {},
+        });
+    }
 
     // Update active state on buttons
     document.querySelectorAll(".variant-option").forEach(btn => {
@@ -864,6 +874,14 @@ function setupButtons(product, slug) {
                 name: product.name,
                 discount_price: SELECTED_VARIANT ? SELECTED_VARIANT.discount_price : product.discount_price
             });
+
+            if (typeof window.trackEvent === "function") {
+                window.trackEvent("add_to_cart", {
+                    product_id: product.id,
+                    variant_id: SELECTED_VARIANT ? SELECTED_VARIANT.id : null,
+                    quantity: 1,
+                });
+            }
 
             const token = localStorage.getItem("access") || localStorage.getItem("token");
 
@@ -1041,6 +1059,13 @@ function renderWishlistState() {
 async function toggleWishlist(productId) {
     const token = localStorage.getItem("access") || localStorage.getItem("token");
     const variantId = SELECTED_VARIANT ? SELECTED_VARIANT.id : null;
+
+    if (typeof window.trackEvent === "function") {
+        window.trackEvent(IS_WISHLISTED ? "wishlist_remove" : "wishlist_add", {
+            product_id: productId,
+            variant_id: variantId,
+        });
+    }
 
     if (!token) {
         if (IS_WISHLISTED) {
