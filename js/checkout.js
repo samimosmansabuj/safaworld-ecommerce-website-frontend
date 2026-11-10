@@ -713,6 +713,7 @@ async function saveOrderAttemptIfPossible() {
         },
         products: items.map(item => ({
             id: item.product_id,
+            variant_id: item.variant_id || null,
             quantity: item.quantity
         })),
         source: "checkout",
