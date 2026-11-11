@@ -123,7 +123,7 @@ async function loadDistricts() {
     try {
 
         const res = await fetch(
-            "https://bdapi.vercel.app/api/v.1/district"
+            "https://bdapis.com/api/v1.2/districts"
         );
 
         const data = await res.json();
