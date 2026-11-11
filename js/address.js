@@ -23,6 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
 /* =========================
    DISTRICTS API
 ========================= */
+/* ===== OLD (bdapi.vercel.app) - commented out =====
 async function loadDistricts() {
 
     const select =
@@ -69,6 +70,42 @@ async function loadDistricts() {
             "District Load Error:",
             err
         );
+    }
+}
+
+===== END OLD ===== */
+
+/* ===== NEW: https://bdapis.com/api/v1.2/districts (cached, fast) ===== */
+const DISTRICT_API_URL = "https://bdapis.com/api/v1.2/districts";
+const DISTRICT_CACHE_KEY = "bd_districts_v1_2";
+
+async function _addrFetchDistricts() {
+    try {
+        const cached = sessionStorage.getItem(DISTRICT_CACHE_KEY);
+        if (cached) return JSON.parse(cached);
+    } catch (e) {}
+
+    const res = await fetch(DISTRICT_API_URL);
+    const json = await res.json();
+    const list = (json && json.data) || [];
+    if (list.length) {
+        try { sessionStorage.setItem(DISTRICT_CACHE_KEY, JSON.stringify(list)); } catch (e) {}
+    }
+    return list;
+}
+
+async function loadDistricts() {
+    const select = document.getElementById("deliverydistrict");
+    if (!select) return;
+
+    try {
+        const list = await _addrFetchDistricts();
+        // single innerHTML write = fast
+        select.innerHTML =
+            '<option value="">Select District</option>' +
+            list.map(d => `<option value="${d.district}">${d.districtbn}</option>`).join("");
+    } catch (err) {
+        console.error("District Load Error:", err);
     }
 }
 
