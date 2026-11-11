@@ -113,6 +113,7 @@ async function loadCustomerProfile() {
 /* =========================================
    LOAD DISTRICTS FROM BACKEND API
 ========================================= */
+/* ===== OLD (bdapi.vercel.app) - commented out =====
 async function loadDistricts() {
 
     const districtSelect =
@@ -123,7 +124,7 @@ async function loadDistricts() {
     try {
 
         const res = await fetch(
-            "https://bdapis.com/api/v1.2/districts"
+            "https://bdapi.vercel.app/api/v.1/district"
         );
 
         const data = await res.json();
@@ -159,6 +160,43 @@ async function loadDistricts() {
             "DISTRICT ERROR:",
             err
         );
+    }
+}
+
+===== END OLD ===== */
+
+/* ===== NEW: https://bdapis.com/api/v1.2/districts (cached, fast) ===== */
+const DISTRICT_API_URL = "https://bdapis.com/api/v1.2/districts";
+const DISTRICT_CACHE_KEY = "bd_districts_v1_2";
+
+async function _ckFetchDistricts() {
+    try {
+        const cached = sessionStorage.getItem(DISTRICT_CACHE_KEY);
+        if (cached) return JSON.parse(cached);
+    } catch (e) {}
+
+    const res = await fetch(DISTRICT_API_URL);
+    const json = await res.json();
+    const list = (json && json.data) || [];
+    if (list.length) {
+        try { sessionStorage.setItem(DISTRICT_CACHE_KEY, JSON.stringify(list)); } catch (e) {}
+    }
+    return list;
+}
+
+async function loadDistricts() {
+    const select = document.getElementById("ckDistrict");
+    if (!select) return;
+
+    try {
+        const list = await _ckFetchDistricts();
+    districtsData = list;
+        // single innerHTML write = fast
+        select.innerHTML =
+            '<option value="">Select District</option>' +
+            list.map(d => `<option value="${d.district}" data-id="${d.district}">${d.districtbn}</option>`).join("");
+    } catch (err) {
+        console.error("District Load Error:", err);
     }
 }
 
