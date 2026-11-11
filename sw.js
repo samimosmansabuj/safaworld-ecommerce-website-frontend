@@ -18,10 +18,10 @@ const PRECACHE_ASSETS = [
     '/images/icons/icon-192x192.png',
     '/images/icons/icon-512x512.png',
     '/js/spa-router.js?v=322113',
-    '/js/loadComponents.js?v=33',
+    '/js/loadComponents.js?v=40',
     '/js/main.js?v=322112',
-    '/js/meta-manager.js?v=33',
-    '/js/pwa-installer.js?v=33'
+    '/js/meta-manager.js?v=40',
+    '/js/pwa-installer.js?v=40'
 ];
 
 const STATIC_ROUTES = {
