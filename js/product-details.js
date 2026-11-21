@@ -287,6 +287,7 @@ async function loadProductDetails(explicitSlug) {
            BADGES (bestseller etc.)
         ========================= */
         renderBadges(product);
+        renderProductOffers(product);
 
         /* =========================
            IMAGES (default = product-level images)
@@ -1249,5 +1250,48 @@ if (document.readyState === 'loading') {
     if (!isSpaNav) {
         loadProductDetails();
         updateCartCountFromBackend?.();
+    }
+}
+
+/* =========================================
+   OFFERS (buy X get Y free) + combo partners
+========================================= */
+const poToBn = n => String(n == null ? "" : n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+
+async function renderProductOffers(product) {
+    const wrap = document.getElementById("productOfferWrap");
+    if (!wrap) return;
+    try {
+        const res = await fetch(`${API_BASE}/api/offers/product/${product.id}/`);
+        const json = await res.json();
+        const offers = (json.data && json.data.offers) || [];
+        const combos = (json.data && json.data.combos) || [];
+        const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+        let html = "";
+
+        offers.forEach(o => {
+            // what must be bought: any product / same product (any variant) / exact same variant
+            const what = o.count_mode === "variant" ? "একই ভ্যারিয়েন্টের " : (o.count_mode === "product" ? "এই প্রোডাক্টের (যেকোনো ভ্যারিয়েন্ট) " : "");
+            const rules = o.tiers.map(t => o.mode === "choose"
+                ? `<span class="po-chip">${what}${poToBn(t.buy_qty)}টি কিনলে ${poToBn(t.free_qty)}টি ফ্রি</span>` : `<span class="po-chip">${what}${poToBn(t.buy_qty)}টি কিনলে ফ্রি গিফট</span>`).join("");
+            const anyVariantGift = (o.gifts || []).some(g => g.variant_count > 0);
+            const gifts = (o.gifts || []).slice(0, 8).map(g => `<img src="${esc(g.image)}" title="${esc(g.name)}" alt="${esc(g.name)}">`).join("");
+            html += `<div class="po-card"><div class="po-title">🎁 ${esc(o.name)}</div>
+                ${o.description ? `<div class="po-desc">${esc(o.description)}</div>` : ""}
+                <div class="po-chips">${rules}</div>
+                ${gifts ? `<div class="po-gifts">${gifts}</div>` : ""}
+                <div class="po-note">${o.mode === "choose" ? (anyVariantGift ? "ফ্রি ফ্রেমের ভ্যারিয়েন্ট চেকআউটে নিজের পছন্দমতো বেছে নিতে পারবেন।" : "ফ্রি ফ্রেম চেকআউটে নিজের পছন্দমতো বেছে নিতে পারবেন।") : "ফ্রি গিফট অর্ডারে অটো যোগ হবে।"}</div></div>`;
+        });
+
+        if (combos.length) {
+            html += `<div class="po-card"><div class="po-title">💞 এর সাথে দারুণ মানায়</div><div class="po-combos">` +
+                combos.map(c => `<a href="product-details.html?slug=${encodeURIComponent(c.slug)}" class="po-combo"><img src="${esc(c.image)}" alt="${esc(c.name)}"><span>${esc(c.name)}</span></a>`).join("") +
+                `</div></div>`;
+        }
+
+        wrap.innerHTML = html;
+        wrap.style.display = html ? "block" : "none";
+    } catch (e) {
+        wrap.style.display = "none";
     }
 }

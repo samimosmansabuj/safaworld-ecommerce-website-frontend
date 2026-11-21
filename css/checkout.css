@@ -577,3 +577,42 @@ body {
     font-size: 26px;
   }
 }
+
+/* =========================================
+   OFFERS (buy X get Y free): free item chooser
+========================================= */
+.of-card { border: 1px dashed #000000; background: #e6e6e6; border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+.of-title { font-weight: 700; font-size: 15px; }
+.of-sub { font-size: 13px; margin: 4px 0 8px; color: #444; }
+.of-left { color: #c0392b; }
+.of-done { color: #1e8e3e; }
+.of-nudge { font-size: 12px; color: #8a5a00; background: #cdcccc; border-radius: 8px; padding: 6px 8px; margin-top: 6px; }
+.of-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
+.of-item { position: relative; border: 1px solid #e6e6e6; background: #fff; border-radius: 10px; padding: 6px; text-align: center; }
+.of-item.sel { border-color: #1e8e3e; box-shadow: 0 0 0 2px #1e8e3e33; }
+.of-item.out { opacity: .5; }
+.of-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px; background: #f3f3f3; }
+.of-name { font-size: 12px; margin: 4px 0; line-height: 1.2; min-height: 28px; }
+.of-ctl { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.of-pick-btn { width: 26px; height: 26px; border-radius: 50%; border: 1px solid #bbb; background: #fff; font-size: 16px; line-height: 1; cursor: pointer; }
+.of-pick-btn:disabled { opacity: .35; cursor: not-allowed; }
+.of-pair { position: absolute; top: 4px; left: 4px; background: #ffe3ec; color: #b0305c; font-size: 10px; border-radius: 6px; padding: 1px 5px; z-index: 1; }
+.of-oos { font-size: 11px; color: #c0392b; }
+
+/* free-gift chooser: small pictures in a wrapping row, click to pick */
+.of-tiles { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.of-tile { position: relative; width: 58px; height: 58px; padding: 0; border: 2px solid #e2e2e2; border-radius: 10px; background: #fff; cursor: pointer; overflow: hidden; }
+.of-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.of-tile:hover { border-color: #9ca3af; }
+.of-tile.sel { border-color: #16a34a; box-shadow: 0 0 0 2px #dcfce7; }
+.of-tile.out { opacity: .35; cursor: not-allowed; }
+.of-tick { position: absolute; top: 2px; right: 2px; width: 16px; height: 16px; border-radius: 50%; background: #16a34a; color: #fff; font: 700 11px/16px sans-serif; text-align: center; font-style: normal; }
+.of-badge { position: absolute; bottom: 2px; right: 2px; min-width: 16px; padding: 0 4px; border-radius: 8px; background: #111827; color: #fff; font-size: 11px; line-height: 16px; text-align: center; }
+a.of-link { display: block; color: inherit; text-decoration: none; }
+a.of-nudge.of-link { text-decoration: underline; cursor: pointer; }
+a.of-title.of-link:hover { text-decoration: underline; }
+/* quantity - / + on a bought line */
+.ck-qty { display: inline-flex; align-items: center; gap: 8px; margin-left: 6px; }
+.ck-qty-btn { width: 24px; height: 24px; border: 1px solid #d1d5db; border-radius: 50%; background: #fff; cursor: pointer; line-height: 1; font-size: 15px; }
+.ck-qty-btn:disabled { opacity: .4; cursor: not-allowed; }
+.ck-qty-n { min-width: 16px; text-align: center; font-weight: 700; }
