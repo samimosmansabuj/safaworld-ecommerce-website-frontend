@@ -874,6 +874,10 @@ function bindDistrictChange() {
 /* =========================================
    LOAD CHECKOUT SUMMARY (auth or guest)
 ========================================= */
+function ckLineKey(item) {
+    return item.cart_id != null ? `c${item.cart_id}` : `g${item.line_index}`;
+}
+
 async function loadCheckoutSummary() {
 
     try {
@@ -884,6 +888,7 @@ async function loadCheckoutSummary() {
             const params = new URLSearchParams();
             selectedCartIds.forEach(id => params.append("cart_ids", id));
             if (district) params.append("district", district);
+            params.append("offer_picks", JSON.stringify(getOfferPicks()));
 
             const res = await fetch(`${API_BASE}/api/checkout/summary/?${params.toString()}`, {
                 method: "GET",
@@ -900,6 +905,7 @@ async function loadCheckoutSummary() {
             selectedDeliveryCharge = Number(data.data.delivery_charge || 0);
             renderDeliveryChargeText();
             renderCheckoutProducts(data.data.items || []);
+            renderOffers(data.data.offers || []);
             renderSummary(data.data.items || [], data.data.subtotal || 0);
             await revalidateAppliedCouponIfAny();
 
@@ -924,6 +930,7 @@ async function loadCheckoutSummary() {
             const params = new URLSearchParams();
             params.append("items", JSON.stringify(guestItems));
             if (district) params.append("district", district);
+            params.append("offer_picks", JSON.stringify(getOfferPicks()));
 
             const res = await fetch(`${API_BASE}/api/checkout/summary/?${params.toString()}`, {
                 method: "GET"
@@ -939,6 +946,7 @@ async function loadCheckoutSummary() {
             selectedDeliveryCharge = Number(data.data.delivery_charge || 0);
             renderDeliveryChargeText();
             renderCheckoutProducts(data.data.items || []);
+            renderOffers(data.data.offers || []);
             renderSummary(data.data.items || [], data.data.subtotal || 0);
             await revalidateAppliedCouponIfAny();
 
@@ -982,15 +990,24 @@ function renderCheckoutProducts(items) {
             ? Object.values(item.variant).join(" / ")
             : "";
 
+        const giftBadge = item.is_gift
+            ? `<span style="color:#16a34a;font-size:11px;font-weight:700;background:#dcfce7;padding:1px 7px;border-radius:999px;margin-left:6px;">🎁 GIFT</span>`
+            : "";
+
         container.innerHTML += `
-            <div class="ck-product">
+            <div class="ck-product${item.is_gift ? ' ck-product-gift' : ''}">
                 <div class="ck-product-info">
                     <div class="ck-product-name">
-                        ${item.product}
+                        ${item.product}${giftBadge}
                         ${variantText ? `<span style="color:#888;font-size:12px"> (${variantText})</span>` : ""}
                     </div>
                     <div class="ck-product-meta">
-                        Qty: ${item.quantity}
+                        ${item.is_gift ? `Qty: ${item.quantity}` : `Qty:
+                        <span class="ck-qty">
+                            <button type="button" class="ck-qty-btn" data-ck-qty="-1" data-key="${ckLineKey(item)}" ${Number(item.quantity) <= 1 ? "disabled" : ""} aria-label="Decrease quantity">−</button>
+                            <span class="ck-qty-n">${item.quantity}</span>
+                            <button type="button" class="ck-qty-btn" data-ck-qty="1" data-key="${ckLineKey(item)}" aria-label="Increase quantity">+</button>
+                        </span>`}
                     </div>
                 </div>
                 <div class="ck-product-right">
@@ -1017,10 +1034,14 @@ function renderSummary(items, subtotal) {
             ? Object.values(item.variant).join(" / ")
             : "";
 
+        const giftBadge = item.is_gift
+            ? `<span style="color:#16a34a;font-size:11px;font-weight:700;background:#dcfce7;padding:1px 7px;border-radius:999px;margin-left:6px;">🎁 GIFT</span>`
+            : "";
+
         summaryBox.innerHTML += `
             <div class="sum-row">
                 <span>
-                    ${item.product}${variantText ? ` (${variantText})` : ""}
+                    ${item.product}${giftBadge}${variantText ? ` (${variantText})` : ""}
                     × ${item.quantity}
                 </span>
                 <span>
@@ -1230,6 +1251,23 @@ async function loadSavedAddresses() {
 
     if (!select) return;
 
+    // Saved address dropdown is only for logged-in users
+    const field = document.getElementById("ckSavedAddressField");
+    const newLabel = document.getElementById("ckNewAddressLabel");
+    const loggedIn = !!getToken();
+
+    if (field) field.style.display = loggedIn ? "" : "none";
+    if (newLabel) {
+        newLabel.textContent = loggedIn
+            ? "Or Enter New Address"
+            : "Delivery Address";
+    }
+
+    if (!loggedIn) {
+        select.innerHTML = "";
+        return;
+    }
+
     const addresses =
         JSON.parse(
             localStorage.getItem(
@@ -1263,7 +1301,7 @@ function bindAddressSelect() {
             "ckAddressSelect"
         );
 
-    if (!select) return;
+    if (!select || !getToken()) return;
 
     select.addEventListener(
         "change",
@@ -1499,7 +1537,7 @@ async function placeOrder() {
         if (isLoggedIn()) {
             const selectedCartIds = JSON.parse(localStorage.getItem("checkout_cart_ids")) || [];
             const guestItemsFallback = JSON.parse(localStorage.getItem("checkout_guest_items")) || [];
-            body = { cart_ids: selectedCartIds, items: guestItemsFallback, name, phone, address, district, coupon_code: couponCode, ...attribution };
+            body = { cart_ids: selectedCartIds, items: guestItemsFallback, name, phone, address, district, coupon_code: couponCode, offer_picks: getOfferPicks(), ...attribution };
         } else {
             const guestItems = JSON.parse(localStorage.getItem("checkout_guest_items")) || [];
             if (!guestItems.length) {
@@ -1507,7 +1545,7 @@ async function placeOrder() {
                 return;
             }
             const cartIdsFallback = JSON.parse(localStorage.getItem("checkout_cart_ids")) || [];
-            body = { items: guestItems, cart_ids: cartIdsFallback, name, phone, address, district, coupon_code: couponCode, ...attribution };
+            body = { items: guestItems, cart_ids: cartIdsFallback, name, phone, address, district, coupon_code: couponCode, offer_picks: getOfferPicks(), ...attribution };
         }
 
         const res = await fetch(`${API_BASE}/api/checkout/place-order/`, {
@@ -1533,6 +1571,7 @@ async function placeOrder() {
 
             localStorage.removeItem("checkout_cart_ids");
             localStorage.removeItem("checkout_guest_items");
+            localStorage.removeItem("checkout_offer_picks");
 
             appliedCoupon = null;
             couponDiscount = 0;
@@ -1549,6 +1588,7 @@ async function placeOrder() {
 
             localStorage.removeItem("checkout_cart_ids");
             localStorage.removeItem("checkout_guest_items");
+            localStorage.removeItem("checkout_offer_picks");
             if (!isLoggedIn()) clearGuestCart();
 
             showOrderSuccess();
@@ -1639,6 +1679,7 @@ function showOrderSuccess(data) {
 
     localStorage.removeItem("checkout_cart_ids");
     localStorage.removeItem("checkout_guest_items");
+            localStorage.removeItem("checkout_offer_picks");
 
     if (!isLoggedIn()) {
         clearGuestCart();
@@ -1711,3 +1752,136 @@ function toggleDeliveryBreakdown() {
         arrow.innerText = "▼";
     }
 }
+
+/* =========================================
+   OFFERS (buy X get Y free) - free item chooser
+========================================= */
+// English digits -> Bengali digits (offer texts are Bengali, so the numbers should be too)
+const ofToBn = n => String(n == null ? "" : n).replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+
+function getOfferPicks() {
+    try { return JSON.parse(localStorage.getItem("checkout_offer_picks")) || {}; }
+    catch (e) { return {}; }
+}
+function setOfferPicks(p) { localStorage.setItem("checkout_offer_picks", JSON.stringify(p)); }
+
+function renderOffers(offers) {
+    let box = document.getElementById("ckOffers");
+    if (!box) return;
+
+    // keep local picks in sync with what the server accepted
+    const picks = getOfferPicks();
+    offers.forEach(o => {
+        if (o.mode === "choose" && o.matched_tier) picks[o.id] = o.picks || [];
+        else delete picks[o.id];
+    });
+    setOfferPicks(picks);
+
+    const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+    let html = "";
+
+    offers.forEach(o => {
+        // what has to be bought more: depends on how the offer counts (any product / same product / exact same variant)
+        const nudgeWhat = o.count_mode === "variant" ? "একই ভ্যারিয়েন্টের" : (o.count_mode === "product" ? "একই প্রোডাক্টের" : "");
+        const href = o.link && o.link.slug ? `/product/${encodeURIComponent(o.link.slug)}` : "";
+        const title = href
+            ? `<a class="of-title of-link" href="${href}">🎁 ${esc(o.name)}</a>`
+            : `<div class="of-title">🎁 ${esc(o.name)}</div>`;
+        const nudgeTag = href ? `a class="of-nudge of-link" href="${href}"` : `div class="of-nudge"`;
+        const nudgeEnd = href ? "a" : "div";
+        const nudge = o.next_tier
+            ? `<${nudgeTag}>${nudgeWhat ? nudgeWhat + " " : ""}আরও ${ofToBn(o.next_tier.need_more)}টি নিলে ${o.mode === "choose" ? ofToBn(o.next_tier.free_qty) + "টি ফ্রি" : "বেশি গিফট"} পাবেন!${o.next_tier.group ? ` <small>(${esc(o.next_tier.group)})</small>` : ""}${href ? " ›" : ""}</${nudgeEnd}>` : "";
+
+        if (!o.matched_tier) {
+            if (nudge) html += `<div class="of-card">${title}${nudge}</div>`;
+            return;
+        }
+        if (o.mode === "auto") {
+            html += `<div class="of-card">${title}
+                <div class="of-sub">ফ্রি গিফট অটো যোগ হয়েছে: ${o.auto_gifts.map(g => esc(g.name) + " × " + ofToBn(g.quantity)).join(", ") || "—"}</div>${nudge}</div>`;
+            return;
+        }
+
+        const pickMap = {};
+        (o.picks || []).forEach(p => pickMap[p.product_id + ":" + (p.variant_id || 0)] = p.quantity);
+
+        const left = o.remaining;
+        // one small picture per choice (a product, or one variant of it); click = pick it as the free gift
+        const tiles = [];
+        o.pool.forEach(p => {
+            if (p.has_variants) p.variants.forEach(v => tiles.push({ pid: p.product_id, vid: v.variant_id, img: v.image || p.image, name: `${p.name} (${v.label})`, ok: v.available, max: v.max_pick }));
+            else tiles.push({ pid: p.product_id, vid: 0, img: p.image, name: p.name, ok: p.available, max: p.max_pick });
+        });
+        const tileHtml = t => {
+            const q = pickMap[t.pid + ":" + t.vid] || 0;
+            return `<button type="button" class="of-tile ${q ? "sel" : ""} ${t.ok ? "" : "out"}" data-offer="${o.id}" data-pid="${t.pid}" data-vid="${t.vid}" data-max="${t.max}" data-earned="${o.earned_free}" data-left="${left}"
+                title="${esc(t.name)}${t.ok ? "" : " - স্টকে নেই"}" aria-label="${esc(t.name)}" ${t.ok ? "" : "disabled"}>
+                <img src="${esc(t.img)}" alt="${esc(t.name)}" loading="lazy">${q > 1 ? `<b class="of-badge">${ofToBn(q)}</b>` : ""}${q ? '<i class="of-tick">✓</i>' : ""}</button>`;
+        };
+        const countHint = o.count_mode === "variant" ? "একই ভ্যারিয়েন্ট কিনলে প্রযোজ্য" : (o.count_mode === "product" ? "একই প্রোডাক্টের যেকোনো ভ্যারিয়েন্ট ধরা হবে" : "");
+        html += `<div class="of-card">
+            ${title}
+            <div class="of-sub">${ofToBn(o.earned_free)}টি ফ্রি ফ্রেম বেছে নিন —
+                <b class="${left ? "of-left" : "of-done"}">${left ? "আরও " + ofToBn(left) + "টি বাকি" : "সব বাছাই হয়েছে ✓"}</b>${countHint ? ` <small>(${countHint})</small>` : ""}</div>
+            ${nudge}
+            <div class="of-tiles">${tiles.map(tileHtml).join("")}</div></div>`;
+    });
+
+    box.innerHTML = html;
+}
+
+// click a picture: pick it -> click again to add one more (if more are free) -> click again to remove it
+document.addEventListener("click", function (e) {
+    const tile = e.target.closest(".of-tile");
+    if (!tile) return;
+    const oid = tile.dataset.offer, pid = Number(tile.dataset.pid), vid = Number(tile.dataset.vid) || null;
+    const max = Number(tile.dataset.max), earned = Number(tile.dataset.earned), left = Number(tile.dataset.left);
+    const picks = getOfferPicks();
+    let list = (picks[oid] || []).slice();
+    const row = list.find(x => x.product_id === pid && (x.variant_id || null) === vid);
+    if (row) {
+        if (left > 0 && row.quantity < max) row.quantity += 1;      // more free items still to take
+        else list = list.filter(x => x !== row);                    // otherwise this click un-picks it
+    } else if (left > 0) {
+        list.push({ product_id: pid, variant_id: vid, quantity: 1 });
+    } else if (earned === 1) {
+        list = [{ product_id: pid, variant_id: vid, quantity: 1 }]; // only one free item: swap to the new choice
+    } else {
+        toast("সব ফ্রি আইটেম বাছাই হয়েছে - আগে একটি বাদ দিন");
+        return;
+    }
+    picks[oid] = list.filter(x => x.quantity > 0);
+    setOfferPicks(picks);
+    loadCheckoutSummary();
+});
+
+// quantity + / - on a bought line (so the customer can reach "buy X, get Y free" right here)
+document.addEventListener("click", async function (e) {
+    const b = e.target.closest(".ck-qty-btn");
+    if (!b) return;
+    const item = ((checkoutData && checkoutData.items) || []).find(i => !i.is_gift && ckLineKey(i) === b.dataset.key);
+    if (!item) return;
+    const q = Math.max(1, Number(item.quantity) + Number(b.dataset.ckQty));
+    if (q === Number(item.quantity)) return;
+    b.disabled = true;
+    try {
+        if (isLoggedIn()) {
+            const res = await fetch(`${API_BASE}/api/ecom/cart/update/${item.cart_id}/`, {
+                method: "POST",
+                headers: { ...getAuthHeaders(), "Content-Type": "application/json" },
+                body: JSON.stringify({ quantity: q })
+            });
+            const d = await res.json();
+            if (!d.status) toast(d.message || "Could not update quantity");
+        } else {
+            const list = JSON.parse(localStorage.getItem("checkout_guest_items")) || [];
+            if (list[item.line_index]) {
+                list[item.line_index].quantity = q;
+                localStorage.setItem("checkout_guest_items", JSON.stringify(list));
+            }
+        }
+    } catch (err) {
+        toast("Could not update quantity");
+    }
+    loadCheckoutSummary();
+});
